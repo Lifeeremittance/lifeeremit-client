@@ -13,7 +13,7 @@ type Props = {
   children?: JSX.Element | JSX.Element[];
 };
 
-export const Country: React.FC<Props> = () => {
+export const Product: React.FC<Props> = () => {
   const navigate = useNavigate();
 
   type CustomToggleProps = {
@@ -111,28 +111,60 @@ export const Country: React.FC<Props> = () => {
           </header>
 
           <div className="bg-white vh-85 border-top-left-radius py-5 y-scroll">
-            <ProgressBar now={20} />
+            <ProgressBar now={60} />
+            <div
+              className="d-flex align-items-center mt-3"
+              onClick={() => navigate(-1)}
+            >
+              <i className="fa fa-angle-left fs-4 me-2" aria-hidden="true"></i>
+              <span className="fs-6">Back</span>
+            </div>
 
-            <h3 className="fw-bold my-5">Select your country</h3>
-            <Form>
-              <Form.Group controlId="formBasicCountry">
-                <Form.Control
-                  type="country"
-                  placeholder="Enter country"
-                  className="form_inputs"
-                />
-                <Form.Text className="text-muted">
-                  This is the country you are making payment in.
-                </Form.Text>
-              </Form.Group>
+            <h3 className="fw-bold my-4">Select Product</h3>
+
+            <div key="radio" className="mb-3 check_radio px-4 selected_radio">
+              <Form.Check type="radio">
+                <Form.Check.Input type="radio" />
+                <Form.Check.Label>Sage business cloud</Form.Check.Label>
+              </Form.Check>
+            </div>
+
+            <div key="radio" className="mb-3 check_radio px-4">
+              <Form.Check type="radio">
+                <Form.Check.Input type="radio" />
+                <Form.Check.Label>Sage business cloud</Form.Check.Label>
+              </Form.Check>
+            </div>
+
+            <div key="radio" className="mb-3 check_radio px-4">
+              <Form.Check type="radio">
+                <Form.Check.Input type="radio" />
+                <Form.Check.Label>Sage business cloud</Form.Check.Label>
+              </Form.Check>
+            </div>
+
+            <div key="radio" className="mb-3 check_radio px-4">
+              <Form.Check type="radio">
+                <Form.Check.Input type="radio" />
+                <Form.Check.Label>Sage business cloud</Form.Check.Label>
+              </Form.Check>
+            </div>
+
+            <div key="radio" className="mb-3 check_radio px-4">
+              <Form.Check type="radio">
+                <Form.Check.Input type="radio" />
+                <Form.Check.Label>Sage business cloud</Form.Check.Label>
+              </Form.Check>
+            </div>
+
+            <div className="d-flex justify-content-end mt-5">
               <button
-                className="btn btn_theme fw-bold w-25 mt-4"
-                onClick={() => navigate("/products/provider")}
+                className="btn btn_theme fw-bold w-auto px-5 fs-5"
+                onClick={() => navigate("/products/details")}
               >
                 Continue
               </button>
-            </Form>
-            <div></div>
+            </div>
           </div>
         </Col>
       </Row>

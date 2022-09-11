@@ -30,7 +30,7 @@ export const Signin: React.FC<Props> = () => {
 
           <button
             className="btn btn_theme w-100 mb-4"
-            onClick={() => navigate("/products/country")}
+            onClick={() => navigate("/products")}
           >
             Continue
           </button>
