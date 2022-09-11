@@ -1,0 +1,101 @@
+/* Auth css */
+.signup_form {
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 30px;
+  box-shadow: 0px 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+.form_inputs {
+  width: 394px;
+  height: 54px;
+  border: 1px solid rgba(38, 50, 56, 0.51);
+  border-radius: 27px;
+  padding-left: 15px;
+}
+
+.PhoneInputInput {
+  border: none;
+  border-radius: 27px;
+}
+
+.btn_theme {
+  width: 394px;
+  height: 54px;
+  background: #6246ea;
+  color: #fff;
+  border-radius: 27px;
+}
+
+.link_theme {
+  color: rgba(98, 70, 234, 0.7);
+  text-decoration: none;
+}
+
+.paymit-logo {
+  position: absolute;
+  left: 5.42%;
+  right: 87.64%;
+  top: 6.15%;
+  bottom: 89.84%;
+  color: #2b2c34;
+}
+
+.body-bg {
+  /* background: linear-gradient(
+    173.44deg,
+    rgba(209, 209, 233, 0.3) 5.15%,
+    rgba(209, 209, 233, 0.3) 119.54%
+  ); */
+  background: #f6f4ff;
+  /* transform: rotate(176.43deg); */
+}
+
+.no_underline {
+  text-decoration: none;
+}
+
+/* Products css */
+.active {
+  color: #6246ea !important;
+  font-weight: bold;
+}
+
+.vh-15 {
+  height: 15vh;
+}
+
+.vh-85 {
+  height: 85vh;
+}
+
+.header_profile_img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  background-color: #6246ea;
+}
+
+.text-red {
+  color: #ff0000;
+}
+
+.border-top-left-radius {
+  border-top-left-radius: 60px;
+  padding-left: 5vw;
+  padding-right: 5vw;
+}
+
+.progress-bar {
+  background: #6246ea;
+}
+
+.progress {
+  background: #6246ea1a;
+}
+
+.body-bg2 {
+  background: #1e1e1e;
+}
