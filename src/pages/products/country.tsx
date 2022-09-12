@@ -6,6 +6,7 @@ import {
   Dropdown,
   ProgressBar,
   Form,
+  InputGroup,
 } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 
@@ -115,16 +116,27 @@ export const Country: React.FC<Props> = () => {
 
             <h3 className="fw-bold my-5">Select your country</h3>
             <Form>
-              <Form.Group controlId="formBasicCountry">
+              <InputGroup className="country_group">
+                <InputGroup.Text
+                  id="basic-addon1"
+                  className="bg-white border_left_country"
+                >
+                  <i className="fa fa-search fs-5"></i>
+                </InputGroup.Text>
                 <Form.Control
-                  type="country"
-                  placeholder="Enter country"
-                  className="form_inputs"
+                  aria-label="Country"
+                  aria-describedby="basic-addon1"
+                  className="border-start-0"
+                  placeholder="Nigeria"
                 />
-                <Form.Text className="text-muted">
-                  This is the country you are making payment in.
-                </Form.Text>
-              </Form.Group>
+                <InputGroup.Text
+                  id="basic-addon2"
+                  className="bg-white border_right_country"
+                >
+                  🇳🇬 <i className="fa fa-caret-down ms-1" aria-hidden="true"></i>
+                </InputGroup.Text>
+              </InputGroup>
+              <div className="text-small">This is the currency you are making payment in.</div>
               <button
                 className="btn btn_theme fw-bold w-25 mt-4"
                 onClick={() => navigate("/products/provider")}

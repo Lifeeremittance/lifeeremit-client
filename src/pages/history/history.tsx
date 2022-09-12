@@ -9,7 +9,7 @@ import {
   Modal,
   Card,
 } from "react-bootstrap";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 type Props = {
   children?: JSX.Element | JSX.Element[];
@@ -18,6 +18,8 @@ type Props = {
 export const History: React.FC<Props> = () => {
   const [details, setDetails] = React.useState(false);
   const [receipt, setReceipt] = React.useState(false);
+
+  const navigate = useNavigate();
 
   type CustomToggleProps = {
     children: React.ReactNode;
@@ -105,7 +107,7 @@ export const History: React.FC<Props> = () => {
 
               <Dropdown.Menu>
                 <Dropdown.Item eventKey="1">
-                  <div className="d-flex align-items-center">
+                  <div className="d-flex align-items-center" onClick={() => navigate("/edit")}>
                     <i
                       className="fw-bold fa fa-user me-2"
                       aria-hidden="true"

@@ -9,6 +9,7 @@ import {
   Provider,
 } from "../pages/products";
 import { History } from "../pages/history";
+import { Edit } from "../pages/edit";
 
 import "./../App.css";
 
@@ -23,6 +24,7 @@ const AppRouter = () => {
       <Route path="/products/details" element={<Details />} />
       <Route path="/products/payment" element={<Payment />} />
       <Route path="/history" element={<History />} />
+      <Route path="/edit" element={<Edit />} />
     </Routes>
   );
 };

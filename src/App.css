@@ -113,6 +113,23 @@
   background: #1e1e1e;
 }
 
+.country_group {
+  height: 54px;
+  width: 394px;
+}
+
+.border_left_country {
+  border-top-left-radius: 27px;
+  border-bottom-left-radius: 27px;
+  border-right: none;
+}
+
+.border_right_country {
+  border-top-right-radius: 27px;
+  border-bottom-right-radius: 27px;
+  border-left: none;
+}
+
 /* providers */
 .grid-4 {
   display: grid;
@@ -212,4 +229,18 @@ tr {
 
 .dotted {
   border: 2px dashed rgba(38, 50, 56, 0.21);
+}
+
+/* edit profile */
+.media-upload {
+  width: 99px;
+  height: 99px;
+  background: #6246ea;
+  border-radius: 50%;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-gap: 3vw;
 }
