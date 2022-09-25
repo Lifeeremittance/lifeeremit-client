@@ -1,0 +1,60 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "target": "es5",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "paths": {
+      "@shared/*": [
+        "components/shared/*"
+      ],
+      "@layouts/*":[
+        "components/layouts/*"
+      ],
+      "@lists/*":[
+        "components/lists/*"
+      ],
+      "@hooks":[
+        "hooks/*"
+      ],
+      "@pages/*":[
+        "pages/*"
+      ],
+      "@interfaces/*":[
+        "interfaces/*"
+      ],
+      "@utils/*":[
+        "utils/*"
+      ],
+      "@services":[
+        "services/*"
+      ]
+    },
+    "noPropertyAccessFromIndexSignature":true,
+    "noUnusedParameters":true,
+    "noUnusedLocals":true,
+    "importHelpers": true,
+    "noImplicitReturns": false,
+    "noImplicitAny": false,
+    "allowJs": true,
+    "skipLibCheck": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "strict": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "resolveJsonModule": true,
+    // "isolatedModules": true,
+    "noEmit": true,
+    "jsx": "react-jsx"
+  },
+  "include": [
+    "src"
+  ]
+}
