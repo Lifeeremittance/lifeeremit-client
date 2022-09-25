@@ -1,14 +1,28 @@
-import React from "react";
+import React, { useState } from "react";
 import { Container, Form } from "react-bootstrap";
 import "react-phone-number-input/style.css";
 import { Link, useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 type Props = {
   children?: JSX.Element | JSX.Element[];
 };
 
-export const Signin: React.FC<Props> = () => {
+export const Verify: React.FC<Props> = () => {
   const navigate = useNavigate();
+  const [passcode, setPasscode] = useState<string>("");
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault();
+    if (passcode === "123456") {
+      toast.success("Login Successful");
+      navigate("/products");
+    } else {
+      console.log(passcode);
+      toast.error("Invalid Passcode");
+      setPasscode("");
+    }
+  };
 
   return (
     <Container
@@ -82,21 +96,20 @@ export const Signin: React.FC<Props> = () => {
         Paymit
       </b>
       <Form className="signup_form d-flex align-items-center flex-column bg-white p-4">
-        <div className="text-center mb-5">
-          <b className="fs-5">Login to your account</b>
+        <div className="text-center mb-4">
+          <b className="fs-5">Enter Passcode</b>
         </div>
         <Form.Group controlId="formBasicEmail">
-          <Form.Label className="fw-bold">Email Address</Form.Label>
+          <Form.Label className="fw-bold">Passcode</Form.Label>
           <Form.Control
             type="email"
-            placeholder="Enter email address"
+            placeholder="Enter Passcode"
             className="form_inputs mb-4"
+            value={passcode}
+            onChange={(e) => setPasscode(e.target.value)}
           />
 
-          <button
-            className="btn btn_theme w-100 mb-4"
-            onClick={() => navigate("/verify")}
-          >
+          <button className="btn btn_theme w-100 mb-4" onClick={handleSubmit}>
             Continue
           </button>
 

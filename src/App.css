@@ -244,3 +244,121 @@ tr {
   grid-template-columns: repeat(2, 1fr);
   grid-gap: 3vw;
 }
+
+.form-control:focus {
+  border: 1px solid rgba(38, 50, 56, 0.51) !important;
+  border-left: none;
+  box-shadow: none;
+  outline: none;
+}
+
+.PhoneInputInput:focus-visible {
+  border: none;
+  outline: none;
+}
+
+.btn:hover,
+.btn:focus {
+  background: #6246ea;
+  color: #fff;
+}
+
+.btn_theme2:hover,
+.btn_theme2:focus {
+  background: linear-gradient(180deg, #6246ea 0%, rgba(98, 70, 234, 0) 253.64%);
+}
+
+/* landing page */
+.landing-text {
+  font-weight: 900;
+  font-size: 72px;
+  line-height: 70px;
+  text-align: center;
+  color: #2b2c34;
+}
+
+.w-70 {
+  width: 70%;
+}
+
+.vh-65 {
+  height: 65vh;
+}
+
+.absolute-rocket {
+  position: absolute;
+  left: 0%;
+  top: 43%;
+}
+
+.mt-10 {
+  margin-top: 5rem;
+}
+
+.side-text {
+  font-weight: 700;
+  font-size: 80px;
+  line-height: 77px;
+  color: #263238;
+}
+
+.signature-absolute {
+  position: absolute;
+  left: 40%;
+  top: -30px;
+}
+
+.x-scroll {
+  overflow-x: scroll;
+}
+
+.testimonial_img {
+  width: 300px;
+  height: 300px;
+}
+
+.faq-text {
+  font-weight: 700;
+  font-size: 80px;
+  line-height: 78px;
+  text-align: center;
+  color: #263238;
+  margin-bottom: 4rem;
+  margin-top: 3rem;
+}
+
+.faint-text {
+  opacity: 0.5;
+}
+
+.blob-1 {
+  position: absolute;
+  right: 0%;
+  top: 0%;
+  /* z-index: -1; */
+}
+
+.blob-2 {
+  position: absolute;
+  left: 0%;
+  top: 30%;
+}
+
+.drop-down-menu {
+  box-shadow: 0px 1px 11px 1px rgba(0, 0, 0, 0.15);
+  border-radius: 10px;
+}
+
+.text-right {
+  text-align: right;
+}
+
+.nav i {
+  width: 20px;
+  height: 20px;
+}
+
+.keys_input {
+  height: 45px;
+  border-radius: 10px !important;
+}

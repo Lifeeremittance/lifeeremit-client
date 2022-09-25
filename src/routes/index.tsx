@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { Signup } from "../pages/signup";
-import { Signin } from "../pages/signin";
+import { Signin, Verify } from "../pages/signin";
 import {
   Country,
   Details,
@@ -10,14 +10,17 @@ import {
 } from "../pages/products";
 import { History } from "../pages/history";
 import { Edit } from "../pages/edit";
+import { Landing } from "../pages/landing";
 
 import "./../App.css";
 
 const AppRouter = () => {
   return (
     <Routes>
+      <Route path="/" element={<Landing />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/signin" element={<Signin />} />
+      <Route path="/verify" element={<Verify />} />
       <Route path="/products" element={<Country />} />
       <Route path="/products/provider" element={<Provider />} />
       <Route path="/products/product" element={<Product />} />

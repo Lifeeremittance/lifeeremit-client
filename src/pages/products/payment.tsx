@@ -1,51 +1,34 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Col,
   Row,
-  Dropdown,
   ProgressBar,
   Form,
   Modal,
   Card,
 } from "react-bootstrap";
-import { NavLink, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import PaystackPop from "@paystack/inline-js";
+import Sidebar from "../../components/sidebar";
+import Header from "../../components/header";
 
 type Props = {
   children?: JSX.Element | JSX.Element[];
 };
 
 export const Payment: React.FC<Props> = () => {
-  const [successful, setSuccessful] = React.useState(false);
-  const [unsuccessful, setUnsuccessful] = React.useState(false);
+  const [successful, setSuccessful] = useState(false);
+  const [unsuccessful, setUnsuccessful] = useState(false);
+  const [amount, setAmount] = useState<any>(0);
+
   const navigate = useNavigate();
-
-  type CustomToggleProps = {
-    children: React.ReactNode;
-    onClick: (event: any) => {};
-  };
-
-  const CustomToggle = React.forwardRef(
-    (props: CustomToggleProps, ref: React.Ref<HTMLAnchorElement>) => (
-      <b
-        ref={ref}
-        onClick={(e) => {
-          e.preventDefault();
-          props.onClick(e);
-        }}
-        className="float-right cursor-pointer weird-margin"
-      >
-        {props.children}
-      </b>
-    )
-  );
 
   const paystack = () => {
     let handler = PaystackPop.setup({
       key: process.env["REACT_APP_PAYSTACK_PUBLIC_KEY"],
       email: "aland6209@gmail.com",
-      amount: 500000,
+      amount: amount * 100,
       ref: "" + Math.floor(Math.random() * 1000000000 + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
       //   label: name,
       onClose: () => {
@@ -64,76 +47,9 @@ export const Payment: React.FC<Props> = () => {
   return (
     <Container fluid className="vw-100 vh-100">
       <Row className="p-0">
-        <Col md={3} xl={2} className="p-0">
-          <div className="sidebar_menu body-bg vh-100 text-center">
-            <h4 className="fw-bold pt-5">Paymit</h4>
-            <h5 className="my-5 fw-bold">Welcome User</h5>
-
-            <ul className="nav flex-column pt-4 justify-content-between side-specific-height">
-              <li className="nav-item mb-3">
-                <NavLink
-                  to="/products"
-                  className="nav-link text-dark"
-                  aria-current="page"
-                >
-                  <i
-                    className={`fa fa-briefcase icli fs-5 align-middle me-3`}
-                  ></i>
-                  <span className="align-middle fs-6">Products</span>
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  to="/history"
-                  className="nav-link text-dark"
-                  aria-current="page"
-                >
-                  <i
-                    className={`fa fa-file-text-o icli fs-5 align-middle me-3`}
-                  ></i>
-                  <span className="align-middle fs-6">History</span>
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-        </Col>
-        <Col md={9} xl={10} className="p-0 body-bg">
-          <header className="d-flex align-items-center justify-content-end vh-15 body-bg p-3">
-            <i className="fa fa-bell fs-3 me-3" aria-hidden="true"></i>
-            <Dropdown>
-              <Dropdown.Toggle
-                as={CustomToggle}
-                id="dropdown-custom-components"
-                split
-              >
-                <div className="d-flex align-items-center">
-                  <div className="header_profile_img me-2"></div>
-                  <i className="fa fa-caret-down" aria-hidden="true"></i>
-                </div>
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                <Dropdown.Item eventKey="1">
-                  <div className="d-flex align-items-center">
-                    <i
-                      className="fw-bold fa fa-user me-2"
-                      aria-hidden="true"
-                    ></i>
-                    Edit Profile
-                  </div>
-                </Dropdown.Item>
-                <Dropdown.Item eventKey="2">
-                  <div className="d-flex align-items-center">
-                    <i
-                      className="fw-bold fa fa-sign-out me-2"
-                      aria-hidden="true"
-                    ></i>
-                    <span className="text-red">Logout</span>
-                  </div>
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </header>
+        <Sidebar />
+        <Col md={8} lg={9} className="p-0 body-bg">
+          <Header />
 
           <div className="bg-white vh-85 border-top-left-radius py-5 y-scroll">
             <ProgressBar now={100} />
@@ -147,7 +63,7 @@ export const Payment: React.FC<Props> = () => {
 
             <h3 className="fw-bold my-4">Enter Amount</h3>
 
-            <div className="d-flex align-items-center justify-content-center">
+            <div className="d-flex align-items-center justify-content-center mb-5">
               <span className="rate_box p-3 fw-bold">
                 <span>Rate:</span>{" "}
                 <span className="text-theme">1USD = 600NGN</span>
@@ -166,14 +82,165 @@ export const Payment: React.FC<Props> = () => {
                   type="text"
                   placeholder="Currency"
                   className="form_inputs w-50 mt-2"
-                  style={{ marginBottom: "20vh" }}
                 />
+                <div>
+                  <svg
+                    width="1"
+                    height="50"
+                    viewBox="0 0 1 50"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{ marginLeft: "4rem" }}
+                  >
+                    <line
+                      x1="0.5"
+                      y1="2.18556e-08"
+                      x2="0.499998"
+                      y2="50"
+                      stroke="#263238"
+                      stroke-opacity="0.39"
+                    />
+                  </svg>
+                </div>
+                <div className="d-flex align-items-center">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{ marginLeft: "calc(4rem - 10px)" }}
+                  >
+                    <circle
+                      cx="10"
+                      cy="10"
+                      r="9.5"
+                      stroke="#263238"
+                      stroke-opacity="0.39"
+                    />
+                  </svg>
+                  <div className="ms-3 d-flex align-items-center">
+                    <span className="text-muted text-small me-2">
+                      service charge:
+                    </span>
+                    <b>$10</b>
+                  </div>
+                </div>
+                <div>
+                  <svg
+                    width="1"
+                    height="50"
+                    viewBox="0 0 1 50"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{ marginLeft: "4rem" }}
+                  >
+                    <line
+                      x1="0.5"
+                      y1="2.18556e-08"
+                      x2="0.499998"
+                      y2="50"
+                      stroke="#263238"
+                      stroke-opacity="0.39"
+                    />
+                  </svg>
+                </div>
+                <div className="d-flex align-items-center">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{ marginLeft: "calc(4rem - 10px)" }}
+                  >
+                    <circle
+                      cx="10"
+                      cy="10"
+                      r="9.5"
+                      stroke="#263238"
+                      stroke-opacity="0.39"
+                    />
+                  </svg>
+                  <div className="ms-3 d-flex align-items-center">
+                    <span className="text-muted text-small me-2">
+                      Product Interest:
+                    </span>
+                    <b>1% = 2 USD</b>
+                  </div>
+                </div>
+                <div>
+                  <svg
+                    width="1"
+                    height="50"
+                    viewBox="0 0 1 50"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{ marginLeft: "4rem" }}
+                  >
+                    <line
+                      x1="0.5"
+                      y1="2.18556e-08"
+                      x2="0.499998"
+                      y2="50"
+                      stroke="#263238"
+                      stroke-opacity="0.39"
+                    />
+                  </svg>
+                </div>
+                <div className="d-flex align-items-center">
+                  <svg
+                    width="20"
+                    height="20"
+                    viewBox="0 0 20 20"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{ marginLeft: "calc(4rem - 10px)" }}
+                  >
+                    <circle
+                      cx="10"
+                      cy="10"
+                      r="9.5"
+                      stroke="#263238"
+                      stroke-opacity="0.39"
+                    />
+                  </svg>
+                  <div className="ms-3 d-flex align-items-center">
+                    <span className="text-muted text-small me-2">
+                      Amount in Naira:
+                    </span>
+                    <b>#120,000</b>
+                  </div>
+                </div>
+                <div>
+                  <svg
+                    width="1"
+                    height="50"
+                    viewBox="0 0 1 50"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    style={{ marginLeft: "4rem" }}
+                  >
+                    <line
+                      x1="0.5"
+                      y1="2.18556e-08"
+                      x2="0.499998"
+                      y2="50"
+                      stroke="#263238"
+                      stroke-opacity="0.39"
+                    />
+                  </svg>
+                </div>
                 <Form.Control
                   type="text"
                   placeholder="Amount"
                   className="form_inputs mb-3 w-50"
+                  onChange={(e) => setAmount(e.target.value)}
                 />
               </Form.Group>
+              <Form.Text className="fw-bold fs-6 text-dark">
+                Amount to Pay
+              </Form.Text>
             </Form>
 
             <div className="d-flex justify-content-end mt-5">

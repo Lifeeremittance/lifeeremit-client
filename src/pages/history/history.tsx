@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Container,
   Col,
@@ -8,18 +8,23 @@ import {
   Table,
   Modal,
   Card,
+  InputGroup,
 } from "react-bootstrap";
-import { NavLink, useNavigate } from "react-router-dom";
+import Header from "../../components/header";
+import Sidebar from "../../components/sidebar";
 
 type Props = {
   children?: JSX.Element | JSX.Element[];
 };
 
 export const History: React.FC<Props> = () => {
-  const [details, setDetails] = React.useState(false);
-  const [receipt, setReceipt] = React.useState(false);
-
-  const navigate = useNavigate();
+  const [details, setDetails] = useState(false);
+  const [receipt, setReceipt] = useState(false);
+  const [keys, setKeys] = useState(false);
+  const [tempKey, setTempKey] = useState("KWYZ125VSY732NA");
+  const [licenseKey, setLicenseKey] = useState("KWYZ125VSY732NA");
+  const [tempExpiry, setTempExpiry] = useState("16/07/2022");
+  const [licenseExpiry, setLicenseExpiry] = useState("16/07/2022");
 
   type CustomToggleProps = {
     children: React.ReactNode;
@@ -50,83 +55,18 @@ export const History: React.FC<Props> = () => {
         View Details
       </Dropdown.Item>
       <Dropdown.Item eventKey="3">View Invoice</Dropdown.Item>
-      <Dropdown.Item eventKey="4">View Keys</Dropdown.Item>
+      <Dropdown.Item eventKey="4" onClick={() => setKeys(true)}>
+        View Keys
+      </Dropdown.Item>
     </Dropdown.Menu>
   );
 
   return (
     <Container fluid className="vw-100 vh-100">
       <Row className="p-0">
-        <Col md={3} xl={2} className="p-0">
-          <div className="sidebar_menu body-bg vh-100 text-center">
-            <h4 className="fw-bold pt-5">Paymit</h4>
-            <h5 className="my-5 fw-bold">Welcome User</h5>
-
-            <ul className="nav flex-column pt-4 justify-content-between side-specific-height">
-              <li className="nav-item mb-3">
-                <NavLink
-                  to="/products"
-                  className="nav-link text-dark"
-                  aria-current="page"
-                >
-                  <i
-                    className={`fa fa-briefcase icli fs-5 align-middle me-3`}
-                  ></i>
-                  <span className="align-middle fs-6">Products</span>
-                </NavLink>
-              </li>
-              <li className="nav-item">
-                <NavLink
-                  to="/history"
-                  className="nav-link text-dark"
-                  aria-current="page"
-                >
-                  <i
-                    className={`fa fa-file-text-o icli fs-5 align-middle me-3`}
-                  ></i>
-                  <span className="align-middle fs-6">History</span>
-                </NavLink>
-              </li>
-            </ul>
-          </div>
-        </Col>
-        <Col md={9} xl={10} className="p-0 body-bg">
-          <header className="d-flex align-items-center justify-content-end vh-15 body-bg p-3">
-            <i className="fa fa-bell fs-3 me-3" aria-hidden="true"></i>
-            <Dropdown>
-              <Dropdown.Toggle
-                as={CustomToggle}
-                id="dropdown-custom-components"
-                split
-              >
-                <div className="d-flex align-items-center">
-                  <div className="header_profile_img me-2"></div>
-                  <i className="fa fa-caret-down" aria-hidden="true"></i>
-                </div>
-              </Dropdown.Toggle>
-
-              <Dropdown.Menu>
-                <Dropdown.Item eventKey="1">
-                  <div className="d-flex align-items-center" onClick={() => navigate("/edit")}>
-                    <i
-                      className="fw-bold fa fa-user me-2"
-                      aria-hidden="true"
-                    ></i>
-                    Edit Profile
-                  </div>
-                </Dropdown.Item>
-                <Dropdown.Item eventKey="2">
-                  <div className="d-flex align-items-center">
-                    <i
-                      className="fw-bold fa fa-sign-out me-2"
-                      aria-hidden="true"
-                    ></i>
-                    <span className="text-red">Logout</span>
-                  </div>
-                </Dropdown.Item>
-              </Dropdown.Menu>
-            </Dropdown>
-          </header>
+        <Sidebar />
+        <Col md={8} lg={9} className="p-0 body-bg">
+          <Header />
 
           <div className="bg-white vh-85 border-top-left-radius py-5 y-scroll">
             <div className="d-flex align-items-center justify-content-between mb-4">
@@ -260,12 +200,12 @@ export const History: React.FC<Props> = () => {
                           <path
                             d="M10.9325 26.1402C11.3341 26.5418 11.7357 26.7426 12.3381 26.7426C12.9405 26.7426 13.3421 26.5418 13.7437 26.1402L18.3622 21.5217L22.9807 26.1402C23.3823 26.5418 23.9847 26.7426 24.3863 26.7426C24.7879 26.7426 25.3903 26.5418 25.7919 26.1402C26.5951 25.337 26.5951 24.1321 25.7919 23.3289L21.1734 18.7105L25.7919 14.092C26.5951 13.2888 26.5951 12.084 25.7919 11.2808C24.9887 10.4775 23.7839 10.4775 22.9807 11.2808L18.3622 15.8992L13.7437 11.2808C12.9405 10.4775 11.7357 10.4775 10.9325 11.2808C10.1293 12.084 10.1293 13.2888 10.9325 14.092L15.551 18.7105L10.9325 23.3289C10.1293 24.1321 10.1293 25.337 10.9325 26.1402Z"
                             fill="black"
-                            fill-opacity="0.71"
+                            fillOpacity="0.71"
                           />
                           <path
                             d="M18.3613 36.783C28.4015 36.783 36.4336 28.7509 36.4336 18.7107C36.4336 8.67055 28.4015 0.638428 18.3613 0.638428C8.32118 0.638428 0.289062 8.67055 0.289062 18.7107C0.289062 28.7509 8.32118 36.783 18.3613 36.783ZM18.3613 4.65449C26.1927 4.65449 32.4175 10.8794 32.4175 18.7107C32.4175 26.542 26.1927 32.7669 18.3613 32.7669C10.53 32.7669 4.30512 26.542 4.30512 18.7107C4.30512 10.8794 10.53 4.65449 18.3613 4.65449Z"
                             fill="black"
-                            fill-opacity="0.71"
+                            fillOpacity="0.71"
                           />
                         </svg>
                       </div>
@@ -312,13 +252,13 @@ export const History: React.FC<Props> = () => {
         dialogClassName="details-modal border-0"
       >
         <Card className="details_modal_card">
-          <Card.Body>
+          <Card.Body className="p-4">
             <div className="text-center">
-              <b className="fs-6">DETAILS</b>
+              <b className="fs-5">DETAILS</b>
             </div>
-            <hr className="mt-2 mb-3" />
+            <hr className="my-3" />
 
-            <Row className="mb-2">
+            <Row className="mb-3">
               <Col xs={6}>
                 <span className="text-muted">Company Name</span>
               </Col>
@@ -326,7 +266,7 @@ export const History: React.FC<Props> = () => {
                 <b>Business Name Plc</b>
               </Col>
             </Row>
-            <Row className="mb-2">
+            <Row className="mb-3">
               <Col xs={6}>
                 <span className="text-muted">Company Address</span>
               </Col>
@@ -334,7 +274,7 @@ export const History: React.FC<Props> = () => {
                 <b>28, ayeni street, Lagos</b>
               </Col>
             </Row>
-            <Row className="mb-2">
+            <Row className="mb-3">
               <Col xs={6}>
                 <span className="text-muted">Product</span>
               </Col>
@@ -342,7 +282,7 @@ export const History: React.FC<Props> = () => {
                 <b>Sage Business Cloud</b>
               </Col>
             </Row>
-            <Row className="mb-2">
+            <Row className="mb-3">
               <Col xs={6}>
                 <span className="text-muted">Provider</span>
               </Col>
@@ -350,7 +290,7 @@ export const History: React.FC<Props> = () => {
                 <b>Sage</b>
               </Col>
             </Row>
-            <Row className="mb-2">
+            <Row className="mb-3">
               <Col xs={6}>
                 <span className="text-muted">Date</span>
               </Col>
@@ -358,7 +298,7 @@ export const History: React.FC<Props> = () => {
                 <b>15-08-2022</b>
               </Col>
             </Row>
-            <Row className="mb-2">
+            <Row className="mb-3">
               <Col xs={6}>
                 <span className="text-muted">Status</span>
               </Col>
@@ -366,7 +306,7 @@ export const History: React.FC<Props> = () => {
                 <span className="text-success">Success</span>
               </Col>
             </Row>
-            <Row className="mb-2">
+            <Row className="mb-3">
               <Col xs={6}>
                 <span className="text-muted">Total Value</span>
               </Col>
@@ -374,7 +314,7 @@ export const History: React.FC<Props> = () => {
                 <b>$200</b>
               </Col>
             </Row>
-            <Row className="mb-2">
+            <Row className="mb-3">
               <Col xs={6}>
                 <span className="text-muted">Naira Rate</span>
               </Col>
@@ -382,7 +322,7 @@ export const History: React.FC<Props> = () => {
                 <b>#600</b>
               </Col>
             </Row>
-            <Row className="mb-2">
+            <Row className="mb-3">
               <Col xs={6}>
                 <span className="text-muted">Amount Paid</span>
               </Col>
@@ -390,7 +330,7 @@ export const History: React.FC<Props> = () => {
                 <b>#120,000</b>
               </Col>
             </Row>
-            <Row className="mb-2">
+            <Row className="mb-3">
               <Col xs={6}>
                 <span className="text-muted">Transaction No</span>
               </Col>
@@ -398,7 +338,7 @@ export const History: React.FC<Props> = () => {
                 <b>PM001</b>
               </Col>
             </Row>
-            <Row className="mb-2">
+            <Row className="mb-3">
               <Col xs={6}>
                 <span className="text-muted">Reference No</span>
               </Col>
@@ -406,7 +346,7 @@ export const History: React.FC<Props> = () => {
                 <b>3344224354527687</b>
               </Col>
             </Row>
-            <Row className="mb-2">
+            <Row className="mb-3">
               <Col xs={6}>
                 <span className="text-muted">Invoice No</span>
               </Col>
@@ -414,7 +354,7 @@ export const History: React.FC<Props> = () => {
                 <b>-</b>
               </Col>
             </Row>
-            <Row className="mb-2">
+            <Row className="mb-3">
               <Col xs={6}>
                 <span className="text-muted">Reason</span>
               </Col>
@@ -448,9 +388,9 @@ export const History: React.FC<Props> = () => {
             className="text-center bg-theme text-white p-3"
             style={{ borderRadius: "30px 30px 0px 0px" }}
           >
-            <b className="fs-6">Paymit</b>
+            <b className="fs-5">Paymit</b>
           </div>
-          <Card.Body>
+          <Card.Body className="p-4">
             <div className="d-flex align-items-center justify-content-between">
               <b>Receipt</b>
               <svg
@@ -467,7 +407,7 @@ export const History: React.FC<Props> = () => {
               </svg>
             </div>
 
-            <div className="dotted my-2"></div>
+            <div className="dotted my-3"></div>
 
             <b className="text-small">15 Aug, 2022 - 15:30</b>
 
@@ -576,6 +516,159 @@ export const History: React.FC<Props> = () => {
                   fill="black"
                 />
               </svg>
+            </div>
+          </Card.Body>
+        </Card>
+      </Modal>
+
+      <Modal
+        show={keys}
+        onHide={() => setKeys(false)}
+        size="lg"
+        aria-labelledby="contained-modal-title-vcenter"
+        centered
+        backdrop="static"
+        dialogClassName="details-modal border-0"
+      >
+        <Card className="details_modal_card p-3">
+          <Card.Body>
+            <div className="text-center">
+              <b className="fs-5">KEYS</b>
+            </div>
+            <hr className="mt-3 mb-4" />
+            <Form>
+              <Form.Group controlId="formForPayment">
+                <Form.Label>TEMPORARY KEY</Form.Label>
+                <InputGroup className="mb-3">
+                  <Form.Control
+                    type="text"
+                    className="form_inputs keys_input me-2 fw-bold"
+                    value={tempKey}
+                    onChange={(e) => setTempKey(e.target.value)}
+                  />
+                  <div
+                    className="d-flex align-items-center"
+                    onClick={async () => {
+                      try {
+                        await navigator.clipboard.writeText(tempKey);
+                        alert("Copied to clipboard");
+                      } catch (err) {
+                        console.log(err);
+                      }
+                    }}
+                  >
+                    <div
+                      className="d-grid cursor-pointer"
+                      style={{
+                        width: 40,
+                        height: 40,
+                        background: "#263238",
+                        borderRadius: "10px",
+                        placeContent: "center",
+                      }}
+                    >
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g clipPath="url(#clip0_336_7695)">
+                          <path
+                            d="M16 1H4C2.895 1 2 1.895 2 3V17H4V3H16V1ZM19 5H8C6.895 5 6 5.895 6 7V21C6 22.105 6.895 23 8 23H19C20.105 23 21 22.105 21 21V7C21 5.895 20.105 5 19 5ZM19 21H8V7H19V21Z"
+                            fill="white"
+                          />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_336_7695">
+                            <rect width="24" height="24" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </div>
+                  </div>
+                </InputGroup>
+                <Form.Label>EXPIRY DATE</Form.Label>
+                <Form.Control
+                  type="text"
+                  className="form_inputs keys_input mb-3"
+                  placeholder="DD/MM/YYYY"
+                  value={tempExpiry}
+                  onChange={(e) => setTempExpiry(e.target.value)}
+                />
+
+                <hr className="mt-4 mb-3" />
+
+                <Form.Label>LICENSE KEY</Form.Label>
+                <InputGroup className="mb-3">
+                  <Form.Control
+                    type="text"
+                    className="form_inputs keys_input me-2 fw-bold"
+                    value={licenseKey}
+                    onChange={(e) => setLicenseKey(e.target.value)}
+                  />
+                  <div
+                    className="d-flex align-items-center"
+                    onClick={async () => {
+                      try {
+                        await navigator.clipboard.writeText(licenseKey);
+                        alert("Copied to clipboard");
+                      } catch (err) {
+                        console.log(err);
+                      }
+                    }}
+                  >
+                    <div
+                      className="d-grid cursor-pointer"
+                      style={{
+                        width: 40,
+                        height: 40,
+                        background: "#263238",
+                        borderRadius: "10px",
+                        placeContent: "center",
+                      }}
+                    >
+                      <svg
+                        width="24"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <g clipPath="url(#clip0_336_7695)">
+                          <path
+                            d="M16 1H4C2.895 1 2 1.895 2 3V17H4V3H16V1ZM19 5H8C6.895 5 6 5.895 6 7V21C6 22.105 6.895 23 8 23H19C20.105 23 21 22.105 21 21V7C21 5.895 20.105 5 19 5ZM19 21H8V7H19V21Z"
+                            fill="white"
+                          />
+                        </g>
+                        <defs>
+                          <clipPath id="clip0_336_7695">
+                            <rect width="24" height="24" fill="white" />
+                          </clipPath>
+                        </defs>
+                      </svg>
+                    </div>
+                  </div>
+                </InputGroup>
+                <Form.Label>EXPIRY DATE</Form.Label>
+                <Form.Control
+                  type="text"
+                  className="form_inputs keys_input mb-3"
+                  placeholder="DD/MM/YYYY"
+                  value={licenseExpiry}
+                  onChange={(e) => setLicenseExpiry(e.target.value)}
+                />
+              </Form.Group>
+            </Form>
+
+            <div className="text-right mt-5">
+              <button
+                className="btn btn_theme btn_theme2 w-50"
+                onClick={() => setKeys(false)}
+              >
+                Done
+              </button>
             </div>
           </Card.Body>
         </Card>
