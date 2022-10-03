@@ -8,7 +8,7 @@ import {
   Modal,
   Card,
 } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PaystackPop from "@paystack/inline-js";
 import Sidebar from "../../components/sidebar";
 import Header from "../../components/header";
@@ -22,6 +22,8 @@ export const Payment: React.FC<Props> = () => {
   const [unsuccessful, setUnsuccessful] = useState(false);
   const [amount, setAmount] = useState<any>(0);
 
+  const { id } = useParams();
+
   const navigate = useNavigate();
 
   const paystack = () => {
@@ -30,6 +32,9 @@ export const Payment: React.FC<Props> = () => {
       email: "aland6209@gmail.com",
       amount: amount * 100,
       ref: "" + Math.floor(Math.random() * 1000000000 + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
+      metadata: {
+        orderId: id,
+      },
       //   label: name,
       onClose: () => {
         console.log("Window closed.");
@@ -82,6 +87,8 @@ export const Payment: React.FC<Props> = () => {
                   type="text"
                   placeholder="Currency"
                   className="form_inputs w-50 mt-2"
+                  value="Naira"
+                  disabled
                 />
                 <div>
                   <svg
@@ -123,7 +130,7 @@ export const Payment: React.FC<Props> = () => {
                     <span className="text-muted text-small me-2">
                       service charge:
                     </span>
-                    <b>$10</b>
+                    <b>#10,000</b>
                   </div>
                 </div>
                 <div>

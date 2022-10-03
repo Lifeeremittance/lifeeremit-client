@@ -10,6 +10,14 @@ const Header = () => {
     onClick: (event: any) => {};
   };
 
+  const getInitials = () => {
+    const fullName = sessionStorage.getItem("userFullName");
+    // get first letter of fullName
+    const firstLetter = fullName?.charAt(0);
+
+    return firstLetter;
+  };
+
   const CustomToggle = React.forwardRef(
     (props: CustomToggleProps, ref: React.Ref<HTMLAnchorElement>) => (
       <b
@@ -36,7 +44,7 @@ const Header = () => {
         >
           <div className="d-flex align-items-center">
             <div className="header_profile_img me-2 d-flex align-items-center justify-content-center text-white fs-4">
-              A
+              {getInitials()}
             </div>
             <i className="fa fa-caret-down" aria-hidden="true"></i>
           </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Col,
@@ -8,15 +8,37 @@ import {
   InputGroup,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
 import Sidebar from "../../components/sidebar";
 import Header from "../../components/header";
+import { getUserInfo } from "../../services/user";
 
 type Props = {
   children?: JSX.Element | JSX.Element[];
 };
 
 export const Country: React.FC<Props> = () => {
+  const [country, setCountry] = useState<string>("");
   const navigate = useNavigate();
+
+  useEffect(() => {
+    getUserInfo()
+      .then((res) => {
+        sessionStorage.setItem("userId", res._id);
+        sessionStorage.setItem("userEmail", res.email_address);
+        sessionStorage.setItem("userFullName", res.fullName);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const next = (e: any) => {
+    e.preventDefault();
+    if (!country) toast.error("Country cannot be empty");
+    else navigate("/products/provider?country=" + country);
+  };
 
   return (
     <Container fluid className="vw-100 vh-100">
@@ -42,6 +64,8 @@ export const Country: React.FC<Props> = () => {
                   aria-describedby="basic-addon1"
                   className="border-start-0"
                   placeholder="Nigeria"
+                  value={country}
+                  onChange={(e) => setCountry(e.target.value)}
                 />
                 <InputGroup.Text
                   id="basic-addon2"
@@ -51,12 +75,12 @@ export const Country: React.FC<Props> = () => {
                   <i className="fa fa-caret-down ms-1" aria-hidden="true"></i>
                 </InputGroup.Text>
               </InputGroup>
-              <div className="text-small">
+              <div className="text-small my-2">
                 This is the currency you are making payment in.
               </div>
               <button
                 className="btn btn_theme fw-bold w-25 mt-4"
-                onClick={() => navigate("/products/provider")}
+                onClick={next}
               >
                 Continue
               </button>

@@ -362,3 +362,10 @@ tr {
   height: 45px;
   border-radius: 10px !important;
 }
+
+.country_group .form-control:focus {
+  border: 1px solid #ced4da !important;
+  border-left: none !important;
+  box-shadow: none;
+  outline: none;
+}
