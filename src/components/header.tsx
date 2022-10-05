@@ -33,6 +33,13 @@ const Header = () => {
     )
   );
 
+  const Logout = () => {
+    document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+    sessionStorage.removeItem("userId");
+
+    window.location.href = "/signin";
+  };
+
   return (
     <header className="d-flex align-items-center justify-content-end vh-15 body-bg p-3">
       <i className="fa fa-bell fs-3 me-3" aria-hidden="true"></i>
@@ -63,7 +70,7 @@ const Header = () => {
           <Dropdown.Item eventKey="2">
             <div
               className="d-flex align-items-center"
-              onClick={() => navigate("/signin")}
+              onClick={Logout}
             >
               <i className="fw-bold fa fa-sign-out me-2" aria-hidden="true"></i>
               <span className="text-red">Logout</span>

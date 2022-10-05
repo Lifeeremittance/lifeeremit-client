@@ -22,12 +22,17 @@ export const History: React.FC<Props> = () => {
   const [details, setDetails] = useState(false);
   const [receipt, setReceipt] = useState(false);
   const [keys, setKeys] = useState(false);
-  const [tempKey, setTempKey] = useState("KWYZ125VSY732NA");
-  const [licenseKey, setLicenseKey] = useState("KWYZ125VSY732NA");
+  const [invoice, setInvoice] = useState(false);
+
+  const [tempKey, setTempKey] = useState("");
+  const [licenseKey, setLicenseKey] = useState("");
   const [tempExpiry, setTempExpiry] = useState("16/07/2022");
   const [licenseExpiry, setLicenseExpiry] = useState("16/07/2022");
 
   const [orders, setOrders] = useState<any>([]);
+  const [selectedOrder, setselectedOrder] = useState<any>({});
+
+  console.log(selectedOrder);
 
   // const failedSvg = (
   //   <svg
@@ -119,21 +124,6 @@ export const History: React.FC<Props> = () => {
     )
   );
 
-  const menu = (
-    <Dropdown.Menu>
-      <Dropdown.Item eventKey="1" onClick={() => setReceipt(true)}>
-        View Receipt
-      </Dropdown.Item>
-      <Dropdown.Item eventKey="2" onClick={() => setDetails(true)}>
-        View Details
-      </Dropdown.Item>
-      <Dropdown.Item eventKey="3">View Invoice</Dropdown.Item>
-      <Dropdown.Item eventKey="4" onClick={() => setKeys(true)}>
-        View Keys
-      </Dropdown.Item>
-    </Dropdown.Menu>
-  );
-
   return (
     <Container fluid className="vw-100 vh-100">
       <Row className="p-0">
@@ -219,7 +209,44 @@ export const History: React.FC<Props> = () => {
                               >
                                 ...
                               </Dropdown.Toggle>
-                              {menu}
+                              <Dropdown.Menu>
+                                <Dropdown.Item
+                                  eventKey="1"
+                                  onClick={() => {
+                                    setReceipt(true);
+                                    setselectedOrder(order);
+                                  }}
+                                >
+                                  View Receipt
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                  eventKey="2"
+                                  onClick={() => {
+                                    setDetails(true);
+                                    setselectedOrder(order);
+                                  }}
+                                >
+                                  View Details
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                  eventKey="3"
+                                  onClick={() => {
+                                    setInvoice(true);
+                                    setselectedOrder(order);
+                                  }}
+                                >
+                                  View Invoice
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                  eventKey="4"
+                                  onClick={() => {
+                                    setKeys(true);
+                                    setselectedOrder(order);
+                                  }}
+                                >
+                                  View Keys
+                                </Dropdown.Item>
+                              </Dropdown.Menu>
                             </Dropdown>
                           </td>
                         </tr>
@@ -232,437 +259,504 @@ export const History: React.FC<Props> = () => {
         </Col>
       </Row>
 
-      <Modal
-        show={details}
-        onHide={() => setDetails(false)}
-        size="sm"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        backdrop="static"
-        dialogClassName="details-modal border-0"
-      >
-        <Card className="details_modal_card">
-          <Card.Body className="p-4">
-            <div className="text-center">
-              <b className="fs-5">DETAILS</b>
-            </div>
-            <hr className="my-3" />
-
-            <Row className="mb-3">
-              <Col xs={6}>
-                <span className="text-muted">Company Name</span>
-              </Col>
-              <Col xs={6}>
-                <b>Business Name Plc</b>
-              </Col>
-            </Row>
-            <Row className="mb-3">
-              <Col xs={6}>
-                <span className="text-muted">Company Address</span>
-              </Col>
-              <Col xs={6}>
-                <b>28, ayeni street, Lagos</b>
-              </Col>
-            </Row>
-            <Row className="mb-3">
-              <Col xs={6}>
-                <span className="text-muted">Product</span>
-              </Col>
-              <Col xs={6}>
-                <b>Sage Business Cloud</b>
-              </Col>
-            </Row>
-            <Row className="mb-3">
-              <Col xs={6}>
-                <span className="text-muted">Provider</span>
-              </Col>
-              <Col xs={6}>
-                <b>Sage</b>
-              </Col>
-            </Row>
-            <Row className="mb-3">
-              <Col xs={6}>
-                <span className="text-muted">Date</span>
-              </Col>
-              <Col xs={6}>
-                <b>15-08-2022</b>
-              </Col>
-            </Row>
-            <Row className="mb-3">
-              <Col xs={6}>
-                <span className="text-muted">Status</span>
-              </Col>
-              <Col xs={6}>
-                <span className="text-success">Success</span>
-              </Col>
-            </Row>
-            <Row className="mb-3">
-              <Col xs={6}>
-                <span className="text-muted">Total Value</span>
-              </Col>
-              <Col xs={6}>
-                <b>$200</b>
-              </Col>
-            </Row>
-            <Row className="mb-3">
-              <Col xs={6}>
-                <span className="text-muted">Naira Rate</span>
-              </Col>
-              <Col xs={6}>
-                <b>#600</b>
-              </Col>
-            </Row>
-            <Row className="mb-3">
-              <Col xs={6}>
-                <span className="text-muted">Amount Paid</span>
-              </Col>
-              <Col xs={6}>
-                <b>#120,000</b>
-              </Col>
-            </Row>
-            <Row className="mb-3">
-              <Col xs={6}>
-                <span className="text-muted">Transaction No</span>
-              </Col>
-              <Col xs={6}>
-                <b>PM001</b>
-              </Col>
-            </Row>
-            <Row className="mb-3">
-              <Col xs={6}>
-                <span className="text-muted">Reference No</span>
-              </Col>
-              <Col xs={6}>
-                <b>3344224354527687</b>
-              </Col>
-            </Row>
-            <Row className="mb-3">
-              <Col xs={6}>
-                <span className="text-muted">Invoice No</span>
-              </Col>
-              <Col xs={6}>
-                <b>-</b>
-              </Col>
-            </Row>
-            <Row className="mb-3">
-              <Col xs={6}>
-                <span className="text-muted">Reason</span>
-              </Col>
-              <Col xs={6}>
-                <b>Software license</b>
-              </Col>
-            </Row>
-
-            <div className="text-center mt-4">
-              <button
-                className="btn btn_theme btn_theme2 w-50"
-                onClick={() => setDetails(false)}
-              >
-                Done
-              </button>
-            </div>
-          </Card.Body>
-        </Card>
-      </Modal>
-
-      <Modal
-        show={receipt}
-        onHide={() => setReceipt(false)}
-        size="sm"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        dialogClassName="details-modal border-0"
-      >
-        <Card className="details_modal_card border-0">
-          <div
-            className="text-center bg-theme text-white p-3"
-            style={{ borderRadius: "30px 30px 0px 0px" }}
+      {Object.keys(selectedOrder).length !== 0 && (
+        <>
+          <Modal
+            show={details}
+            onHide={() => setDetails(false)}
+            size="sm"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            backdrop="static"
+            dialogClassName="details-modal border-0"
           >
-            <b className="fs-5">Paymit</b>
-          </div>
-          <Card.Body className="p-4">
-            <div className="d-flex align-items-center justify-content-between">
-              <b>Receipt</b>
-              <svg
-                width="30"
-                height="30"
-                viewBox="0 0 30 30"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M26.25 16C25.9185 16 25.6005 16.1317 25.3661 16.3661C25.1317 16.6005 25 16.9185 25 17.25V22.25C25 22.5815 24.8683 22.8995 24.6339 23.1339C24.3995 23.3683 24.0815 23.5 23.75 23.5H6.25C5.91848 23.5 5.60054 23.3683 5.36612 23.1339C5.1317 22.8995 5 22.5815 5 22.25V17.25C5 16.9185 4.8683 16.6005 4.63388 16.3661C4.39946 16.1317 4.08152 16 3.75 16C3.41848 16 3.10054 16.1317 2.86612 16.3661C2.6317 16.6005 2.5 16.9185 2.5 17.25V22.25C2.5 23.2446 2.89509 24.1984 3.59835 24.9017C4.30161 25.6049 5.25544 26 6.25 26H23.75C24.7446 26 25.6984 25.6049 26.4017 24.9017C27.1049 24.1984 27.5 23.2446 27.5 22.25V17.25C27.5 16.9185 27.3683 16.6005 27.1339 16.3661C26.8995 16.1317 26.5815 16 26.25 16ZM14.1125 18.1375C14.2314 18.2513 14.3716 18.3405 14.525 18.4C14.6746 18.4661 14.8364 18.5003 15 18.5003C15.1636 18.5003 15.3254 18.4661 15.475 18.4C15.6284 18.3405 15.7686 18.2513 15.8875 18.1375L20.8875 13.1375C21.1229 12.9021 21.2551 12.5829 21.2551 12.25C21.2551 11.9171 21.1229 11.5979 20.8875 11.3625C20.6521 11.1271 20.3329 10.9949 20 10.9949C19.6671 10.9949 19.3479 11.1271 19.1125 11.3625L16.25 14.2375V2.25C16.25 1.91848 16.1183 1.60054 15.8839 1.36612C15.6495 1.1317 15.3315 1 15 1C14.6685 1 14.3505 1.1317 14.1161 1.36612C13.8817 1.60054 13.75 1.91848 13.75 2.25V14.2375L10.8875 11.3625C10.771 11.246 10.6326 11.1535 10.4803 11.0904C10.328 11.0273 10.1648 10.9949 10 10.9949C9.83518 10.9949 9.67197 11.0273 9.51969 11.0904C9.36741 11.1535 9.22905 11.246 9.1125 11.3625C8.99595 11.479 8.9035 11.6174 8.84043 11.7697C8.77735 11.922 8.74489 12.0852 8.74489 12.25C8.74489 12.4148 8.77735 12.578 8.84043 12.7303C8.9035 12.8826 8.99595 13.021 9.1125 13.1375L14.1125 18.1375Z"
-                  fill="black"
-                />
-              </svg>
-            </div>
+            <Card className="details_modal_card">
+              <Card.Body className="p-4">
+                <div className="text-center">
+                  <b className="fs-5">DETAILS</b>
+                </div>
+                <hr className="my-3" />
 
-            <div className="dotted my-3"></div>
-
-            <b className="text-small">15 Aug, 2022 - 15:30</b>
-
-            <Row className="mt-3">
-              <Col xs={5}>
-                <span className="text-muted">Product</span>
-              </Col>
-              <Col xs={7}>
-                <b>Sage Business Cloud</b>
-              </Col>
-            </Row>
-            <Row className="mt-2">
-              <Col xs={5}>
-                <span className="text-muted">Name</span>
-              </Col>
-              <Col xs={7}>
-                <b>Peter Tinubu</b>
-              </Col>
-            </Row>
-            <Row className="mt-2">
-              <Col xs={5}>
-                <span className="text-muted">Temp Key</span>
-              </Col>
-              <Col xs={7}>
-                <b>KWYZ125VSY732NA</b>
-              </Col>
-            </Row>
-            <Row className="mt-2">
-              <Col xs={5}>
-                <span className="text-muted">License Key</span>
-              </Col>
-              <Col xs={7}>
-                <b>KWYZ125VSY732NA</b>
-              </Col>
-            </Row>
-            <Row className="mt-2">
-              <Col xs={5}>
-                <span className="text-muted">Transaction No</span>
-              </Col>
-              <Col xs={7}>
-                <b>PM0001</b>
-              </Col>
-            </Row>
-
-            <div className="dotted my-3"></div>
-
-            <Row className="mt-2">
-              <Col xs={5}>
-                <span className="text-muted">Total Amount</span>
-              </Col>
-              <Col xs={7}>
-                <b>127,000 NGN</b>
-              </Col>
-            </Row>
-            <Row className="mt-2">
-              <Col xs={5}>
-                <span className="text-muted">Product Value</span>
-              </Col>
-              <Col xs={7}>
-                <b>200 USD</b>
-              </Col>
-            </Row>
-            <Row className="mt-2">
-              <Col xs={5}>
-                <span className="text-muted">Exchange Rate</span>
-              </Col>
-              <Col xs={7}>
-                <b>1 USD = 600NGN</b>
-              </Col>
-            </Row>
-            <Row className="mt-2">
-              <Col xs={5}>
-                <span className="text-muted">Service Charge</span>
-              </Col>
-              <Col xs={7}>
-                <b>$10</b>
-              </Col>
-            </Row>
-            <Row className="mt-2">
-              <Col xs={5}>
-                <span className="text-muted">Interest Change</span>
-              </Col>
-              <Col xs={7}>
-                <b>%1 = 2 USD</b>
-              </Col>
-            </Row>
-            <Row className="mt-2">
-              <Col xs={5}>
-                <span className="text-muted">Reason</span>
-              </Col>
-              <Col xs={7}>
-                <b>Software Purchase</b>
-              </Col>
-            </Row>
-
-            <div className="text-center mt-4">
-              <svg
-                width="145"
-                height="47"
-                viewBox="0 0 145 47"
-                fill="none"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path
-                  d="M5.09766 47H0V0H5.09766V47ZM10.1953 46.9666H7.60603V0H10.1953V46.9666ZM17.8013 46.9666H15.293V0H17.8013V46.9666ZM30.505 46.9666H27.9967V0H30.505V46.9666ZM43.2087 46.9666H38.192V0H43.2087V46.9666ZM53.404 46.9666H50.8956V0H53.404V46.9666ZM58.5017 46.9666H55.9933V0H58.5017V46.9666ZM63.5993 46.9666H61.091V0H63.5993V46.9666ZM76.303 46.9666H71.2054V0H76.303V46.9666ZM89.0067 46.9666H83.909V0H89.0067V46.9666ZM99.202 46.9666H94.1043V0H99.202V46.9666ZM109.397 46.9666H104.3V0H109.397V46.9666ZM117.003 46.9666H111.906V0H117.003V46.9666ZM132.296 46.9666H124.69V0H132.296V46.9666ZM137.394 46.9666H134.805V0H137.394V46.9666ZM145 47H139.902V0H145V47Z"
-                  fill="black"
-                />
-              </svg>
-            </div>
-          </Card.Body>
-        </Card>
-      </Modal>
-
-      <Modal
-        show={keys}
-        onHide={() => setKeys(false)}
-        size="lg"
-        aria-labelledby="contained-modal-title-vcenter"
-        centered
-        backdrop="static"
-        dialogClassName="details-modal border-0"
-      >
-        <Card className="details_modal_card p-3">
-          <Card.Body>
-            <div className="text-center">
-              <b className="fs-5">KEYS</b>
-            </div>
-            <hr className="mt-3 mb-4" />
-            <Form>
-              <Form.Group controlId="formForPayment">
-                <Form.Label>TEMPORARY KEY</Form.Label>
-                <InputGroup className="mb-3">
-                  <Form.Control
-                    type="text"
-                    className="form_inputs keys_input me-2 fw-bold"
-                    value={tempKey}
-                    onChange={(e) => setTempKey(e.target.value)}
-                  />
-                  <div
-                    className="d-flex align-items-center"
-                    onClick={async () => {
-                      try {
-                        await navigator.clipboard.writeText(tempKey);
-                        alert("Copied to clipboard");
-                      } catch (err) {
-                        console.log(err);
+                <Row className="mb-3">
+                  <Col xs={6}>
+                    <span className="text-muted">Company Name</span>
+                  </Col>
+                  <Col xs={6}>
+                    <b>{selectedOrder.company_name}</b>
+                  </Col>
+                </Row>
+                <Row className="mb-3">
+                  <Col xs={6}>
+                    <span className="text-muted">Company Address</span>
+                  </Col>
+                  <Col xs={6}>
+                    <b>{selectedOrder.company_address}</b>
+                  </Col>
+                </Row>
+                <Row className="mb-3">
+                  <Col xs={6}>
+                    <span className="text-muted">Product</span>
+                  </Col>
+                  <Col xs={6}>
+                    <b>{selectedOrder.product.name}</b>
+                  </Col>
+                </Row>
+                <Row className="mb-3">
+                  <Col xs={6}>
+                    <span className="text-muted">Provider</span>
+                  </Col>
+                  <Col xs={6}>
+                    <b>{selectedOrder.provider.name}</b>
+                  </Col>
+                </Row>
+                <Row className="mb-3">
+                  <Col xs={6}>
+                    <span className="text-muted">Date</span>
+                  </Col>
+                  <Col xs={6}>
+                    <b>
+                      {new Date(selectedOrder.created_at).toLocaleString(
+                        "en-US",
+                        {
+                          day: "numeric",
+                          year: "numeric",
+                          month: "short",
+                        }
+                      )}
+                    </b>
+                  </Col>
+                </Row>
+                <Row className="mb-3">
+                  <Col xs={6}>
+                    <span className="text-muted">Status</span>
+                  </Col>
+                  <Col xs={6}>
+                    <span
+                      className={
+                        selectedOrder.status.includes("payment_successful")
+                          ? `text-success`
+                          : `text-theme`
                       }
-                    }}
-                  >
-                    <div
-                      className="d-grid cursor-pointer"
-                      style={{
-                        width: 40,
-                        height: 40,
-                        background: "#263238",
-                        borderRadius: "10px",
-                        placeContent: "center",
-                      }}
                     >
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g clipPath="url(#clip0_336_7695)">
-                          <path
-                            d="M16 1H4C2.895 1 2 1.895 2 3V17H4V3H16V1ZM19 5H8C6.895 5 6 5.895 6 7V21C6 22.105 6.895 23 8 23H19C20.105 23 21 22.105 21 21V7C21 5.895 20.105 5 19 5ZM19 21H8V7H19V21Z"
-                            fill="white"
-                          />
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_336_7695">
-                            <rect width="24" height="24" fill="white" />
-                          </clipPath>
-                        </defs>
-                      </svg>
-                    </div>
-                  </div>
-                </InputGroup>
-                <Form.Label>EXPIRY DATE</Form.Label>
-                <Form.Control
-                  type="text"
-                  className="form_inputs keys_input mb-3"
-                  placeholder="DD/MM/YYYY"
-                  value={tempExpiry}
-                  onChange={(e) => setTempExpiry(e.target.value)}
-                />
+                      {selectedOrder.status.includes("payment_successful")
+                        ? "Success"
+                        : "Pending"}
+                    </span>
+                  </Col>
+                </Row>
+                <Row className="mb-3">
+                  <Col xs={6}>
+                    <span className="text-muted">Product Value</span>
+                  </Col>
+                  <Col xs={6}>
+                    <b>
+                      {selectedOrder.product_value
+                        ? selectedOrder.product_value / 100 + " NGN"
+                        : "-"}
+                    </b>
+                  </Col>
+                </Row>
+                <Row className="mb-3">
+                  <Col xs={6}>
+                    <span className="text-muted">Naira Rate</span>
+                  </Col>
+                  <Col xs={6}>
+                    <b>NGN 600</b>
+                  </Col>
+                </Row>
+                <Row className="mb-3">
+                  <Col xs={6}>
+                    <span className="text-muted">Total Amount Paid</span>
+                  </Col>
+                  <Col xs={6}>
+                    <b>
+                      {selectedOrder.amount
+                        ? selectedOrder.amount / 100 + " NGN"
+                        : "-"}
+                    </b>
+                  </Col>
+                </Row>
+                {/* <Row className="mb-3">
+                  <Col xs={6}>
+                    <span className="text-muted">Transaction No</span>
+                  </Col>
+                  <Col xs={6}>
+                    <b>PM001</b>
+                  </Col>
+                </Row> */}
+                <Row className="mb-3">
+                  <Col xs={6}>
+                    <span className="text-muted">Reference No</span>
+                  </Col>
+                  <Col xs={6}>
+                    <b>{selectedOrder.reference_number || "-"}</b>
+                  </Col>
+                </Row>
+                <Row className="mb-3">
+                  <Col xs={6}>
+                    <span className="text-muted">Invoice No</span>
+                  </Col>
+                  <Col xs={6}>
+                    <b>{selectedOrder.invoice_number || "-"}</b>
+                  </Col>
+                </Row>
+                <Row className="mb-3">
+                  <Col xs={6}>
+                    <span className="text-muted">Reason</span>
+                  </Col>
+                  <Col xs={6}>
+                    <b>{selectedOrder.reason || "-"}</b>
+                  </Col>
+                </Row>
 
-                <hr className="mt-4 mb-3" />
-
-                <Form.Label>LICENSE KEY</Form.Label>
-                <InputGroup className="mb-3">
-                  <Form.Control
-                    type="text"
-                    className="form_inputs keys_input me-2 fw-bold"
-                    value={licenseKey}
-                    onChange={(e) => setLicenseKey(e.target.value)}
-                  />
-                  <div
-                    className="d-flex align-items-center"
-                    onClick={async () => {
-                      try {
-                        await navigator.clipboard.writeText(licenseKey);
-                        alert("Copied to clipboard");
-                      } catch (err) {
-                        console.log(err);
-                      }
-                    }}
+                <div className="text-center mt-4">
+                  <button
+                    className="btn btn_theme btn_theme2 w-50"
+                    onClick={() => setDetails(false)}
                   >
-                    <div
-                      className="d-grid cursor-pointer"
-                      style={{
-                        width: 40,
-                        height: 40,
-                        background: "#263238",
-                        borderRadius: "10px",
-                        placeContent: "center",
-                      }}
-                    >
-                      <svg
-                        width="24"
-                        height="24"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        xmlns="http://www.w3.org/2000/svg"
-                      >
-                        <g clipPath="url(#clip0_336_7695)">
-                          <path
-                            d="M16 1H4C2.895 1 2 1.895 2 3V17H4V3H16V1ZM19 5H8C6.895 5 6 5.895 6 7V21C6 22.105 6.895 23 8 23H19C20.105 23 21 22.105 21 21V7C21 5.895 20.105 5 19 5ZM19 21H8V7H19V21Z"
-                            fill="white"
-                          />
-                        </g>
-                        <defs>
-                          <clipPath id="clip0_336_7695">
-                            <rect width="24" height="24" fill="white" />
-                          </clipPath>
-                        </defs>
-                      </svg>
-                    </div>
-                  </div>
-                </InputGroup>
-                <Form.Label>EXPIRY DATE</Form.Label>
-                <Form.Control
-                  type="text"
-                  className="form_inputs keys_input mb-3"
-                  placeholder="DD/MM/YYYY"
-                  value={licenseExpiry}
-                  onChange={(e) => setLicenseExpiry(e.target.value)}
-                />
-              </Form.Group>
-            </Form>
+                    Done
+                  </button>
+                </div>
+              </Card.Body>
+            </Card>
+          </Modal>
 
-            <div className="text-right mt-5">
-              <button
-                className="btn btn_theme btn_theme2 w-50"
-                onClick={() => setKeys(false)}
+          <Modal
+            show={receipt}
+            onHide={() => setReceipt(false)}
+            size="sm"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            dialogClassName="details-modal border-0"
+          >
+            <Card className="details_modal_card border-0">
+              <div
+                className="text-center bg-theme text-white p-3"
+                style={{ borderRadius: "30px 30px 0px 0px" }}
               >
-                Done
-              </button>
-            </div>
-          </Card.Body>
-        </Card>
-      </Modal>
+                <b className="fs-5">Paymit</b>
+              </div>
+              <Card.Body className="p-4">
+                <div className="d-flex align-items-center justify-content-between">
+                  <b>Receipt</b>
+                  <svg
+                    width="30"
+                    height="30"
+                    viewBox="0 0 30 30"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M26.25 16C25.9185 16 25.6005 16.1317 25.3661 16.3661C25.1317 16.6005 25 16.9185 25 17.25V22.25C25 22.5815 24.8683 22.8995 24.6339 23.1339C24.3995 23.3683 24.0815 23.5 23.75 23.5H6.25C5.91848 23.5 5.60054 23.3683 5.36612 23.1339C5.1317 22.8995 5 22.5815 5 22.25V17.25C5 16.9185 4.8683 16.6005 4.63388 16.3661C4.39946 16.1317 4.08152 16 3.75 16C3.41848 16 3.10054 16.1317 2.86612 16.3661C2.6317 16.6005 2.5 16.9185 2.5 17.25V22.25C2.5 23.2446 2.89509 24.1984 3.59835 24.9017C4.30161 25.6049 5.25544 26 6.25 26H23.75C24.7446 26 25.6984 25.6049 26.4017 24.9017C27.1049 24.1984 27.5 23.2446 27.5 22.25V17.25C27.5 16.9185 27.3683 16.6005 27.1339 16.3661C26.8995 16.1317 26.5815 16 26.25 16ZM14.1125 18.1375C14.2314 18.2513 14.3716 18.3405 14.525 18.4C14.6746 18.4661 14.8364 18.5003 15 18.5003C15.1636 18.5003 15.3254 18.4661 15.475 18.4C15.6284 18.3405 15.7686 18.2513 15.8875 18.1375L20.8875 13.1375C21.1229 12.9021 21.2551 12.5829 21.2551 12.25C21.2551 11.9171 21.1229 11.5979 20.8875 11.3625C20.6521 11.1271 20.3329 10.9949 20 10.9949C19.6671 10.9949 19.3479 11.1271 19.1125 11.3625L16.25 14.2375V2.25C16.25 1.91848 16.1183 1.60054 15.8839 1.36612C15.6495 1.1317 15.3315 1 15 1C14.6685 1 14.3505 1.1317 14.1161 1.36612C13.8817 1.60054 13.75 1.91848 13.75 2.25V14.2375L10.8875 11.3625C10.771 11.246 10.6326 11.1535 10.4803 11.0904C10.328 11.0273 10.1648 10.9949 10 10.9949C9.83518 10.9949 9.67197 11.0273 9.51969 11.0904C9.36741 11.1535 9.22905 11.246 9.1125 11.3625C8.99595 11.479 8.9035 11.6174 8.84043 11.7697C8.77735 11.922 8.74489 12.0852 8.74489 12.25C8.74489 12.4148 8.77735 12.578 8.84043 12.7303C8.9035 12.8826 8.99595 13.021 9.1125 13.1375L14.1125 18.1375Z"
+                      fill="black"
+                    />
+                  </svg>
+                </div>
+
+                <div className="dotted my-3"></div>
+
+                <b className="text-small">
+                  {new Date(selectedOrder.created_at).toLocaleString("en-US", {
+                    day: "numeric",
+                    year: "numeric",
+                    month: "short",
+                  })}
+                </b>
+
+                <Row className="mt-3">
+                  <Col xs={5}>
+                    <span className="text-muted">Product</span>
+                  </Col>
+                  <Col xs={7}>
+                    <b>{selectedOrder.product.name}</b>
+                  </Col>
+                </Row>
+                <Row className="mt-2">
+                  <Col xs={5}>
+                    <span className="text-muted">Name</span>
+                  </Col>
+                  <Col xs={7}>
+                    <b>{selectedOrder.user.fullName || "-"}</b>
+                  </Col>
+                </Row>
+                <Row className="mt-2">
+                  <Col xs={5}>
+                    <span className="text-muted">Temp Key</span>
+                  </Col>
+                  <Col xs={7}>
+                    <b>{selectedOrder.temp_key || "-"}</b>
+                  </Col>
+                </Row>
+                <Row className="mt-2">
+                  <Col xs={5}>
+                    <span className="text-muted">License Key</span>
+                  </Col>
+                  <Col xs={7}>
+                    <b>{selectedOrder.license_key || "-"}</b>
+                  </Col>
+                </Row>
+                {/* <Row className="mt-2">
+                  <Col xs={5}>
+                    <span className="text-muted">Transaction No</span>
+                  </Col>
+                  <Col xs={7}>
+                    <b>PM0001</b>
+                  </Col>
+                </Row> */}
+
+                <div className="dotted my-3"></div>
+
+                <Row className="mt-2">
+                  <Col xs={5}>
+                    <span className="text-muted">Total Amount</span>
+                  </Col>
+                  <Col xs={7}>
+                    <b>
+                      {selectedOrder.amount
+                        ? selectedOrder.amount / 100 + " NGN"
+                        : "-"}
+                    </b>
+                  </Col>
+                </Row>
+                <Row className="mt-2">
+                  <Col xs={5}>
+                    <span className="text-muted">Product Value</span>
+                  </Col>
+                  <Col xs={7}>
+                    <b>
+                      {selectedOrder.product_value
+                        ? selectedOrder.product_value / 100 + " NGN"
+                        : "-"}
+                    </b>
+                  </Col>
+                </Row>
+                <Row className="mt-2">
+                  <Col xs={5}>
+                    <span className="text-muted">Exchange Rate</span>
+                  </Col>
+                  <Col xs={7}>
+                    <b>1 USD = 600 NGN</b>
+                  </Col>
+                </Row>
+                <Row className="mt-2">
+                  <Col xs={5}>
+                    <span className="text-muted">Service Charge</span>
+                  </Col>
+                  <Col xs={7}>
+                    <b>$10</b>
+                  </Col>
+                </Row>
+                <Row className="mt-2">
+                  <Col xs={5}>
+                    <span className="text-muted">Interest Change</span>
+                  </Col>
+                  <Col xs={7}>
+                    <b>%1 = 2 USD</b>
+                  </Col>
+                </Row>
+                <Row className="mt-2">
+                  <Col xs={5}>
+                    <span className="text-muted">Reason</span>
+                  </Col>
+                  <Col xs={7}>
+                    <b>{selectedOrder.reason || "-"}</b>
+                  </Col>
+                </Row>
+
+                <div className="text-center mt-4">
+                  <svg
+                    width="145"
+                    height="47"
+                    viewBox="0 0 145 47"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M5.09766 47H0V0H5.09766V47ZM10.1953 46.9666H7.60603V0H10.1953V46.9666ZM17.8013 46.9666H15.293V0H17.8013V46.9666ZM30.505 46.9666H27.9967V0H30.505V46.9666ZM43.2087 46.9666H38.192V0H43.2087V46.9666ZM53.404 46.9666H50.8956V0H53.404V46.9666ZM58.5017 46.9666H55.9933V0H58.5017V46.9666ZM63.5993 46.9666H61.091V0H63.5993V46.9666ZM76.303 46.9666H71.2054V0H76.303V46.9666ZM89.0067 46.9666H83.909V0H89.0067V46.9666ZM99.202 46.9666H94.1043V0H99.202V46.9666ZM109.397 46.9666H104.3V0H109.397V46.9666ZM117.003 46.9666H111.906V0H117.003V46.9666ZM132.296 46.9666H124.69V0H132.296V46.9666ZM137.394 46.9666H134.805V0H137.394V46.9666ZM145 47H139.902V0H145V47Z"
+                      fill="black"
+                    />
+                  </svg>
+                </div>
+              </Card.Body>
+            </Card>
+          </Modal>
+
+          <Modal
+            show={keys}
+            onHide={() => setKeys(false)}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            backdrop="static"
+            dialogClassName="details-modal border-0"
+          >
+            <Card className="details_modal_card p-3">
+              <Card.Body>
+                <div className="text-center">
+                  <b className="fs-5">KEYS</b>
+                </div>
+                <hr className="mt-3 mb-4" />
+                <Form>
+                  <Form.Group controlId="formForPayment">
+                    <Form.Label>TEMPORARY KEY</Form.Label>
+                    <InputGroup className="mb-3">
+                      <Form.Control
+                        type="text"
+                        className="form_inputs keys_input me-2 fw-bold"
+                        defaultValue={selectedOrder.temp_key || ""}
+                        onChange={(e) => setTempKey(e.target.value)}
+                      />
+                      <div
+                        className="d-flex align-items-center"
+                        onClick={async () => {
+                          try {
+                            await navigator.clipboard.writeText(selectedOrder.temp_key || tempKey);
+                            alert("Copied to clipboard");
+                          } catch (err) {
+                            console.log(err);
+                          }
+                        }}
+                      >
+                        <div
+                          className="d-grid cursor-pointer"
+                          style={{
+                            width: 40,
+                            height: 40,
+                            background: "#263238",
+                            borderRadius: "10px",
+                            placeContent: "center",
+                          }}
+                        >
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g clipPath="url(#clip0_336_7695)">
+                              <path
+                                d="M16 1H4C2.895 1 2 1.895 2 3V17H4V3H16V1ZM19 5H8C6.895 5 6 5.895 6 7V21C6 22.105 6.895 23 8 23H19C20.105 23 21 22.105 21 21V7C21 5.895 20.105 5 19 5ZM19 21H8V7H19V21Z"
+                                fill="white"
+                              />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_336_7695">
+                                <rect width="24" height="24" fill="white" />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </div>
+                      </div>
+                    </InputGroup>
+                    <Form.Label>EXPIRY DATE</Form.Label>
+                    <Form.Control
+                      type="text"
+                      className="form_inputs keys_input mb-3"
+                      placeholder="DD/MM/YYYY"
+                      value={tempExpiry}
+                      onChange={(e) => setTempExpiry(e.target.value)}
+                    />
+
+                    <hr className="mt-4 mb-3" />
+
+                    <Form.Label>LICENSE KEY</Form.Label>
+                    <InputGroup className="mb-3">
+                      <Form.Control
+                        type="text"
+                        className="form_inputs keys_input me-2 fw-bold"
+                        defaultValue={selectedOrder.license_key || ""}
+                        onChange={(e) => setLicenseKey(e.target.value)}
+                      />
+                      <div
+                        className="d-flex align-items-center"
+                        onClick={async () => {
+                          try {
+                            await navigator.clipboard.writeText(selectedOrder.license_key || licenseKey);
+                            alert("Copied to clipboard");
+                          } catch (err) {
+                            console.log(err);
+                          }
+                        }}
+                      >
+                        <div
+                          className="d-grid cursor-pointer"
+                          style={{
+                            width: 40,
+                            height: 40,
+                            background: "#263238",
+                            borderRadius: "10px",
+                            placeContent: "center",
+                          }}
+                        >
+                          <svg
+                            width="24"
+                            height="24"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <g clipPath="url(#clip0_336_7695)">
+                              <path
+                                d="M16 1H4C2.895 1 2 1.895 2 3V17H4V3H16V1ZM19 5H8C6.895 5 6 5.895 6 7V21C6 22.105 6.895 23 8 23H19C20.105 23 21 22.105 21 21V7C21 5.895 20.105 5 19 5ZM19 21H8V7H19V21Z"
+                                fill="white"
+                              />
+                            </g>
+                            <defs>
+                              <clipPath id="clip0_336_7695">
+                                <rect width="24" height="24" fill="white" />
+                              </clipPath>
+                            </defs>
+                          </svg>
+                        </div>
+                      </div>
+                    </InputGroup>
+                    <Form.Label>EXPIRY DATE</Form.Label>
+                    <Form.Control
+                      type="text"
+                      className="form_inputs keys_input mb-3"
+                      placeholder="DD/MM/YYYY"
+                      value={licenseExpiry}
+                      onChange={(e) => setLicenseExpiry(e.target.value)}
+                    />
+                  </Form.Group>
+                </Form>
+
+                <div className="text-right mt-5">
+                  <button
+                    className="btn btn_theme btn_theme2 w-50"
+                    onClick={() => setKeys(false)}
+                  >
+                    Done
+                  </button>
+                </div>
+              </Card.Body>
+            </Card>
+          </Modal>
+
+          <Modal
+            show={invoice}
+            onHide={() => setInvoice(false)}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            dialogClassName="invoice-modal border-0"
+          >
+            <Card className="invoice_modal_card p-3 vh-100">
+              <Card.Body>
+                <embed
+                  src={
+                    selectedOrder.invoice + "#toolbar=0&navpanes=0&scrollbar=0"
+                  }
+                  type="application/pdf"
+                  height="100%"
+                  width="100%"
+                ></embed>
+              </Card.Body>
+            </Card>
+          </Modal>
+        </>
+      )}
     </Container>
   );
 };

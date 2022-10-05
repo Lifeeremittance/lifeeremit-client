@@ -13,6 +13,15 @@ export const getOrders = async () => {
   return response.data.data;
 };
 
+export const getOrderById = async (id: any) => {
+  const response = await Api.get(`/orders/${id}`, {
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+    },
+  });
+  return response.data.data;
+};
+
 export const createOrder = async (
   provider: string,
   product: string,
@@ -23,7 +32,7 @@ export const createOrder = async (
   phone_number: string,
   email_address: string,
   reason: string,
-  referenceNumber: number,
+  reference_number: number,
   invoice_number: number,
   invoice: string
 ) => {
@@ -39,7 +48,7 @@ export const createOrder = async (
       phone_number,
       email_address,
       reason,
-      referenceNumber,
+      reference_number,
       invoice_number,
       invoice,
     },

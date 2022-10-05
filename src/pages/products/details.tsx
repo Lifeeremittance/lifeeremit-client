@@ -45,7 +45,6 @@ export const Details: React.FC<Props> = () => {
   };
   const app = initializeApp(firebaseConfig);
   const storage = getStorage(app);
-  const storageRef = ref(storage, "pdf");
 
   const handleChange = (e: any) => {
     if (e.target.files.length) {
@@ -63,6 +62,7 @@ export const Details: React.FC<Props> = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    const storageRef = ref(storage, invoice.preview);
     const uploadTask = uploadBytesResumable(storageRef, invoice.raw);
     await uploadTask;
     const pdfUrl = await getDownloadURL(uploadTask.snapshot.ref);
@@ -80,9 +80,9 @@ export const Details: React.FC<Props> = () => {
       parseInt(invoiceNumber),
       pdfUrl
     );
-    console.log(response.data.data._id);
+    console.log(response);
     if (response.status === 201) {
-      toast.success("Provider created successfully");
+      toast.success("Order created successfully");
       navigate("/products/payment/" + response.data.data._id);
     } else {
       toast.error(response);
@@ -189,7 +189,7 @@ export const Details: React.FC<Props> = () => {
                   <span className="text-small">(Optional)</span>
                 </Form.Label>
                 <Form.Control
-                  type="text"
+                  type="number"
                   placeholder="1234567890"
                   className="form_inputs mb-3 w-100"
                   value={referenceNumber}
@@ -200,7 +200,7 @@ export const Details: React.FC<Props> = () => {
                   <span className="text-small">(Optional)</span>
                 </Form.Label>
                 <Form.Control
-                  type="text"
+                  type="number"
                   placeholder="Invoice Number"
                   className="form_inputs mb-5 w-100"
                   value={invoiceNumber}
