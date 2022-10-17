@@ -32,7 +32,7 @@ export const createOrder = async (
   phone_number: string,
   email_address: string,
   reason: string,
-  reference_number: number,
+  reference_number: string,
   invoice_number: number,
   invoice: string
 ) => {

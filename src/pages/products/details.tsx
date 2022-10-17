@@ -76,7 +76,7 @@ export const Details: React.FC<Props> = () => {
       phoneNumber,
       email,
       reason,
-      parseInt(referenceNumber),
+      referenceNumber,
       parseInt(invoiceNumber),
       pdfUrl
     );
@@ -189,7 +189,7 @@ export const Details: React.FC<Props> = () => {
                   <span className="text-small">(Optional)</span>
                 </Form.Label>
                 <Form.Control
-                  type="number"
+                  type="text"
                   placeholder="1234567890"
                   className="form_inputs mb-3 w-100"
                   value={referenceNumber}

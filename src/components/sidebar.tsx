@@ -1,14 +1,28 @@
-// import React from "react";
+import { useEffect } from "react";
+import Cookies from "universal-cookie";
 import { Col } from "react-bootstrap";
 import { NavLink, useNavigate } from "react-router-dom";
 
 const Sidebar = () => {
   const navigate = useNavigate();
 
+  // use useEffect hook to check if jwt is in cookie
+  useEffect(() => {
+    const cookies = new Cookies();
+    const jwt = cookies.get("jwt");
+
+    if (!jwt) {
+      window.location.href = "/signin";
+    }
+  }, []);
+
   return (
     <Col md={4} lg={3} className="p-0">
       <div className="sidebar_menu body-bg vh-100 text-center">
-        <h3 className="fw-bold pt-5 cursor-pointer" onClick={() => navigate("/signin")}>
+        <h3
+          className="fw-bold pt-5 cursor-pointer"
+          onClick={() => navigate("/signin")}
+        >
           Paymit
         </h3>
         <h5 className="my-5 fw-bold">Welcome User</h5>

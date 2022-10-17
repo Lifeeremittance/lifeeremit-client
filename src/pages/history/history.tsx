@@ -26,13 +26,11 @@ export const History: React.FC<Props> = () => {
 
   const [tempKey, setTempKey] = useState("");
   const [licenseKey, setLicenseKey] = useState("");
-  const [tempExpiry, setTempExpiry] = useState("16/07/2022");
-  const [licenseExpiry, setLicenseExpiry] = useState("16/07/2022");
+  // const [tempExpiry, setTempExpiry] = useState("");
+  // const [licenseExpiry, setLicenseExpiry] = useState("");
 
   const [orders, setOrders] = useState<any>([]);
   const [selectedOrder, setselectedOrder] = useState<any>({});
-
-  console.log(selectedOrder);
 
   // const failedSvg = (
   //   <svg
@@ -97,11 +95,8 @@ export const History: React.FC<Props> = () => {
     getOrders()
       .then((res) => {
         setOrders(res);
-        console.log(res);
       })
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => console.log(err));
   }, []);
 
   type CustomToggleProps = {
@@ -610,7 +605,9 @@ export const History: React.FC<Props> = () => {
                         className="d-flex align-items-center"
                         onClick={async () => {
                           try {
-                            await navigator.clipboard.writeText(selectedOrder.temp_key || tempKey);
+                            await navigator.clipboard.writeText(
+                              selectedOrder.temp_key || tempKey
+                            );
                             alert("Copied to clipboard");
                           } catch (err) {
                             console.log(err);
@@ -654,8 +651,8 @@ export const History: React.FC<Props> = () => {
                       type="text"
                       className="form_inputs keys_input mb-3"
                       placeholder="DD/MM/YYYY"
-                      value={tempExpiry}
-                      onChange={(e) => setTempExpiry(e.target.value)}
+                      defaultValue={selectedOrder.temp_key_exp_date || ""}
+                      // onChange={(e) => setTempExpiry(e.target.value)}
                     />
 
                     <hr className="mt-4 mb-3" />
@@ -672,7 +669,9 @@ export const History: React.FC<Props> = () => {
                         className="d-flex align-items-center"
                         onClick={async () => {
                           try {
-                            await navigator.clipboard.writeText(selectedOrder.license_key || licenseKey);
+                            await navigator.clipboard.writeText(
+                              selectedOrder.license_key || licenseKey
+                            );
                             alert("Copied to clipboard");
                           } catch (err) {
                             console.log(err);
@@ -716,8 +715,8 @@ export const History: React.FC<Props> = () => {
                       type="text"
                       className="form_inputs keys_input mb-3"
                       placeholder="DD/MM/YYYY"
-                      value={licenseExpiry}
-                      onChange={(e) => setLicenseExpiry(e.target.value)}
+                      defaultValue={selectedOrder.license_key_exp_date || ""}
+                      // onChange={(e) => setLicenseExpiry(e.target.value)}
                     />
                   </Form.Group>
                 </Form>
