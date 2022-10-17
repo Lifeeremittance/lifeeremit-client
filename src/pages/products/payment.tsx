@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Container,
   Col,
@@ -7,11 +7,17 @@ import {
   Form,
   Modal,
   Card,
+  InputGroup,
 } from "react-bootstrap";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import PaystackPop from "@paystack/inline-js";
 import Sidebar from "../../components/sidebar";
 import Header from "../../components/header";
+import { getCurrencies } from "../../services/currency";
+import { getOrderById } from "../../services/order";
+import { getRates } from "../../services/rates";
+import { getCharges } from "../../services/charges";
+import ngImage from "../../assets/img/NG.png";
 
 type Props = {
   children?: JSX.Element | JSX.Element[];
@@ -21,16 +27,76 @@ export const Payment: React.FC<Props> = () => {
   const [successful, setSuccessful] = useState(false);
   const [unsuccessful, setUnsuccessful] = useState(false);
   const [amount, setAmount] = useState<any>(0);
+  // const [currency, setCurrency] = useState<any>("");
+
+  // const [currencies, setCurrencies] = useState<any>([]);
+  const [charges, setCharges] = useState<any>([]);
+  const [order, setOrder] = useState<any>({});
+
+  const [currencyRate, setCurrencyRate] = useState<any>("");
+  const [countryRate, setCountryRate] = useState<any>("");
+  const [currencyId, setCurrencyId] = useState<any>("");
+  const [rateValue, setRateValue] = useState<any>("");
+
+  const { id } = useParams();
+  let currency: any;
+
+  useEffect(() => {
+    getCurrencies()
+      .then((currencyRes) => {
+        // setCurrencies(currencyRes);
+        currencyRes.forEach((item: any) => {
+          if (item.currencyName === "Nigeria") {
+            // eslint-disable-next-line react-hooks/exhaustive-deps
+            currency = item;
+            return;
+          }
+        });
+
+        getOrderById(id)
+          .then((res) => {
+            setOrder(res);
+
+            getRates(res.provider._id, res.country._id, currency._id)
+              .then((ratesRes) => {
+                setCurrencyRate(ratesRes[0].country.countryCode);
+                setCountryRate(ratesRes[0].currency.currencyCode);
+                setCurrencyId(ratesRes[0].currency._id);
+                setRateValue(ratesRes[0].value);
+
+                getCharges()
+                  .then((chargesRes) => {
+                    console.info(chargesRes);
+                    setCharges(chargesRes[0]);
+                  })
+                  .catch((err) => console.log(err));
+              })
+              .catch((err) => console.log(err));
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [id]);
 
   const navigate = useNavigate();
 
   const paystack = () => {
     let handler = PaystackPop.setup({
       key: process.env["REACT_APP_PAYSTACK_PUBLIC_KEY"],
-      email: "aland6209@gmail.com",
-      amount: amount * 100,
+      email: sessionStorage.getItem("userEmail"),
+      amount: ((amount * rateValue || 0) + 710 * charges.serviceCharge) * 100,
       ref: "" + Math.floor(Math.random() * 1000000000 + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
-      //   label: name,
+      metadata: {
+        orderId: id,
+        product_value: amount * rateValue * 100,
+        currency: currencyId,
+        rate: rateValue,
+      },
+      label: sessionStorage.getItem("userFullName"),
       onClose: () => {
         console.log("Window closed.");
       },
@@ -43,6 +109,27 @@ export const Payment: React.FC<Props> = () => {
 
     handler.openIframe();
   };
+
+  // const options = currencies.map((currency: any) => (
+  //   <option key={currency._id} value={currency._id}>
+  //     {currency.currencyName}
+  //   </option>
+  // ));
+
+  // const currencyFull = currencies.find((c: any) => c._id === currency);
+
+  // const handleChange = (value: string) => {
+  //   setCurrency(value);
+  //   getRates(order.provider._id, order.country._id, value)
+  //     .then((res) => {
+  //       setCountryRate(res[0].country.countryCode);
+  //       setCurrencyRate(res[0].currency.currencyCode);
+  //       setRateValue(res[0].value);
+  //     })
+  //     .catch((err) => {
+  //       console.log(err);
+  //     });
+  // };
 
   return (
     <Container fluid className="vw-100 vh-100">
@@ -63,12 +150,17 @@ export const Payment: React.FC<Props> = () => {
 
             <h3 className="fw-bold my-4">Enter Amount</h3>
 
-            <div className="d-flex align-items-center justify-content-center mb-5">
-              <span className="rate_box p-3 fw-bold">
-                <span>Rate:</span>{" "}
-                <span className="text-theme">1USD = 600NGN</span>
-              </span>
-            </div>
+            {currencyRate ? (
+              <div className="d-flex align-items-center justify-content-center mb-5">
+                <span className="rate_box p-3 fw-bold">
+                  <span>Rate:</span>{" "}
+                  <span className="text-theme">
+                    {`1${currencyRate} = ${rateValue}
+                  ${countryRate}`}
+                  </span>
+                </span>
+              </div>
+            ) : null}
 
             <Form>
               <Form.Group controlId="formForPaystack">
@@ -77,12 +169,64 @@ export const Payment: React.FC<Props> = () => {
                     Product Amount
                   </Form.Text>
                 </div>
-                <Form.Text>The currency of your invoice</Form.Text>
-                <Form.Control
-                  type="text"
-                  placeholder="Currency"
-                  className="form_inputs w-50 mt-2"
-                />
+                <Form.Text>In the currency of your invoice</Form.Text>
+                <InputGroup
+                  style={{ height: "54px", width: "394px" }}
+                  className="mt-2"
+                >
+                  <Form.Control
+                    type="number"
+                    aria-label="Amount"
+                    aria-describedby="basic-addon1"
+                    className="bg-white border_left_country fw-bold"
+                    // placeholder="Nigeria"
+                    // value={currency}
+                    // onChange={(e) => handleChange(e.target.value)}
+                    onChange={(e) => setAmount(parseInt(e.target.value))}
+                  />
+
+                  <InputGroup.Text
+                    id="basic-addon1"
+                    className="border-start-0 border_right_country bg-white"
+                  >
+                    <div className="d-flex align-items-center">
+                      {/* {currency ? ( */}
+                      <>
+                        {/* <img
+                            src={currencyFull.currencyImage}
+                            alt=""
+                            width="36"
+                            height="26"
+                          />
+                          <b className="mx-2">{currencyFull.currencyCode}</b>
+                          <svg
+                            width="16"
+                            height="10"
+                            viewBox="0 0 16 10"
+                            fill="none"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              d="M15.1039 0.430608C14.8277 0.154806 14.4541 0 14.0647 0C13.6752 0 13.3016 0.154806 13.0254 0.430608L7.73314 5.67267L2.51462 0.430608C2.23842 0.154806 1.86479 0 1.47534 0C1.08588 0 0.712256 0.154806 0.436054 0.430608C0.297883 0.568268 0.188214 0.732047 0.113373 0.912497C0.0385316 1.09295 0 1.2865 0 1.48198C0 1.67747 0.0385316 1.87102 0.113373 2.05147C0.188214 2.23192 0.297883 2.39569 0.436054 2.53335L6.68649 8.81198C6.82353 8.95077 6.98658 9.06094 7.16622 9.13612C7.34586 9.21129 7.53854 9.25 7.73314 9.25C7.92775 9.25 8.12043 9.21129 8.30007 9.13612C8.47971 9.06094 8.64276 8.95077 8.7798 8.81198L15.1039 2.53335C15.2421 2.39569 15.3518 2.23192 15.4266 2.05147C15.5015 1.87102 15.54 1.67747 15.54 1.48198C15.54 1.2865 15.5015 1.09295 15.4266 0.912497C15.3518 0.732047 15.2421 0.568268 15.1039 0.430608Z"
+                              fill="black"
+                            />
+                          </svg> */}
+                        {Object.keys(order).length !== 0 && (
+                          <div className="d-flex align-items-center">
+                            <img
+                              src={order.country.countryFlag}
+                              alt=""
+                              width="36"
+                              height="26"
+                            />
+                            <b className="mx-2">{order.country.countryCode}</b>
+                          </div>
+                        )}
+                      </>
+                      {/* ) : null} */}
+                    </div>
+                  </InputGroup.Text>
+                </InputGroup>
                 <div>
                   <svg
                     width="1"
@@ -98,7 +242,7 @@ export const Payment: React.FC<Props> = () => {
                       x2="0.499998"
                       y2="50"
                       stroke="#263238"
-                      stroke-opacity="0.39"
+                      strokeOpacity="0.39"
                     />
                   </svg>
                 </div>
@@ -116,14 +260,14 @@ export const Payment: React.FC<Props> = () => {
                       cy="10"
                       r="9.5"
                       stroke="#263238"
-                      stroke-opacity="0.39"
+                      strokeOpacity="0.39"
                     />
                   </svg>
                   <div className="ms-3 d-flex align-items-center">
                     <span className="text-muted text-small me-2">
                       service charge:
                     </span>
-                    <b>$10</b>
+                    <b>${charges.serviceCharge}</b>
                   </div>
                 </div>
                 <div>
@@ -141,7 +285,7 @@ export const Payment: React.FC<Props> = () => {
                       x2="0.499998"
                       y2="50"
                       stroke="#263238"
-                      stroke-opacity="0.39"
+                      strokeOpacity="0.39"
                     />
                   </svg>
                 </div>
@@ -159,14 +303,14 @@ export const Payment: React.FC<Props> = () => {
                       cy="10"
                       r="9.5"
                       stroke="#263238"
-                      stroke-opacity="0.39"
+                      strokeOpacity="0.39"
                     />
                   </svg>
                   <div className="ms-3 d-flex align-items-center">
                     <span className="text-muted text-small me-2">
                       Product Interest:
                     </span>
-                    <b>1% = 2 USD</b>
+                    <b>{charges.productInterest}% = 1 USD</b>
                   </div>
                 </div>
                 <div>
@@ -184,7 +328,7 @@ export const Payment: React.FC<Props> = () => {
                       x2="0.499998"
                       y2="50"
                       stroke="#263238"
-                      stroke-opacity="0.39"
+                      strokeOpacity="0.39"
                     />
                   </svg>
                 </div>
@@ -202,14 +346,18 @@ export const Payment: React.FC<Props> = () => {
                       cy="10"
                       r="9.5"
                       stroke="#263238"
-                      stroke-opacity="0.39"
+                      strokeOpacity="0.39"
                     />
                   </svg>
                   <div className="ms-3 d-flex align-items-center">
                     <span className="text-muted text-small me-2">
-                      Amount in Naira:
+                      Total Amount in Naira:
                     </span>
-                    <b>#120,000</b>
+                    <b>
+                      ₦
+                      {(amount * rateValue || 0) +
+                        710 * parseInt(charges.serviceCharge)}
+                    </b>
                   </div>
                 </div>
                 <div>
@@ -227,16 +375,44 @@ export const Payment: React.FC<Props> = () => {
                       x2="0.499998"
                       y2="50"
                       stroke="#263238"
-                      stroke-opacity="0.39"
+                      strokeOpacity="0.39"
                     />
                   </svg>
                 </div>
-                <Form.Control
-                  type="text"
-                  placeholder="Amount"
-                  className="form_inputs mb-3 w-50"
-                  onChange={(e) => setAmount(e.target.value)}
-                />
+                <InputGroup
+                  style={{ height: "54px", width: "394px" }}
+                  className="mb-2"
+                >
+                  <Form.Control
+                    type="number"
+                    placeholder="Amount"
+                    className="bg-white border_left_country fw-bold w-50"
+                    value={amount * rateValue}
+                    disabled
+                  />
+                  <InputGroup.Text
+                    id="basic-addon1"
+                    className="border-start-0 border_right_country bg-white"
+                  >
+                    <div className="d-flex align-items-center">
+                      <img src={ngImage} alt="" width="36" height="26" />
+                      <b className="mx-2">NGN</b>
+
+                      {/* <svg
+                        width="16"
+                        height="10"
+                        viewBox="0 0 16 10"
+                        fill="none"
+                        xmlns="http://www.w3.org/2000/svg"
+                      >
+                        <path
+                          d="M15.1039 0.430608C14.8277 0.154806 14.4541 0 14.0647 0C13.6752 0 13.3016 0.154806 13.0254 0.430608L7.73314 5.67267L2.51462 0.430608C2.23842 0.154806 1.86479 0 1.47534 0C1.08588 0 0.712256 0.154806 0.436054 0.430608C0.297883 0.568268 0.188214 0.732047 0.113373 0.912497C0.0385316 1.09295 0 1.2865 0 1.48198C0 1.67747 0.0385316 1.87102 0.113373 2.05147C0.188214 2.23192 0.297883 2.39569 0.436054 2.53335L6.68649 8.81198C6.82353 8.95077 6.98658 9.06094 7.16622 9.13612C7.34586 9.21129 7.53854 9.25 7.73314 9.25C7.92775 9.25 8.12043 9.21129 8.30007 9.13612C8.47971 9.06094 8.64276 8.95077 8.7798 8.81198L15.1039 2.53335C15.2421 2.39569 15.3518 2.23192 15.4266 2.05147C15.5015 1.87102 15.54 1.67747 15.54 1.48198C15.54 1.2865 15.5015 1.09295 15.4266 0.912497C15.3518 0.732047 15.2421 0.568268 15.1039 0.430608Z"
+                          fill="black"
+                        />
+                      </svg> */}
+                    </div>
+                  </InputGroup.Text>
+                </InputGroup>
               </Form.Group>
               <Form.Text className="fw-bold fs-6 text-dark">
                 Amount to Pay

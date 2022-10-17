@@ -1,13 +1,57 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Container, Col, Row, Form } from "react-bootstrap";
+import { toast } from "react-toastify";
+
 import Sidebar from "../../components/sidebar";
 import Header from "../../components/header";
+import { getUserInfo, updateUser } from "../../services/user";
 
 type Props = {
   children?: JSX.Element | JSX.Element[];
 };
 
 export const Edit: React.FC<Props> = () => {
+  // const [user, setUser] = useState<any>({});
+  const [fullName, setFullName] = useState<string>("");
+  const [email, setEmail] = useState<string>("");
+  const [phone, setPhone] = useState<string>("");
+  const [address, setAddress] = useState<string>("");
+  const [companyName, setCompanyName] = useState<string>("");
+
+  useEffect(() => {
+    getUserInfo()
+      .then((res) => {
+        // setUser(res);
+        setFullName(res.fullName);
+        setEmail(res.email_address);
+        setPhone(res.phone_number);
+        setAddress(res.address);
+        setCompanyName(res.companyName);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, []);
+
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    const data = {
+      fullName,
+      email_address: email,
+      phone_number: phone,
+      address,
+      companyName,
+    };
+    try {
+      const res = await updateUser(sessionStorage.getItem("userId"), data);
+      console.log(res);
+      if (res.status === 200) toast.success(res.data.data);
+      else toast.error(res);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <Container fluid className="vw-100 vh-100">
       <Row className="p-0">
@@ -40,6 +84,9 @@ export const Edit: React.FC<Props> = () => {
                       type="text"
                       placeholder="Peter Tinubu"
                       className="form_inputs w-100"
+                      value={fullName}
+                      // defaultValue={user.fullName}
+                      onChange={(e) => setFullName(e.target.value)}
                     />
                   </div>
                   <div>
@@ -48,6 +95,9 @@ export const Edit: React.FC<Props> = () => {
                       type="text"
                       placeholder="Business Name Plc"
                       className="form_inputs w-100"
+                      // defaultValue={user.companyName}
+                      value={companyName}
+                      onChange={(e) => setCompanyName(e.target.value)}
                     />
                   </div>
                   <div>
@@ -56,6 +106,9 @@ export const Edit: React.FC<Props> = () => {
                       type="text"
                       placeholder="Petertinubu@gmail.com"
                       className="form_inputs w-100"
+                      // defaultValue={user.email_address}
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
                     />
                   </div>
                   <div>
@@ -64,6 +117,9 @@ export const Edit: React.FC<Props> = () => {
                       type="text"
                       placeholder="08139932932"
                       className="form_inputs w-100"
+                      // defaultValue={user.phone_number}
+                      value={phone}
+                      onChange={(e) => setPhone(e.target.value)}
                     />
                   </div>
                   <div>
@@ -72,12 +128,18 @@ export const Edit: React.FC<Props> = () => {
                       type="text"
                       placeholder="Ikoyi, Lagos"
                       className="form_inputs w-100"
+                      // defaultValue={user.address}
+                      value={address}
+                      onChange={(e) => setAddress(e.target.value)}
                     />
                   </div>
                 </div>
               </Form.Group>
             </Form>
-            <button className="btn btn_theme mt-4 w-auto px-5">
+            <button
+              className="btn btn_theme mt-4 w-auto px-5"
+              onClick={handleSubmit}
+            >
               Save Changes
             </button>
           </div>
