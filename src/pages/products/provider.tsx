@@ -76,14 +76,6 @@ export const Provider: React.FC<Props> = () => {
                     </div>
                   ))
                 : null}
-              <div
-                className={`grid-item providers_list d-flex align-items-center justify-content-center cursor-pointer ${
-                  selected === "others" ? "selected" : ""
-                }`}
-                onClick={() => setSelected("others")}
-              >
-                <b>OTHERS</b>
-              </div>
             </div>
 
             <div className="d-flex justify-content-end mt-5">

@@ -225,6 +225,7 @@ export const Details: React.FC<Props> = () => {
                         />
                       </svg>
                       <span className="text-small">Upload Invoice</span>
+                      <span className="text-small">Accepted file types include ".pdf"</span>
                     </span>
                   ) : (
                     <embed
