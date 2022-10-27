@@ -88,7 +88,11 @@ export const Payment: React.FC<Props> = () => {
     let handler = PaystackPop.setup({
       key: process.env["REACT_APP_PAYSTACK_PUBLIC_KEY"],
       email: sessionStorage.getItem("userEmail"),
-      amount: ((amount * rateValue || 0) + 710 * charges.serviceCharge) * 100,
+      amount:
+        ((amount * rateValue || 0) +
+          710 * charges.serviceCharge +
+          (charges.productInterest * (amount || 0)) / 100) *
+        100,
       ref: "" + Math.floor(Math.random() * 1000000000 + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
       metadata: {
         orderId: id,
@@ -267,7 +271,10 @@ export const Payment: React.FC<Props> = () => {
                     <span className="text-muted text-small me-2">
                       service charge:
                     </span>
-                    <b>${charges.serviceCharge}</b>
+                    <b>
+                      ${charges.serviceCharge} (NGN{" "}
+                      {charges.serviceCharge * 710} )
+                    </b>
                   </div>
                 </div>
                 <div>
@@ -310,7 +317,10 @@ export const Payment: React.FC<Props> = () => {
                     <span className="text-muted text-small me-2">
                       Product Interest:
                     </span>
-                    <b>{charges.productInterest}% = 1 USD</b>
+                    <b>
+                      {charges.productInterest}% = 1 {currencyRate} (NGN{" "}
+                      {(charges.productInterest * amount) / 100})
+                    </b>
                   </div>
                 </div>
                 <div>
@@ -351,13 +361,9 @@ export const Payment: React.FC<Props> = () => {
                   </svg>
                   <div className="ms-3 d-flex align-items-center">
                     <span className="text-muted text-small me-2">
-                      Total Amount in Naira:
+                      Software cost in Naira:
                     </span>
-                    <b>
-                      ₦
-                      {(amount * rateValue || 0) +
-                        710 * parseInt(charges.serviceCharge)}
-                    </b>
+                    <b>₦{amount * rateValue}</b>
                   </div>
                 </div>
                 <div>
@@ -387,7 +393,11 @@ export const Payment: React.FC<Props> = () => {
                     type="number"
                     placeholder="Amount"
                     className="bg-white border_left_country fw-bold w-50"
-                    value={amount * rateValue}
+                    value={
+                      (amount * rateValue || 0) +
+                      710 * parseInt(charges.serviceCharge) +
+                      (charges.productInterest * (amount || 0)) / 100
+                    }
                     disabled
                   />
                   <InputGroup.Text

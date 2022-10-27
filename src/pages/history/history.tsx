@@ -371,14 +371,18 @@ export const History: React.FC<Props> = () => {
                     </b>
                   </Col>
                 </Row>
-                {/* <Row className="mb-3">
+                <Row className="mb-3">
                   <Col xs={6}>
                     <span className="text-muted">Transaction No</span>
                   </Col>
                   <Col xs={6}>
-                    <b>PM001</b>
+                    <b>
+                      {selectedOrder.order_number
+                        ? selectedOrder.order_number
+                        : "-"}
+                    </b>
                   </Col>
-                </Row> */}
+                </Row>
                 <Row className="mb-3">
                   <Col xs={6}>
                     <span className="text-muted">Reference No</span>
@@ -490,14 +494,18 @@ export const History: React.FC<Props> = () => {
                     <b>{selectedOrder.license_key || "-"}</b>
                   </Col>
                 </Row>
-                {/* <Row className="mt-2">
+                <Row className="mt-2">
                   <Col xs={5}>
                     <span className="text-muted">Transaction No</span>
                   </Col>
                   <Col xs={7}>
-                    <b>PM0001</b>
+                    <b>
+                      {selectedOrder.order_number
+                        ? selectedOrder.order_number
+                        : "-"}
+                    </b>
                   </Col>
-                </Row> */}
+                </Row>
 
                 <div className="dotted my-3"></div>
 
@@ -600,6 +608,7 @@ export const History: React.FC<Props> = () => {
                         className="form_inputs keys_input me-2 fw-bold"
                         defaultValue={selectedOrder.temp_key || ""}
                         onChange={(e) => setTempKey(e.target.value)}
+                        disabled
                       />
                       <div
                         className="d-flex align-items-center"
@@ -652,6 +661,7 @@ export const History: React.FC<Props> = () => {
                       className="form_inputs keys_input mb-3"
                       placeholder="DD/MM/YYYY"
                       defaultValue={selectedOrder.temp_key_exp_date || ""}
+                      disabled
                       // onChange={(e) => setTempExpiry(e.target.value)}
                     />
 
@@ -664,6 +674,7 @@ export const History: React.FC<Props> = () => {
                         className="form_inputs keys_input me-2 fw-bold"
                         defaultValue={selectedOrder.license_key || ""}
                         onChange={(e) => setLicenseKey(e.target.value)}
+                        disabled
                       />
                       <div
                         className="d-flex align-items-center"
@@ -716,6 +727,7 @@ export const History: React.FC<Props> = () => {
                       className="form_inputs keys_input mb-3"
                       placeholder="DD/MM/YYYY"
                       defaultValue={selectedOrder.license_key_exp_date || ""}
+                      disabled
                       // onChange={(e) => setLicenseExpiry(e.target.value)}
                     />
                   </Form.Group>
