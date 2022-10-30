@@ -27,12 +27,12 @@ export const createOrder = async (
   product: string,
   country: string,
   company_name: string,
-  company_address: string,
+  company_address: string | null,
   contact_name: string,
   phone_number: string,
   email_address: string,
-  reason: string,
-  reference_number: string,
+  reason: string | null,
+  reference_number: string | null,
   invoice_number: number,
   invoice: string
 ) => {

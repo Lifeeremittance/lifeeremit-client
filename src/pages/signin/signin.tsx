@@ -96,6 +96,7 @@ export const Signin: React.FC<Props> = () => {
       >
         Paymit
       </b>
+
       <Form className="signup_form d-flex align-items-center flex-column bg-white p-4">
         <div className="text-center mb-5">
           <b className="fs-5">Login to your account</b>

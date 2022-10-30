@@ -31,6 +31,7 @@ export const Country: React.FC<Props> = () => {
         sessionStorage.setItem("userId", res._id);
         sessionStorage.setItem("userEmail", res.email_address);
         sessionStorage.setItem("userFullName", res.fullName);
+        sessionStorage.setItem("userPhone", res.phone_number);
 
         getCountries()
           .then((res) => {
@@ -69,28 +70,8 @@ export const Country: React.FC<Props> = () => {
           <div className="bg-white vh-85 border-top-left-radius py-5 y-scroll">
             <ProgressBar now={20} />
 
-            <h3 className="fw-bold my-5">Select your country</h3>
+            <h3 className="fw-bold my-5">Select your currency</h3>
             <Form>
-              {/* <InputGroup className="country_group">
-                <InputGroup.Text
-                  id="basic-addon1"
-                  className="bg-white border_left_country"
-                >
-                  <i className="fa fa-search fs-5"></i>
-                </InputGroup.Text>
-                <Form.Control
-                  as="select"
-                  aria-label="Country"
-                  aria-describedby="basic-addon1"
-                  className="border-start-0 border_right_country"
-                  placeholder="Nigeria"
-                  value={country}
-                  onChange={(e) => setCountry(e.target.value)}
-                >
-                  <option value="">Select Country</option>
-                  {options}
-                </Form.Control>
-              </InputGroup> */}
               <InputGroup
                 style={{ height: "54px", width: "394px" }}
                 className="mt-2"
@@ -145,7 +126,7 @@ export const Country: React.FC<Props> = () => {
                 </InputGroup.Text>
               </InputGroup>
               <div className="text-small my-2">
-                This is the currency you are making payment in.
+                This is the currency of your invoice from the service provider.
               </div>
               <button
                 className="btn btn_theme fw-bold w-25 mt-4"

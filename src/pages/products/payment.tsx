@@ -66,7 +66,6 @@ export const Payment: React.FC<Props> = () => {
 
                 getCharges()
                   .then((chargesRes) => {
-                    console.info(chargesRes);
                     setCharges(chargesRes[0]);
                   })
                   .catch((err) => console.log(err));
@@ -90,8 +89,8 @@ export const Payment: React.FC<Props> = () => {
       email: sessionStorage.getItem("userEmail"),
       amount:
         ((amount * rateValue || 0) +
-          710 * charges.serviceCharge +
-          (charges.productInterest * (amount || 0)) / 100) *
+          charges.dollarRate * charges.serviceCharge +
+          ((charges.productInterest * (amount || 0)) / 100) * rateValue) *
         100,
       ref: "" + Math.floor(Math.random() * 1000000000 + 1), // generates a pseudo-unique reference. Please replace with a reference you generated. Or remove the line entirely so our API will generate one for you
       metadata: {
@@ -185,7 +184,6 @@ export const Payment: React.FC<Props> = () => {
                     className="bg-white border_left_country fw-bold"
                     // placeholder="Nigeria"
                     // value={currency}
-                    // onChange={(e) => handleChange(e.target.value)}
                     onChange={(e) => setAmount(parseInt(e.target.value))}
                   />
 
@@ -194,27 +192,7 @@ export const Payment: React.FC<Props> = () => {
                     className="border-start-0 border_right_country bg-white"
                   >
                     <div className="d-flex align-items-center">
-                      {/* {currency ? ( */}
                       <>
-                        {/* <img
-                            src={currencyFull.currencyImage}
-                            alt=""
-                            width="36"
-                            height="26"
-                          />
-                          <b className="mx-2">{currencyFull.currencyCode}</b>
-                          <svg
-                            width="16"
-                            height="10"
-                            viewBox="0 0 16 10"
-                            fill="none"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path
-                              d="M15.1039 0.430608C14.8277 0.154806 14.4541 0 14.0647 0C13.6752 0 13.3016 0.154806 13.0254 0.430608L7.73314 5.67267L2.51462 0.430608C2.23842 0.154806 1.86479 0 1.47534 0C1.08588 0 0.712256 0.154806 0.436054 0.430608C0.297883 0.568268 0.188214 0.732047 0.113373 0.912497C0.0385316 1.09295 0 1.2865 0 1.48198C0 1.67747 0.0385316 1.87102 0.113373 2.05147C0.188214 2.23192 0.297883 2.39569 0.436054 2.53335L6.68649 8.81198C6.82353 8.95077 6.98658 9.06094 7.16622 9.13612C7.34586 9.21129 7.53854 9.25 7.73314 9.25C7.92775 9.25 8.12043 9.21129 8.30007 9.13612C8.47971 9.06094 8.64276 8.95077 8.7798 8.81198L15.1039 2.53335C15.2421 2.39569 15.3518 2.23192 15.4266 2.05147C15.5015 1.87102 15.54 1.67747 15.54 1.48198C15.54 1.2865 15.5015 1.09295 15.4266 0.912497C15.3518 0.732047 15.2421 0.568268 15.1039 0.430608Z"
-                              fill="black"
-                            />
-                          </svg> */}
                         {Object.keys(order).length !== 0 && (
                           <div className="d-flex align-items-center">
                             <img
@@ -227,7 +205,6 @@ export const Payment: React.FC<Props> = () => {
                           </div>
                         )}
                       </>
-                      {/* ) : null} */}
                     </div>
                   </InputGroup.Text>
                 </InputGroup>
@@ -273,7 +250,7 @@ export const Payment: React.FC<Props> = () => {
                     </span>
                     <b>
                       ${charges.serviceCharge} (NGN{" "}
-                      {charges.serviceCharge * 710} )
+                      {charges.serviceCharge * charges.dollarRate} )
                     </b>
                   </div>
                 </div>
@@ -319,7 +296,7 @@ export const Payment: React.FC<Props> = () => {
                     </span>
                     <b>
                       {charges.productInterest}% = 1 {currencyRate} (NGN{" "}
-                      {(charges.productInterest * amount) / 100})
+                      {((charges.productInterest * amount) / 100) * rateValue})
                     </b>
                   </div>
                 </div>
@@ -395,8 +372,9 @@ export const Payment: React.FC<Props> = () => {
                     className="bg-white border_left_country fw-bold w-50"
                     value={
                       (amount * rateValue || 0) +
-                      710 * parseInt(charges.serviceCharge) +
-                      (charges.productInterest * (amount || 0)) / 100
+                      charges.dollarRate * parseInt(charges.serviceCharge) +
+                      ((charges.productInterest * (amount || 0)) / 100) *
+                        rateValue
                     }
                     disabled
                   />
