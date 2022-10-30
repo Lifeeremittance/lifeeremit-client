@@ -10,6 +10,7 @@ import {
   Card,
   InputGroup,
 } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
 import { getOrders } from "../../services/order";
@@ -31,6 +32,8 @@ export const History: React.FC<Props> = () => {
 
   const [orders, setOrders] = useState<any>([]);
   const [selectedOrder, setselectedOrder] = useState<any>({});
+
+  const navigate = useNavigate();
 
   // const failedSvg = (
   //   <svg
@@ -241,6 +244,13 @@ export const History: React.FC<Props> = () => {
                                 >
                                   View Keys
                                 </Dropdown.Item>
+
+                                {order.status.includes("new_order") &&
+                                  order.status.length === 1 && (
+                                    <Dropdown.Item eventKey="5" onClick={() => navigate(`/products/payment/${order._id}`)}>
+                                      Complete Transaction
+                                    </Dropdown.Item>
+                                  )}
                               </Dropdown.Menu>
                             </Dropdown>
                           </td>

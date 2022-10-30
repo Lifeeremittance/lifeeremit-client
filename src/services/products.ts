@@ -5,7 +5,7 @@ const cookie = new Cookie();
 const jwt = cookie.get("jwt");
 
 export const getProducts = async (provider: string | undefined) => {
-  const response = await Api.get(`/products?provider=${provider}`, {
+  const response = await Api.get(`/products?provider=${provider}&is_active=true`, {
     headers: {
       Authorization: `Bearer ${jwt}`,
     },

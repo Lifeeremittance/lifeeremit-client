@@ -25,9 +25,13 @@ export const Details: React.FC<Props> = () => {
   });
   const [companyName, setCompanyName] = useState("");
   const [companyAddress, setCompanyAddress] = useState("");
-  const [contactName, setContactName] = useState("");
-  const [email, setEmail] = useState("");
-  const [phoneNumber, setPhoneNumber] = useState<any>("");
+  const [contactName, setContactName] = useState(
+    sessionStorage.getItem("userFullName") || ""
+  );
+  const [email, setEmail] = useState(sessionStorage.getItem("userEmail") || "");
+  const [phoneNumber, setPhoneNumber] = useState<any>(
+    sessionStorage.getItem("userPhone") || ""
+  );
   const [reason, setReason] = useState("");
   const [referenceNumber, setReferenceNumber] = useState("");
   const [invoiceNumber, setInvoiceNumber] = useState("");
@@ -71,12 +75,12 @@ export const Details: React.FC<Props> = () => {
       product,
       country,
       companyName,
-      companyAddress,
+      companyAddress || null,
       contactName,
       phoneNumber,
       email,
-      reason,
-      referenceNumber,
+      reason || null,
+      referenceNumber || null,
       parseInt(invoiceNumber),
       pdfUrl
     );
@@ -225,7 +229,9 @@ export const Details: React.FC<Props> = () => {
                         />
                       </svg>
                       <span className="text-small">Upload Invoice</span>
-                      <span className="text-small">Accepted file types include ".pdf"</span>
+                      <span className="text-small">
+                        Accepted file types include ".pdf"
+                      </span>
                     </span>
                   ) : (
                     <embed
