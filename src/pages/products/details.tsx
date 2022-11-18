@@ -45,7 +45,7 @@ export const Details: React.FC<Props> = () => {
 
   const firebaseConfig = {
     // ...
-    storageBucket: "gs://lifeeremit-e7281.appspot.com",
+    storageBucket: "gs://lifeeremit-e7281.appspot.com/",
   };
   const app = initializeApp(firebaseConfig);
   const storage = getStorage(app);
@@ -66,7 +66,9 @@ export const Details: React.FC<Props> = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const storageRef = ref(storage, invoice.preview);
+    // generate random 10 digit characters
+    const randomString = Math.random().toString(36).substring(2, 15);
+    const storageRef = ref(storage, randomString);
     const uploadTask = uploadBytesResumable(storageRef, invoice.raw);
     await uploadTask;
     const pdfUrl = await getDownloadURL(uploadTask.snapshot.ref);
@@ -257,6 +259,9 @@ export const Details: React.FC<Props> = () => {
               <button
                 className="btn btn_theme fw-bold w-auto px-5 fs-5"
                 onClick={handleSubmit}
+                disabled={
+                  !phoneNumber || !email || !invoice.preview || !companyName
+                }
               >
                 Save & Continue
               </button>
