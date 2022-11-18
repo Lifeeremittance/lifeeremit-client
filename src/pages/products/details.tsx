@@ -259,6 +259,9 @@ export const Details: React.FC<Props> = () => {
               <button
                 className="btn btn_theme fw-bold w-auto px-5 fs-5"
                 onClick={handleSubmit}
+                disabled={
+                  !phoneNumber || !email || !invoice.preview || !companyName
+                }
               >
                 Save & Continue
               </button>

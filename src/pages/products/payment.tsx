@@ -24,12 +24,10 @@ type Props = {
 };
 
 export const Payment: React.FC<Props> = () => {
-  const [successful, setSuccessful] = useState(false);
-  const [unsuccessful, setUnsuccessful] = useState(false);
-  const [amount, setAmount] = useState<any>(0);
-  // const [currency, setCurrency] = useState<any>("");
+  const [successful, setSuccessful] = useState<boolean>(false);
+  const [unsuccessful, setUnsuccessful] = useState<boolean>(false);
 
-  // const [currencies, setCurrencies] = useState<any>([]);
+  const [amount, setAmount] = useState<any>(0);
   const [charges, setCharges] = useState<any>([]);
   const [order, setOrder] = useState<any>({});
 
@@ -38,13 +36,14 @@ export const Payment: React.FC<Props> = () => {
   const [currencyId, setCurrencyId] = useState<any>("");
   const [rateValue, setRateValue] = useState<any>("");
 
+  console.log(charges);
+
   const { id } = useParams();
   let currency: any;
 
   useEffect(() => {
     getCurrencies()
       .then((currencyRes) => {
-        // setCurrencies(currencyRes);
         currencyRes.forEach((item: any) => {
           if (item.currencyName === "Nigeria") {
             // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -98,6 +97,9 @@ export const Payment: React.FC<Props> = () => {
         product_value: amount * rateValue * 100,
         currency: currencyId,
         rate: rateValue,
+        service_charge: charges.serviceCharge,
+        product_interest: charges.productInterest,
+        dollar_rate: charges.dollarRate,
       },
       label: sessionStorage.getItem("userFullName"),
       onClose: () => {
@@ -107,6 +109,7 @@ export const Payment: React.FC<Props> = () => {
         let message = "Payment complete! Reference: " + response.reference;
         console.log(message);
         setSuccessful(true);
+        navigate("/history");
       },
     });
 

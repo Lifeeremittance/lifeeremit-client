@@ -369,3 +369,8 @@ tr {
   box-shadow: none;
   outline: none;
 }
+
+.btn_theme:disabled {
+  background: #6246ea;
+  color: #fff;
+}
