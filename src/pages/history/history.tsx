@@ -252,7 +252,7 @@ export const History: React.FC<Props> = () => {
                                     setselectedOrder(order);
                                   }}
                                 >
-                                  View Admin Invoice
+                                  View Paymit Invoice
                                 </Dropdown.Item>
 
                                 {order.status.includes("new_order") &&
