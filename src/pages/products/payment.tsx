@@ -187,7 +187,7 @@ export const Payment: React.FC<Props> = () => {
                     className="bg-white border_left_country fw-bold"
                     // placeholder="Nigeria"
                     // value={currency}
-                    onChange={(e) => setAmount(parseInt(e.target.value))}
+                    onChange={(e) => setAmount(e.target.value)}
                   />
 
                   <InputGroup.Text
