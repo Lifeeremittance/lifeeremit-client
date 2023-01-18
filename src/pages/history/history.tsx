@@ -757,6 +757,34 @@ export const History: React.FC<Props> = () => {
                       disabled
                       // onChange={(e) => setLicenseExpiry(e.target.value)}
                     />
+
+                    <div className="d-flex mt-4 align-items-center">
+                      <span className="fs-5">View invoice</span>
+                      <div
+                        className="d-grid cursor-pointer ms-3"
+                        style={{
+                          width: 40,
+                          height: 40,
+                          background: "#263238",
+                          borderRadius: "10px",
+                          placeContent: "center",
+                        }}
+                        onClick={() => setAdminInvoice(true)}
+                      >
+                        <svg
+                          width="16"
+                          height="19"
+                          viewBox="0 0 16 19"
+                          fill="none"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path
+                            d="M14.0759 9.58066L8.44551 15.211C6.90171 16.7548 4.44979 16.7548 2.9968 15.211C1.45299 13.6672 1.45299 11.2153 2.9968 9.76229L10.2618 2.49733C11.1699 1.68002 12.5321 1.68002 13.4402 2.49733C14.3483 3.40545 14.3483 4.85844 13.4402 5.67575L7.17415 11.9418C6.90171 12.2142 6.44765 12.2142 6.17521 11.9418C5.90278 11.6693 5.90278 11.2153 6.17521 10.9428L10.8066 6.31143C11.1699 5.94818 11.1699 5.40331 10.8066 5.04006C10.4434 4.67682 9.8985 4.67682 9.53526 5.04006L4.90385 9.76229C3.90491 10.7612 3.90491 12.305 4.90385 13.304C5.90278 14.2121 7.44658 14.2121 8.44551 13.304L14.7115 7.03793C16.3462 5.40331 16.3462 2.86058 14.7115 1.22596C13.0769 -0.408654 10.5342 -0.408654 8.89957 1.22596L1.63462 8.49092C0.544872 9.58066 0 11.0337 0 12.4866C0 15.6651 2.54273 18.117 5.72115 18.117C7.26496 18.117 8.62714 17.4813 9.71688 16.4824L15.3472 10.852C15.7105 10.4888 15.7105 9.94391 15.3472 9.58066C14.984 9.21741 14.4391 9.21741 14.0759 9.58066Z"
+                            fill="white"
+                          />
+                        </svg>
+                      </div>
+                    </div>
                   </Form.Group>
                 </Form>
 
@@ -804,7 +832,12 @@ export const History: React.FC<Props> = () => {
           >
             <Card className="invoice_modal_card p-3 vh-100">
               <div className="text-right">
-                <a href={selectedOrder.admin_invoice} download target="_blank" rel="noreferrer">
+                <a
+                  href={selectedOrder.admin_invoice}
+                  download
+                  target="_blank"
+                  rel="noreferrer"
+                >
                   <svg
                     width="30"
                     height="30"
