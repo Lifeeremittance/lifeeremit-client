@@ -11,6 +11,7 @@ import {
 import { History } from "../pages/history";
 import { Edit } from "../pages/edit";
 import { Landing } from "../pages/landing";
+import { About } from "../pages/about";
 
 import "./../App.css";
 
@@ -28,6 +29,7 @@ const AppRouter = () => {
       <Route path="/products/payment/:id" element={<Payment />} />
       <Route path="/history" element={<History />} />
       <Route path="/edit" element={<Edit />} />
+      <Route path="/about" element={<About />} />
     </Routes>
   );
 };
