@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import { Row, Col, Collapse, InputGroup, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-// import manImage from "../../assets/img/man.png";
-// import womanImage from "../../assets/img/woman.png";
 import logoImage from "../../assets/img/logo.png";
 import phoneImage from "../../assets/img/phone.png";
-import locationImage from "../../assets/img/location.png";
+// import locationImage from "../../assets/img/location.png";
 import emailImage from "../../assets/img/email.png";
 
 type Props = {
@@ -287,9 +285,9 @@ export const Landing: React.FC<Props> = () => {
 
           <div className="d-flex align-items-center justify-content-center mt-5">
             <p style={{ lineHeight: "32px" }} className="w-70 w-md-90">
-              Paymit is a portal that allows small scale business in Nigeria and
-              other African countries to make payments in their local currency
-              for various OEMs license and license keys.{" "}
+              Lifeeremit is a portal that allows small scale business in Nigeria
+              and other African countries to make payments in their local
+              currency for various OEMs license and license keys.{" "}
             </p>
           </div>
           <button className="btn btn_theme w-auto px-5 mt-2">Pay Now</button>
@@ -1000,7 +998,7 @@ export const Landing: React.FC<Props> = () => {
             >
               Let's talk, Contact us now
             </h1>
-            <h5 className="my-4">Fill out the form or use the details below</h5>
+            <h5 className="my-5">Fill out the form or use the details below</h5>
 
             <div className="d-flex align-items-center mb-3">
               <div className="icon-container d-flex align-items-center justify-content-center me-3">
@@ -1013,7 +1011,7 @@ export const Landing: React.FC<Props> = () => {
               </div>
             </div>
 
-            <div className="d-flex align-items-center mb-3">
+            {/* <div className="d-flex align-items-center mb-3">
               <div className="icon-container d-flex align-items-center justify-content-center me-3">
                 <img src={locationImage} alt="email" width={40} height={40} />
               </div>
@@ -1022,7 +1020,7 @@ export const Landing: React.FC<Props> = () => {
                 <h6 className="fw-bold">Address</h6>
                 <span>Lagos, Nigeria</span>
               </div>
-            </div>
+            </div> */}
 
             <div className="d-flex align-items-center mb-3">
               <div className="icon-container d-flex align-items-center justify-content-center me-3">
@@ -1031,7 +1029,7 @@ export const Landing: React.FC<Props> = () => {
 
               <div>
                 <h6 className="fw-bold">Phone</h6>
-                <span>info@lifeeremit.com</span>
+                <span>+234 808 018 7158</span>
               </div>
             </div>
           </Col>
@@ -1057,7 +1055,7 @@ export const Landing: React.FC<Props> = () => {
               />
 
               <Form.Control
-                type="text"
+                type="email"
                 className="form_inputs border-0 mt-4 w-100"
                 placeholder="Email"
                 style={{
@@ -1090,7 +1088,11 @@ export const Landing: React.FC<Props> = () => {
                 // onChange={(e) => setLicenseKey(e.target.value)}
               />
 
-              <button className="btn btn_theme mt-4 w-auto px-5">Submit</button>
+              <input
+                type="submit"
+                className="btn btn_theme mt-4 w-auto px-5"
+                value="Submit"
+              />
             </div>
           </Col>
         </Row>
@@ -1100,14 +1102,19 @@ export const Landing: React.FC<Props> = () => {
         <Row className="mb-5 d-none d-md-flex">
           <Col md={5}>
             <div className="d-flex align-items-left justify-content-between flex-column h-100">
-              <b>&copy; Paymit</b>
+              <b>&copy; Lifeeremit</b>
               <b>Terms & Conditions</b>
             </div>
           </Col>
           <Col md={7}>
             <Row className="mb-4">
               <Col md={4}>
-                <b>About</b>
+                <b
+                  onClick={() => navigate("/about")}
+                  className="cursor-pointer"
+                >
+                  About
+                </b>
               </Col>
               <Col md={4}>
                 <b>Help</b>
@@ -1118,13 +1125,18 @@ export const Landing: React.FC<Props> = () => {
             </Row>
             <Row className="mb-3">
               <Col md={4}>
-                <p className="faint-text text-small">Team</p>
+                <p
+                  className="faint-text text-small cursor-pointer"
+                  onClick={() => navigate("/about")}
+                >
+                  Team
+                </p>
               </Col>
               <Col md={4}>
                 <p className="faint-text text-small">Contact us</p>
               </Col>
               <Col md={4}>
-                <p className="faint-text text-small">Instagram</p>
+                <p className="faint-text text-small">Twitter</p>
               </Col>
             </Row>
             <Row className="mb-3">
@@ -1143,16 +1155,7 @@ export const Landing: React.FC<Props> = () => {
                 <p className="faint-text text-small">Careers</p>
               </Col>
               <Col md={4}></Col>
-              <Col md={4}>
-                <p className="faint-text text-small">Twitter</p>
-              </Col>
-            </Row>
-            <Row className="mb-5">
               <Col md={4}></Col>
-              <Col md={4}></Col>
-              <Col md={4}>
-                <p className="faint-text text-small">Facebook</p>
-              </Col>
             </Row>
           </Col>
         </Row>
