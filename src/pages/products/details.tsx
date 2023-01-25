@@ -35,6 +35,7 @@ export const Details: React.FC<Props> = () => {
   const [reason, setReason] = useState("");
   const [referenceNumber, setReferenceNumber] = useState("");
   const [invoiceNumber, setInvoiceNumber] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -66,6 +67,7 @@ export const Details: React.FC<Props> = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setLoading(true);
     // generate random 10 digit characters
     const randomString = Math.random().toString(36).substring(2, 15);
     const storageRef = ref(storage, randomString);
@@ -93,6 +95,7 @@ export const Details: React.FC<Props> = () => {
     } else {
       toast.error(response);
     }
+    setLoading(false);
   };
 
   return (
@@ -260,7 +263,7 @@ export const Details: React.FC<Props> = () => {
                 className="btn btn_theme fw-bold w-auto px-5 fs-5"
                 onClick={handleSubmit}
                 disabled={
-                  !phoneNumber || !email || !invoice.preview || !companyName
+                  !phoneNumber || !email || !invoice.preview || !companyName || loading
                 }
               >
                 Save & Continue

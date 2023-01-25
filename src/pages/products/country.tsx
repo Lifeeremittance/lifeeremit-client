@@ -70,7 +70,7 @@ export const Country: React.FC<Props> = () => {
           <div className="bg-white vh-85 border-top-left-radius py-5 y-scroll">
             <ProgressBar now={20} />
 
-            <h3 className="fw-bold my-5">Select your currency</h3>
+            <h3 className="fw-bold my-5">Invoice Currency</h3>
             <Form>
               <InputGroup
                 style={{ height: "54px", width: "394px" }}

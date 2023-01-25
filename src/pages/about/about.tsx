@@ -19,7 +19,7 @@ export const About: React.FC<Props> = () => {
 
   return (
     <div className="vw-100 vh-100 body-bg y-scroll px-0 position-relative">
-      <div className="vh-15 d-flex align-items-center px-5">
+      <div className="vh-10 d-none d-md-flex align-items-center px-5">
         <Col md={4}>
           {/* <b className="fs-4">Lifee Remit</b> */}
           <img src={logoImage} alt="logo" className="logo img-fluid" />
@@ -32,21 +32,21 @@ export const About: React.FC<Props> = () => {
             Home
           </a>
           <a className="m-0 text-theme no-underline" href="/about">
-            About
+            About Us
           </a>
-          <a className="m-0 text-muted no-underline" href="#contact">
+          <a className="m-0 text-muted no-underline" href="/contact">
             Contact
           </a>
         </Col>
         <Col md={4} className="text-right">
           <button
-            className="btn btn_theme w-25 me-3"
+            className="btn btn_theme w-auto px-4 rounded me-3"
             onClick={() => navigate("/signup")}
           >
             Sign Up
           </button>
           <button
-            className="btn btn_theme w-25"
+            className="btn btn_theme w-auto px-4 rounded"
             onClick={() => navigate("/signin")}
           >
             Log In
@@ -55,25 +55,12 @@ export const About: React.FC<Props> = () => {
       </div>
 
       <div className="position-relative">
-        <div className="position-absolute top-0 start-0 text-center w-100">
+        <div className="bg-theme top-0 start-0 text-center w-100 pt-4 pb-5">
           <h1 className="fw-bold mt-5 mb-3" style={{ fontSize: 80 }}>
             About us
           </h1>
-          <h4>Lifee remit</h4>
+          <h4 className="mb-5">Lifee remit</h4>
         </div>
-        <svg
-          width="1439"
-          height="430"
-          viewBox="0 0 1439 430"
-          fill="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            opacity="0.1"
-            d="M1439 0H0.5V329C156 329 398 312 622.5 386C847 460 1275 424.887 1439 386V0Z"
-            fill="#6246EA"
-          />
-        </svg>
       </div>
 
       <div className="px-5 mb-5">
