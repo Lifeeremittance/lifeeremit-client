@@ -18,7 +18,12 @@ export const Contact: React.FC<Props> = () => {
       <div className="vh-10 d-none d-md-flex align-items-center px-5">
         <Col md={4}>
           {/* <b className="fs-4">Lifee Remit</b> */}
-          <img src={logoImage} alt="logo" className="logo img-fluid" />
+          <img
+            src={logoImage}
+            alt="logo"
+            className="logo img-fluid cursor-pointer"
+            onClick={() => navigate("/")}
+          />
         </Col>
         <Col
           md={4}
