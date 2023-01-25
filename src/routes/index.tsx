@@ -12,6 +12,7 @@ import { History } from "../pages/history";
 import { Edit } from "../pages/edit";
 import { Landing } from "../pages/landing";
 import { About } from "../pages/about";
+import { Contact } from "../pages/contact";
 
 import "./../App.css";
 
@@ -30,6 +31,7 @@ const AppRouter = () => {
       <Route path="/history" element={<History />} />
       <Route path="/edit" element={<Edit />} />
       <Route path="/about" element={<About />} />
+      <Route path="/contact" element={<Contact />} />
     </Routes>
   );
 };
