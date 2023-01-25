@@ -22,7 +22,12 @@ export const About: React.FC<Props> = () => {
       <div className="vh-10 d-none d-md-flex align-items-center px-5">
         <Col md={4}>
           {/* <b className="fs-4">Lifee Remit</b> */}
-          <img src={logoImage} alt="logo" className="logo img-fluid" />
+          <img
+            src={logoImage}
+            alt="logo"
+            className="logo img-fluid cursor-pointer"
+            onClick={() => navigate("/")}
+          />
         </Col>
         <Col
           md={4}
@@ -1051,11 +1056,9 @@ export const About: React.FC<Props> = () => {
               Our mission
             </div>
             <div style={{ lineHeight: "32px" }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-              et facilisis tellus. Sed vel malesuada quam. Nam sodales eget
-              justoLorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Integer et facilisis tellus. Sed vel malesuada quam. Nam sodales
-              eget justo
+              We are a team of software experts with a combined 30 years of
+              multinational software experience, we have done this before and
+              have an extensive relationship with numerous OEMs in Africa.
             </div>
           </Col>
         </Row>
@@ -1104,18 +1107,30 @@ export const About: React.FC<Props> = () => {
         </Row>
       </div>
 
-      <div className="bg-black text-white p-5">
-        <Row className="mb-5">
+      <div className="bg-black text-white p-4 p-md-5">
+        <Row className="mb-5 d-none d-md-flex">
           <Col md={5}>
             <div className="d-flex align-items-left justify-content-between flex-column h-100">
               <b>&copy; Lifeeremit</b>
-              <b>Terms & Conditions</b>
+              <a
+                href="https://www.notion.so/Policies-05f03a421a0047658fb633ecbc5ec8cc"
+                className="fw-bold no-underline text-white"
+                target="_blank"
+                rel="noreferrer"
+              >
+                Terms & Conditions
+              </a>
             </div>
           </Col>
           <Col md={7}>
             <Row className="mb-4">
               <Col md={4}>
-                <b>About</b>
+                <b
+                  onClick={() => navigate("/about")}
+                  className="cursor-pointer"
+                >
+                  About
+                </b>
               </Col>
               <Col md={4}>
                 <b>Help</b>
@@ -1126,44 +1141,132 @@ export const About: React.FC<Props> = () => {
             </Row>
             <Row className="mb-3">
               <Col md={4}>
-                <p className="faint-text text-small">Team</p>
+                <p
+                  className="faint-text text-small cursor-pointer"
+                  onClick={() => navigate("/about")}
+                >
+                  Team
+                </p>
               </Col>
               <Col md={4}>
-                <p className="faint-text text-small">Contact us</p>
+                <p
+                  className="faint-text text-small"
+                  onClick={() => navigate("/contact")}
+                >
+                  Contact us
+                </p>
               </Col>
-              <Col md={4}>
-                <p className="faint-text text-small">Instagram</p>
-              </Col>
-            </Row>
-            <Row className="mb-3">
-              <Col md={4}>
-                <p className="faint-text text-small">Our Story</p>
-              </Col>
-              <Col md={4}>
-                <p className="faint-text text-small">FAQs</p>
-              </Col>
-              <Col md={4}>
-                <p className="faint-text text-small">LinkedIn</p>
-              </Col>
-            </Row>
-            <Row className="mb-3">
-              <Col md={4}>
-                <p className="faint-text text-small">Careers</p>
-              </Col>
-              <Col md={4}></Col>
               <Col md={4}>
                 <p className="faint-text text-small">Twitter</p>
               </Col>
             </Row>
-            <Row className="mb-5">
-              <Col md={4}></Col>
-              <Col md={4}></Col>
+            <Row className="mb-3">
               <Col md={4}>
-                <p className="faint-text text-small">Facebook</p>
+                <p
+                  className="faint-text text-small"
+                  onClick={() => navigate("/about")}
+                >
+                  Our Story
+                </p>
               </Col>
+              <Col md={4}>
+                <a
+                  href="#faq"
+                  className="faint-text text-small no-underline text-white"
+                >
+                  FAQs
+                </a>
+              </Col>
+              <Col md={4}>
+                <a
+                  className="faint-text text-small no-underline text-white"
+                  href="https://www.linkedin.com/company/lifee-remit/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  LinkedIn
+                </a>
+              </Col>
+            </Row>
+            <Row className="mb-3">
+              <Col md={4}>
+                <p
+                  className="faint-text text-small"
+                  onClick={() => navigate("/contact")}
+                >
+                  Careers
+                </p>
+              </Col>
+              <Col md={4}>
+                <a
+                  className="faint-text text-small no-underline text-white"
+                  href="https://www.linkedin.com/company/lifee-remit/"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  Help
+                </a>
+              </Col>
+              <Col md={4}></Col>
             </Row>
           </Col>
         </Row>
+
+        <div className="d-md-none mb-5">
+          <b>&copy; Lifeeremit</b>
+          <Row className="my-4">
+            <Col xs={4}>
+              <b>About</b>
+            </Col>
+            <Col xs={4}>
+              <b>Help</b>
+            </Col>
+            <Col xs={4}>
+              <b>Socials</b>
+            </Col>
+          </Row>
+          <Row className="mb-3">
+            <Col xs={4}>
+              <p className="faint-text text-small">Team</p>
+            </Col>
+            <Col xs={4}>
+              <p className="faint-text text-small">Contact us</p>
+            </Col>
+            <Col xs={4}>
+              <p className="faint-text text-small">Instagram</p>
+            </Col>
+          </Row>
+          <Row className="mb-3">
+            <Col xs={4}>
+              <p className="faint-text text-small">Our Story</p>
+            </Col>
+            <Col xs={4}>
+              <p className="faint-text text-small">FAQs</p>
+            </Col>
+            <Col xs={4}>
+              <p className="faint-text text-small">LinkedIn</p>
+            </Col>
+          </Row>
+          <Row className="mb-3">
+            <Col xs={4}>
+              <p className="faint-text text-small">Careers</p>
+            </Col>
+            <Col xs={4}></Col>
+            <Col xs={4}>
+              <p className="faint-text text-small">Twitter</p>
+            </Col>
+          </Row>
+          <Row className="mb-5">
+            <Col xs={4}></Col>
+            <Col xs={4}></Col>
+            <Col xs={4}>
+              <p className="faint-text text-small">Facebook</p>
+            </Col>
+          </Row>
+          <div className="text-center">
+            <b>Terms & Conditions</b>
+          </div>
+        </div>
       </div>
     </div>
   );
