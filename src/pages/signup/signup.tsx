@@ -12,6 +12,7 @@ type Props = {
 };
 
 export const Signup: React.FC<Props> = () => {
+  const [fullName, setFullName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState<any>("");
   const [email, setEmail] = useState("");
   const [companyName, setCompanyName] = useState("");
@@ -21,7 +22,13 @@ export const Signup: React.FC<Props> = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
-    const response = await createUser(email, phoneNumber, companyName, address);
+    const response = await createUser(
+      fullName,
+      email,
+      phoneNumber,
+      companyName,
+      address
+    );
     if (response?.data?.status === "success") {
       toast.success("Signup successful");
       navigate("/signin");
@@ -112,6 +119,14 @@ export const Signup: React.FC<Props> = () => {
           <b className="fs-5">Personal details</b>
         </div>
         <Form.Group controlId="formBasicEmail">
+          <Form.Label className="fw-bold">Full Name</Form.Label>
+          <Form.Control
+            type="text"
+            placeholder="Enter name"
+            className="form_inputs mb-3"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+          />
           <Form.Label className="fw-bold">Email address</Form.Label>
           <Form.Control
             type="email"
