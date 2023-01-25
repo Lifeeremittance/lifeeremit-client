@@ -123,7 +123,7 @@ export const Signin: React.FC<Props> = () => {
           </button>
 
           <div className="w-100 mb-4">
-            New to Paymit?
+            New to Lifeeremit?
             <Link to="/signup" className="link_theme ms-2">
               Sign Up
             </Link>

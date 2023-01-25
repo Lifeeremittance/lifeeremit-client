@@ -280,9 +280,9 @@ export const Landing: React.FC<Props> = () => {
 
           <div className="d-flex align-items-center justify-content-center mt-5">
             <p style={{ lineHeight: "32px" }} className="w-70 w-md-90">
-              Small businesses in Africa are having difficulties paying for
+              Small businesses in Africa are facing difficulties paying for
               invoiced software in foreign currencies due to central bank
-              policies and forex regulations. Lifee Remit is collaborated with
+              policies and forex regulations. Lifee Remit is collaborating with
               leading OEMs, software and SaaS providers to offer a convenient
               alternative for license payment and renewals in local currencies.
             </p>

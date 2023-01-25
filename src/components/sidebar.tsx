@@ -19,7 +19,7 @@ const Sidebar = () => {
 
   return (
     <Col md={4} lg={3} className="p-0">
-      <div className="sidebar_menu body-bg vh-100 text-center">
+      <div className="sidebar_menu body-bg vh-100">
         {/* <h3
           className="fw-bold pt-5 cursor-pointer"
           onClick={() => navigate("/signin")}
@@ -27,16 +27,16 @@ const Sidebar = () => {
           Paymit
         </h3> */}
 
-        <h5 className="py-5 fw-bold">Welcome User</h5>
+        <h5 className="pt-5 ps-5 fw-bold">Welcome {sessionStorage.getItem("userFullName")?.split(" ")[0]}</h5>
 
         <img
           src={logoImage}
           alt="logo"
-          className="paymit-logo img-fluid cursor-pointer my-3"
+          className="ps-5 img-fluid cursor-pointer my-3 position-relative"
           onClick={() => navigate("/signin")}
         />
 
-        <ul className="nav flex-column pt-5 justify-content-between side-specific-height align-items-start ps-5">
+        <ul className="nav flex-column justify-content-between side-specific-height align-items-start ps-5">
           <li className="nav-item mb-4">
             <NavLink
               to="/products"

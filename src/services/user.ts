@@ -5,6 +5,7 @@ const cookie = new Cookie();
 const jwt = cookie.get("jwt");
 
 export const createUser = async (
+  fullName: string,
   email_address: string,
   phone_number: string,
   companyName: string,
@@ -13,6 +14,7 @@ export const createUser = async (
   const response = await Api.post(
     `/users`,
     {
+      fullName,
       email_address,
       phone_number,
       roles: ["user"],
