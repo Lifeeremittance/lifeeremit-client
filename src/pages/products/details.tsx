@@ -209,7 +209,7 @@ export const Details: React.FC<Props> = () => {
                   <span className="text-small">(Optional)</span>
                 </Form.Label>
                 <Form.Control
-                  type="number"
+                  type="text"
                   placeholder="Invoice Number"
                   className="form_inputs mb-5 w-100"
                   value={invoiceNumber}

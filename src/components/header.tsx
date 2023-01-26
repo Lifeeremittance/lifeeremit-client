@@ -42,7 +42,7 @@ const Header = () => {
 
   return (
     <header className="d-flex align-items-center justify-content-end vh-15 body-bg p-3">
-      <i className="fa fa-bell fs-3 me-3" aria-hidden="true"></i>
+      {/* <i className="fa fa-bell fs-3 me-3" aria-hidden="true"></i> */}
       <Dropdown>
         <Dropdown.Toggle
           as={CustomToggle}

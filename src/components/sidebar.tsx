@@ -33,7 +33,7 @@ const Sidebar = () => {
           src={logoImage}
           alt="logo"
           className="ps-5 img-fluid cursor-pointer my-3 position-relative"
-          onClick={() => navigate("/signin")}
+          onClick={() => navigate("/products")}
         />
 
         <ul className="nav flex-column justify-content-between side-specific-height align-items-start ps-5">
