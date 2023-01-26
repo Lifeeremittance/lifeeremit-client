@@ -14,6 +14,7 @@ type Props = {
 export const Verify: React.FC<Props> = () => {
   const navigate = useNavigate();
   const [passcode, setPasscode] = useState<string>("");
+  const [loading, setLoading] = useState<boolean>(false);
 
   const cookies = new Cookies();
 
@@ -22,6 +23,7 @@ export const Verify: React.FC<Props> = () => {
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setLoading(true);
     const response = await validateToken(
       passcode,
       email,
@@ -34,6 +36,7 @@ export const Verify: React.FC<Props> = () => {
     } else {
       toast.error(response);
     }
+    setLoading(false);
   };
 
   return (
@@ -128,7 +131,7 @@ export const Verify: React.FC<Props> = () => {
             onChange={(e) => setPasscode(e.target.value)}
           />
 
-          <button className="btn btn_theme w-100 mb-4" onClick={handleSubmit}>
+          <button className="btn btn_theme w-100 mb-4" onClick={handleSubmit} disabled={loading}>
             Continue
           </button>
 

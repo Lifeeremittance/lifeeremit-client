@@ -17,11 +17,13 @@ export const Signup: React.FC<Props> = () => {
   const [email, setEmail] = useState("");
   const [companyName, setCompanyName] = useState("");
   const [address, setAddress] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e: any) => {
     e.preventDefault();
+    setLoading(true);
     const response = await createUser(
       fullName,
       email,
@@ -35,6 +37,7 @@ export const Signup: React.FC<Props> = () => {
     } else {
       toast.error(response);
     }
+    setLoading(false);
   };
 
   return (
@@ -172,7 +175,11 @@ export const Signup: React.FC<Props> = () => {
             onChange={(e) => setAddress(e.target.value)}
           />
 
-          <button className="btn btn_theme w-100 mb-4" onClick={handleSubmit}>
+          <button
+            className="btn btn_theme w-100 mb-4"
+            onClick={handleSubmit}
+            disabled={loading}
+          >
             Create My Profile
           </button>
 
