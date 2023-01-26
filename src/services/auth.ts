@@ -39,3 +39,14 @@ export const validateToken = async (
   );
   return response;
 };
+
+export const subscribeToNewsletter = async (email_address: string) => {
+  const response = await Api.post(
+    `/newsletter`,
+    {
+      email_address,
+    },
+    {}
+  );
+  return response;
+};

@@ -1,6 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { Row, Col, InputGroup, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
+
+import { subscribeToNewsletter } from "../../services/auth";
 import logoImage from "../../assets/img/logo.png";
 
 type Props = {
@@ -10,24 +13,24 @@ type Props = {
 export const About: React.FC<Props> = () => {
   const navigate = useNavigate();
 
-  //   const link = document.querySelector("a[href='#about']");
-  //   link.addEventListener("click", function(event) {
-  //     event.preventDefault();
-  //     const element = document.getElementById("about");
-  //     element.scrollIntoView({ behavior: 'smooth' });
-  //   });
+  const [email, setEmail] = useState<string>("");
+
+  const signUpToNewsletter = async () => {
+    const response = await subscribeToNewsletter(email);
+    
+    console.log(response);
+    if (response?.status === 201) {
+      setEmail("");
+      toast.success(response.data.data);
+    }
+  };
 
   return (
     <div className="vw-100 vh-100 body-bg y-scroll px-0 position-relative">
       <div className="vh-10 d-none d-md-flex align-items-center px-5">
         <Col md={4}>
           {/* <b className="fs-4">Lifee Remit</b> */}
-          <img
-            src={logoImage}
-            alt="logo"
-            className="logo img-fluid cursor-pointer"
-            onClick={() => navigate("/")}
-          />
+          <img src={logoImage} alt="logo" className="logo img-fluid" />
         </Col>
         <Col
           md={4}
@@ -1056,21 +1059,23 @@ export const About: React.FC<Props> = () => {
               Our mission
             </div>
             <div style={{ lineHeight: "32px" }}>
-              We are a team of software experts with a combined 30 years of
-              multinational software experience, we have done this before and
-              have an extensive relationship with numerous OEMs in Africa.
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
+              et facilisis tellus. Sed vel malesuada quam. Nam sodales eget
+              justoLorem ipsum dolor sit amet, consectetur adipiscing elit.
+              Integer et facilisis tellus. Sed vel malesuada quam. Nam sodales
+              eget justo
             </div>
           </Col>
         </Row>
       </div>
 
-      <div style={{ height: "220px", backgroundColor: "#353535" }} id="contact">
+      <div style={{ height: "220px", backgroundColor: "#353535" }}>
         <Row className="h-100 position-relative">
           <div className="position-absolute w-100 text-white h-100">
-            <div className="d-flex align-items-center justify-content-between flex-row h-100 w-100 p-5">
+            <div className="d-block d-md-flex align-items-center justify-content-between flex-row h-100 w-100 p-4">
               <div>
                 <h2 className="w-100">Sign up to our newsletter</h2>
-                <div style={{ opacity: 0.6 }}>
+                <div style={{ opacity: 0.6 }} className="mb-3">
                   Sign up and get latest updates from Lifee Remit in your
                   mailbox
                 </div>
@@ -1084,16 +1089,18 @@ export const About: React.FC<Props> = () => {
                     placeholder="Enter your email"
                     style={{
                       borderRadius: "10px 0px 0px 10px",
-                      width: "394px",
+                      // minWidth: "200px",
                     }}
-                    // onChange={(e) => setLicenseKey(e.target.value)}
+                    onChange={(e) => setEmail(e.target.value)}
+                    value={email}
                   />
                   <div
-                    className="d-flex align-items-center px-4"
+                    className="d-flex align-items-center px-4 cursor-pointer"
                     style={{
                       borderRadius: "0px 10px 10px 0px",
                       backgroundColor: "#9b62cd",
                     }}
+                    onClick={signUpToNewsletter}
                   >
                     Sign Up
                   </div>
