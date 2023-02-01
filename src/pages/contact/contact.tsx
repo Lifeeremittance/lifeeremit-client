@@ -7,6 +7,8 @@ import logoImage from "../../assets/img/logo.png";
 import phoneImage from "../../assets/img/phone.png";
 // import locationImage from "../../assets/img/location.png";
 import emailImage from "../../assets/img/email.png";
+import hamburger from "../../assets/img/hamburger.svg";
+import close from "../../assets/img/X.svg";
 
 type Props = {
   children?: JSX.Element | JSX.Element[];
@@ -26,6 +28,7 @@ export const Contact: React.FC<Props> = () => {
   const [details, setDetails] = useState<string>("");
 
   const [loading, setLoading] = useState<boolean>(false);
+  const [nav, setNav] = useState<boolean>(false);
 
   const submit = async (e: any) => {
     e.preventDefault();
@@ -120,22 +123,26 @@ export const Contact: React.FC<Props> = () => {
 
     window.location.reload();
   };
+  const handleClick = () => {
+    setNav(!nav);
+  };
 
   return (
     <div className="vw-100 vh-100 body-bg y-scroll px-0 position-relative">
       <div className="vh-10 d-none d-md-flex align-items-center px-5">
         <Col md={4}>
-          {/* <b className="fs-4">Lifee Remit</b> */}
+          <a className="m-0" href="/">
           <img src={logoImage} alt="logo" className="logo img-fluid" />
+          </a>
         </Col>
         <Col
           md={4}
-          className="justify-content-evenly align-items-center d-flex"
+          className="justify-content-center align-items-center d-flex"
         >
           <a className="m-0 text-muted no-underline" href="/">
             Home
           </a>
-          <a className="m-0 text-muted no-underline" href="/about">
+          <a className="m-0 text-muted no-underline mx-5" href="/about">
             About Us
           </a>
           <a className="m-0 text-theme no-underline" href="/contact">
@@ -143,17 +150,67 @@ export const Contact: React.FC<Props> = () => {
           </a>
         </Col>
         <Col md={4} className="text-right">
-          <button
-            className="btn btn_theme w-auto px-4 rounded me-3"
-            onClick={() => navigate("/signup")}
-          >
-            Sign Up
-          </button>
+        <a className="m-0 text-muted no-underline mx-3" href="/signin">
+            Sign in
+          </a>
           <button
             className="btn btn_theme w-auto px-4 rounded"
-            onClick={() => navigate("/signin")}
+            onClick={() => navigate("/signup")}
           >
-            Log In
+            Sign up
+          </button>
+        </Col>
+      </div>
+
+      {/* mobile nav  */}
+    
+      <div className="vh-10 d-flex d-md-none align-items-center justify-content-between px-3 mb-1">
+        <Col md={4}>
+        <a className="m-0" href="/">
+          <img src={logoImage} alt="logo" className="logo img-fluid" />         
+          </a>
+        </Col>
+          <div onClick={handleClick} className="cursor-pointer">
+          <img src={hamburger} alt="logo" className="" />
+      </div>
+      </div>
+
+      <div className={
+        !nav ? "d-none" : "h-75 w-100 d-md-none align-items-center justfiy-content-center px-3 bg-white position-fixed mobile-nav"}>
+        <div className="d-flex justify-content-between align-items-center">
+
+        <Col md={4}>
+          <a className="m-0" href="/">
+          <img src={logoImage} alt="logo" className="logo img-fluid" />         
+          </a>
+        </Col>
+          <div onClick={handleClick} className="cursor-pointer">
+          <img src={close} alt="logo" className="" />
+      </div>
+        </div>
+        <Col
+          md={4}
+          className="justify-content-center align-items-center d-flex flex-column fw-bold fs-2 my-4"
+        >
+          <a className="m-0 text-muted no-underline" href="/">
+            Home
+          </a>
+          <a className="m-0 text-muted no-underline my-3" href="/about">
+            About Us
+          </a>
+          <a className="m-0 text-theme no-underline" href="/contact">
+            Contact
+          </a>
+        </Col>
+        <Col md={4} className="text-center mt-5">
+        <a className="text-muted no-underline mx-3 fw-bold" href="/signin">
+            Sign in
+          </a>
+          <button
+            className="btn btn_theme w-auto px-4 rounded"
+            onClick={() => navigate("/signup")}
+          >
+            Sign up
           </button>
         </Col>
       </div>

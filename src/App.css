@@ -48,6 +48,14 @@
   bottom: 89.84%;
   color: #2b2c34;
 }
+.paymit-signUp {
+  position: absolute;
+  left: 5.42%;
+  right: 87.64%;
+  /* top: 1.15%; */
+  bottom: 89.84%;
+  color: #2b2c34;
+}
 
 .body-bg {
   /* background: linear-gradient(
@@ -139,6 +147,7 @@
 
 .providers_list {
   height: 200px;
+  width: 200px;
   border: 0.796px solid rgba(0, 0, 0, 0.13);
   box-shadow: 0px 0.796px 3.184px rgba(0, 0, 0, 0.15);
   border-radius: 40px;
@@ -274,7 +283,7 @@ tr {
   font-size: 72px;
   line-height: 70px;
   text-align: center;
-  color: #2b2c34;
+  color: #3d3f49;
 }
 
 .w-70 {
@@ -315,6 +324,8 @@ tr {
 .testimonial_img {
   width: 300px;
   height: 300px;
+  filter: drop-shadow(-20px 21px 0px #FFFFFF);
+  border: 2px solid #FFFFFF;
 }
 
 .faq-text {
@@ -398,6 +409,19 @@ tr {
   text-decoration: none;
 }
 
+
+.collaborators-logo{
+  opacity: 0.4;
+}
+.collaborators-logo:hover{
+  opacity: 1;
+}
+.mobile-nav{
+  z-index: 999;
+  top: 0;
+  left: 0;
+}
+
 /* screens less that 767px */ 
 @media screen and (max-width: 767px) {
   .landing-text, .faq-text {
@@ -417,4 +441,10 @@ tr {
   .f-md-28 {
     font-size: 28px !important;
   }
+  .testimonial_img{
+    width: 150px;
+    height: 150px;
+  }
 }
+
+

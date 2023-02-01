@@ -64,7 +64,7 @@ export const Country: React.FC<Props> = () => {
     <Container fluid className="vw-100 vh-100">
       <Row className="p-0">
         <Sidebar />
-        <Col md={8} lg={9} className="p-0 body-bg">
+        <Col md={8} lg={10} className="p-0 body-bg">
           <Header />
 
           <div className="bg-white vh-85 border-top-left-radius py-5 y-scroll">

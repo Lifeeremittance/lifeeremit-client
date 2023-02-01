@@ -18,7 +18,7 @@ const Sidebar = () => {
   }, []);
 
   return (
-    <Col md={4} lg={3} className="p-0">
+    <Col md={4} lg={2} className="p-0">
       <div className="sidebar_menu body-bg vh-100">
         {/* <h3
           className="fw-bold pt-5 cursor-pointer"
@@ -34,6 +34,7 @@ const Sidebar = () => {
           alt="logo"
           className="ps-5 img-fluid cursor-pointer my-3 position-relative"
           onClick={() => navigate("/products")}
+          width="190"
         />
 
         <ul className="nav flex-column justify-content-between side-specific-height align-items-start ps-5">

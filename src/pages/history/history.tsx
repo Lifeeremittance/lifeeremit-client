@@ -127,7 +127,7 @@ export const History: React.FC<Props> = () => {
     <Container fluid className="vw-100 vh-100">
       <Row className="p-0">
         <Sidebar />
-        <Col md={8} lg={9} className="p-0 body-bg">
+        <Col md={8} lg={10} className="p-0 body-bg">
           <Header />
 
           <div className="bg-white vh-85 border-top-left-radius py-5 y-scroll">
@@ -460,7 +460,7 @@ export const History: React.FC<Props> = () => {
                 className="text-center bg-theme text-white p-3"
                 style={{ borderRadius: "30px 30px 0px 0px" }}
               >
-                <b className="fs-5">Paymit</b>
+                <b className="fs-5">Lifee Remit</b>
               </div>
               <Card.Body className="p-4">
                 <div className="d-flex align-items-center justify-content-between">

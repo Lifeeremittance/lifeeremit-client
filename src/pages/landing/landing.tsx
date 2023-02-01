@@ -8,6 +8,8 @@ import logoImage from "../../assets/img/logo.png";
 import currencyImage from "../../assets/img/currency.png";
 import ratesImage from "../../assets/img/rates.png";
 import renewalImage from "../../assets/img/renewal.png";
+import hamburger from "../../assets/img/hamburger.svg";
+import close from "../../assets/img/X.svg";
 
 type Props = {
   children?: JSX.Element | JSX.Element[];
@@ -18,12 +20,17 @@ export const Landing: React.FC<Props> = () => {
   const [open2, setOpen2] = useState<boolean>(false);
   const [open3, setOpen3] = useState<boolean>(false);
   const [open4, setOpen4] = useState<boolean>(false);
+  const [nav, setNav] = useState<boolean>(false);
 
   const [selected, setSelected] = useState<number>(1);
 
   const [email, setEmail] = useState<string>("");
 
   const navigate = useNavigate();
+ 
+  const handleClick = () => {
+    setNav(!nav);
+  };
 
   let displayedImage = currencyImage;
   if (selected === 1) displayedImage = currencyImage;
@@ -75,16 +82,18 @@ export const Landing: React.FC<Props> = () => {
       <div className="vh-10 d-none d-md-flex align-items-center px-5">
         <Col md={4}>
           {/* <b className="fs-4">Lifee Remit</b> */}
+          <a className="m-0" href="/">
           <img src={logoImage} alt="logo" className="logo img-fluid" />
+          </a>
         </Col>
         <Col
           md={4}
-          className="justify-content-evenly align-items-center d-flex"
+          className="justify-content-center align-items-center d-flex"
         >
           <a className="m-0 text-theme no-underline" href="/">
             Home
           </a>
-          <a className="m-0 text-muted no-underline" href="/about">
+          <a className="m-0 text-muted no-underline mx-5" href="/about">
             About Us
           </a>
           <a className="m-0 text-muted no-underline" href="/contact">
@@ -92,19 +101,68 @@ export const Landing: React.FC<Props> = () => {
           </a>
         </Col>
         <Col md={4} className="text-right">
+        <a className="m-0 text-muted no-underline mx-3" href="/signin">
+            Sign in
+          </a>
           <button
             className="btn btn_theme w-auto px-4 rounded"
-            onClick={() => navigate("/signin")}
+            onClick={() => navigate("/signup")}
           >
-            Log In
+            Sign up
           </button>
         </Col>
       </div>
 
+      {/* mobile nav  */}
+    
       <div className="vh-10 d-flex d-md-none align-items-center justify-content-between px-3 mb-5">
-        <Col md={6}>
-          {/* <b className="fs-4">Lifee Remit</b> */}
-          <img src={logoImage} alt="logo" className="logo img-fluid" />
+        <Col md={4}>
+        <a className="m-0" href="/">
+          <img src={logoImage} alt="logo" className="logo img-fluid" />         
+          </a>
+        </Col>
+          <div onClick={handleClick} className="cursor-pointer">
+          <img src={hamburger} alt="logo" className="" />
+      </div>
+      </div>
+
+      <div className={
+        !nav ? "d-none" : "h-75 w-100 d-md-none align-items-center justfiy-content-center px-3 bg-white position-fixed mobile-nav"}>
+        <div className="d-flex justify-content-between align-items-center">
+
+        <Col md={4}>
+          <a className="m-0" href="/">
+          <img src={logoImage} alt="logo" className="logo img-fluid" />         
+          </a>
+        </Col>
+          <div onClick={handleClick} className="cursor-pointer">
+          <img src={close} alt="logo" className="" />
+      </div>
+        </div>
+        <Col
+          md={4}
+          className="justify-content-center align-items-center d-flex flex-column fw-bold fs-2 my-4"
+        >
+          <a className="m-0 text-theme no-underline" href="/">
+            Home
+          </a>
+          <a className="m-0 text-muted no-underline my-3" href="/about">
+            About Us
+          </a>
+          <a className="m-0 text-muted no-underline" href="/contact">
+            Contact
+          </a>
+        </Col>
+        <Col md={4} className="text-center mt-5">
+        <a className="text-muted no-underline mx-3 fw-bold" href="/signin">
+            Sign in
+          </a>
+          <button
+            className="btn btn_theme w-auto px-4 rounded"
+            onClick={() => navigate("/signup")}
+          >
+            Sign up
+          </button>
         </Col>
       </div>
 
@@ -276,12 +334,12 @@ export const Landing: React.FC<Props> = () => {
             fill="white"
           />
         </svg>
-        <div className="text-center w-70 w-md-90">
-          <div className="landing-text mb-2">
+        <div className="text-center w-70 w-md-90 mt-10">
+          <h1 className="landing-text mb-2">
             Stress free software License{" "}
             <span className="text-theme">Payments</span> and{" "}
             <span className="text-theme">Renewals </span>
-          </div>
+          </h1>
           <svg
             width="170"
             height="19"
@@ -311,12 +369,12 @@ export const Landing: React.FC<Props> = () => {
       </div>
 
       <div className="text-center mt-10 px-5">
-        <h5 className="mb-4">Collaborators</h5>
+        <h5 className="mb-5 fw-bold fs-4">Collaborators</h5>
 
         <Row className="px-5">
           <Col
             md={3}
-            className="d-flex align-items-center justify-content-center"
+            className="d-flex align-items-center justify-content-center collaborators-logo"
           >
             <img
               src="https://download.logo.wine/logo/Sage_Group/Sage_Group-Logo.wine.png"
@@ -327,7 +385,7 @@ export const Landing: React.FC<Props> = () => {
           </Col>
           <Col
             md={3}
-            className="d-flex align-items-center justify-content-center"
+            className="d-flex align-items-center justify-content-center collaborators-logo"
           >
             <img
               src="https://logos-world.net/wp-content/uploads/2022/02/SAP-Symbol.png"
@@ -338,18 +396,18 @@ export const Landing: React.FC<Props> = () => {
           </Col>
           <Col
             md={3}
-            className="d-flex align-items-center justify-content-center"
+            className="d-flex align-items-center justify-content-center collaborators-logo"
           >
             <img
               src="https://pngimg.com/uploads/microsoft/microsoft_PNG20.png"
               alt=""
-              width="136px"
+              width="200px"
               height="55px"
             />
           </Col>
           <Col
             md={3}
-            className="d-flex align-items-center justify-content-center"
+            className="d-flex align-items-center justify-content-center collaborators-logo"
           >
             <img
               src="https://1000logos.net/wp-content/uploads/2021/04/Oracle-logo.png"
@@ -361,7 +419,7 @@ export const Landing: React.FC<Props> = () => {
         </Row>
       </div>
 
-      <div className="px-3 px-md-5 mt-5 h-75 d-flex bg-black">
+      <div className="px-3 px-md-5 mt-5 h-75 d-flex bg-black p-5">
         <Row className="w-100 align-items-center">
           <Col md={5}>
             <div className="border-bottom">
@@ -448,8 +506,7 @@ export const Landing: React.FC<Props> = () => {
             <img
               src={displayedImage}
               alt="img"
-              className="w-100 rounded"
-              height={450}
+              className="w-100 rounded m-2 img-fluid"
             ></img>
           </Col>
         </Row>
@@ -457,19 +514,19 @@ export const Landing: React.FC<Props> = () => {
 
       <div className="bg-black text-white p-5">
         <h3>Testimonials</h3>
-        <div className="text-center fw-bold fs-3 my-4">
-          What our clients are saying
+        <div className="text-center  fs-3 my-4">
+          What our clients <br/>are saying
         </div>
 
-        <div className="d-flex align-items-center x-scroll mb-5">
+        <div className="d-flex align-items-center x-scroll my-5 p-3">
           <img
             src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
             alt="man"
-            className="testimonial_img rounded"
+            className="testimonial_img"
           ></img>
           <div className="mx-5">
-            <b className="fs-4 mb-3">Kola</b>
-            <p style={{ width: "300px" }}>
+            <b className="fs-2 mb-4">Kola</b>
+            <p style={{ width: "360px" }} className="mt-4">
               It was easier than I thought, I made payment in Naira and that was
               it, couple minutes later my Sage Business Cloud account was
               active.
@@ -478,11 +535,11 @@ export const Landing: React.FC<Props> = () => {
           <img
             src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
             alt="woman"
-            className="testimonial_img rounded"
+            className="testimonial_img"
           ></img>
           <div className="mx-5">
-            <b className="fs-4 mb-3">Aisha</b>
-            <p style={{ width: "300px" }}>
+            <b className="fs-2 mb-4">Aisha</b>
+            <p style={{ width: "360px" }} className="mt-4">
               I didn't need to call anyone or beg for my license key. I made
               payment and was kept up to date on the status of my license key
               from the OEM.
@@ -491,11 +548,11 @@ export const Landing: React.FC<Props> = () => {
           <img
             src="https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
             alt="woman"
-            className="testimonial_img rounded"
+            className="testimonial_img"
           ></img>
           <div className="mx-5">
-            <b className="fs-4 mb-3">David</b>
-            <p style={{ width: "300px" }}>
+            <b className="fs-2 mb-4">David</b>
+            <p style={{ width: "360px" }} className="mt-4">
               The charges are lower than the bank and the exchange rate is also
               good, compared to black market.
             </p>
@@ -508,7 +565,7 @@ export const Landing: React.FC<Props> = () => {
         id="faq"
       >
         <div className="w-75 w-md-90">
-          <div className="faq-text">Frequently asked questions</div>
+          <div className="faq-text">Frequently asked <br/>questions</div>
           <div className="border-bottom">
             <button
               onClick={() => setOpen(!open)}
@@ -623,6 +680,7 @@ export const Landing: React.FC<Props> = () => {
                     style={{
                       borderRadius: "10px 0px 0px 10px",
                       // minWidth: "200px",
+                      width: "",
                     }}
                     onChange={(e) => setEmail(e.target.value)}
                     value={email}
@@ -666,8 +724,7 @@ export const Landing: React.FC<Props> = () => {
             <Row className="mb-4">
               <Col md={4}>
                 <b
-                  onClick={() => navigate("/about")}
-                  className="cursor-pointer"
+                  
                 >
                   About
                 </b>
@@ -690,20 +747,20 @@ export const Landing: React.FC<Props> = () => {
               </Col>
               <Col md={4}>
                 <p
-                  className="faint-text text-small"
+                  className="faint-text text-small cursor-pointer"
                   onClick={() => navigate("/contact")}
                 >
                   Contact us
                 </p>
               </Col>
               <Col md={4}>
-                <p className="faint-text text-small">Twitter</p>
+                <p className="faint-text text-small cursor-pointer">Twitter</p>
               </Col>
             </Row>
             <Row className="mb-3">
               <Col md={4}>
                 <p
-                  className="faint-text text-small"
+                  className="faint-text text-small cursor-pointer"
                   onClick={() => navigate("/about")}
                 >
                   Our Story
@@ -731,7 +788,7 @@ export const Landing: React.FC<Props> = () => {
             <Row className="mb-3">
               <Col md={4}>
                 <p
-                  className="faint-text text-small"
+                  className="faint-text text-small cursor-pointer"
                   onClick={() => navigate("/contact")}
                 >
                   Careers
@@ -767,42 +824,45 @@ export const Landing: React.FC<Props> = () => {
           </Row>
           <Row className="mb-3">
             <Col xs={4}>
-              <p className="faint-text text-small">Team</p>
+              <p className="faint-text text-small"
+                  onClick={() => navigate("/about")}>Team</p>
             </Col>
             <Col xs={4}>
-              <p className="faint-text text-small">Contact us</p>
+              <p className="faint-text text-small"
+                  onClick={() => navigate("/contact")}>Contact us</p>
             </Col>
             <Col xs={4}>
-              <p className="faint-text text-small">Instagram</p>
+            <a
+                  className="faint-text text-small no-underline text-white"
+                  href="https://www.linkedin.com/company/lifee-remit/"
+                  target="_blank"
+                  rel="noreferrer"
+                >LinkedIn</a>
             </Col>
           </Row>
           <Row className="mb-3">
             <Col xs={4}>
-              <p className="faint-text text-small">Our Story</p>
+              <p className="faint-text text-small"
+                  onClick={() => navigate("/about")}>Our Story</p>
             </Col>
             <Col xs={4}>
-              <p className="faint-text text-small">FAQs</p>
+            <a
+                  href="#faq"
+                  className="faint-text text-small no-underline text-white"
+                >FAQs</a>
             </Col>
-            <Col xs={4}>
-              <p className="faint-text text-small">LinkedIn</p>
-            </Col>
-          </Row>
-          <Row className="mb-3">
-            <Col xs={4}>
-              <p className="faint-text text-small">Careers</p>
-            </Col>
-            <Col xs={4}></Col>
             <Col xs={4}>
               <p className="faint-text text-small">Twitter</p>
             </Col>
           </Row>
-          <Row className="mb-5">
-            <Col xs={4}></Col>
-            <Col xs={4}></Col>
+          <Row className="mb-3">
             <Col xs={4}>
-              <p className="faint-text text-small">Facebook</p>
+              <p className="faint-text text-small"
+                  onClick={() => navigate("/contact")}>Careers</p>
             </Col>
+            <Col xs={4}></Col>  
           </Row>
+          
           <div className="text-center">
             <b>Terms & Conditions</b>
           </div>

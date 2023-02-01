@@ -51,7 +51,7 @@ export const Signup: React.FC<Props> = () => {
         viewBox="0 0 505 542"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="blob-1"
+        className="blob-1 d-none d-md-block"
       >
         <path
           fillRule="evenodd"
@@ -81,7 +81,7 @@ export const Signup: React.FC<Props> = () => {
         viewBox="0 0 331 589"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="blob-2"
+        className="blob-2 d-none d-md-block"
       >
         <path
           fillRule="evenodd"
@@ -114,11 +114,11 @@ export const Signup: React.FC<Props> = () => {
       <img
         src={logoImage}
         alt="logo"
-        className="paymit-logo img-fluid cursor-pointer"
+        className="paymit-signUp img-fluid cursor-pointer"
         onClick={() => navigate("/")}
       />
-      <Form className="signup_form d-flex align-items-center flex-column bg-white">
-        <div className="text-center mb-4">
+      <Form className="signup_form d-flex align-items-center flex-column bg-white mt-5">
+        <div className="text-center my-5">
           <b className="fs-5">Personal details</b>
         </div>
         <Form.Group controlId="formBasicEmail">
@@ -126,7 +126,7 @@ export const Signup: React.FC<Props> = () => {
           <Form.Control
             type="text"
             placeholder="Enter name"
-            className="form_inputs mb-3"
+            className="form_inputs mb-3 w-md-100"
             value={fullName}
             onChange={(e) => setFullName(e.target.value)}
           />
@@ -134,7 +134,7 @@ export const Signup: React.FC<Props> = () => {
           <Form.Control
             type="email"
             placeholder="Enter email address"
-            className="form_inputs mb-3"
+            className="form_inputs mb-3 w-md-100"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -149,7 +149,7 @@ export const Signup: React.FC<Props> = () => {
             initialValueFormat="national"
             value={phoneNumber}
             onChange={setPhoneNumber}
-            className="ps-3 py-3 mb-3 form_inputs"
+            className="ps-3 py-3 mb-3 form_inputs w-md-100"
             // error={
             //   phoneNumber
             //     ? isPossiblePhoneNumber(phoneNumber)
@@ -162,7 +162,7 @@ export const Signup: React.FC<Props> = () => {
           <Form.Control
             type="text"
             placeholder="Company name"
-            className="form_inputs mb-3"
+            className="form_inputs mb-3 w-md-100"
             value={companyName}
             onChange={(e) => setCompanyName(e.target.value)}
           />
@@ -170,7 +170,7 @@ export const Signup: React.FC<Props> = () => {
           <Form.Control
             type="text"
             placeholder="Home Address"
-            className="form_inputs mb-3"
+            className="form_inputs mb-3 w-md-100"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
           />

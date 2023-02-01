@@ -40,7 +40,7 @@ export const Signin: React.FC<Props> = () => {
         viewBox="0 0 505 542"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="blob-1"
+        className="blob-1 d-none d-md-block"
       >
         <path
           fillRule="evenodd"
@@ -70,7 +70,7 @@ export const Signin: React.FC<Props> = () => {
         viewBox="0 0 331 589"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
-        className="blob-2"
+        className="blob-2 d-none d-md-block"
       >
         <path
           fillRule="evenodd"
@@ -111,12 +111,12 @@ export const Signin: React.FC<Props> = () => {
         <div className="text-center mb-5">
           <b className="fs-5">Login to your account</b>
         </div>
-        <Form.Group controlId="formBasicEmail">
+        <Form.Group controlId="formBasicEmail" className="">
           <Form.Label className="fw-bold">Email Address</Form.Label>
           <Form.Control
             type="email"
             placeholder="Enter email address"
-            className="form_inputs mb-4"
+            className="form_inputs mb-4 w-md-100"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
