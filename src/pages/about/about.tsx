@@ -1116,11 +1116,9 @@ export const About: React.FC<Props> = () => {
               Our mission
             </div>
             <div style={{ lineHeight: "32px" }}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Integer
-              et facilisis tellus. Sed vel malesuada quam. Nam sodales eget
-              justoLorem ipsum dolor sit amet, consectetur adipiscing elit.
-              Integer et facilisis tellus. Sed vel malesuada quam. Nam sodales
-              eget justo
+              
+
+We are a team of software experts with a combined 30 years of multinational software experience, we have done this before and  have an extensive relationship with numerous OEMs in Africa.
             </div>
           </Col>
         </Row>

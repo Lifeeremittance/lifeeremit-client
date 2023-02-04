@@ -419,7 +419,7 @@ export const Landing: React.FC<Props> = () => {
         </Row>
       </div>
 
-      <div className="px-3 px-md-5 mt-5 h-75 d-flex bg-black p-5">
+      <div className="px-3 px-md-5 mt-5 h-100 d-flex bg-black p-5">
         <Row className="w-100 align-items-center">
           <Col md={5}>
             <div className="border-bottom">
@@ -512,8 +512,8 @@ export const Landing: React.FC<Props> = () => {
         </Row>
       </div>
 
-      <div className="bg-black text-white p-5">
-        <h3>Testimonials</h3>
+      <div className="bg-black text-white p-4">
+        <h2>Testimonials</h2>
         <div className="text-center  fs-3 my-4">
           What our clients <br/>are saying
         </div>
