@@ -1,20 +1,19 @@
-import { getProviders } from "../services/providers";
 import { useState, useEffect } from "react";
 import { InputGroup, Form } from "react-bootstrap";
 import logoImage from "../assets/img/logo.png";
 import { getCountries } from "../services/country";
 import { getProducts } from "../services/products";
 import { getCurrencies } from "../services/currency";
-import { getOrderById } from "../services/order";
 import { getRates } from "../services/rates";
 import { getCharges } from "../services/charges";
+import { getProviders } from "../services/providers";
 import ngImage from "../assets/img/NG.png";
-import { useParams } from "react-router-dom";
 
 // import {  useLocation } from "react-router-dom";
 
 export const ProductCalculator = () => {
   const [country, setCountry] = useState<string>("");
+  const [currency, setCurrency] = useState<any>("");
   const [countries, setCountries] = useState<any>([]);
 
   const [selected, setSelected] = useState("");
@@ -25,70 +24,31 @@ export const ProductCalculator = () => {
 
   const [amount, setAmount] = useState<any>(0);
   const [charges, setCharges] = useState<any>([]);
-  const [order, setOrder] = useState<any>({});
 
   const [currencyRate, setCurrencyRate] = useState<any>("");
   const [countryRate, setCountryRate] = useState<any>("");
   const [rateValue, setRateValue] = useState<any>("");
   //   const search = useLocation().search;
   //   const provider: any = new URLSearchParams(search).get("provider");
-  const provider = selected;
-
-  useEffect(() => {
-    getCountries()
-      .then((res) => {
-        setCountries(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-  useEffect(() => {
-    getProviders()
-      .then((res) => {
-        setProviders(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, []);
-
-
-
-  const { id } = useParams();
-console.log(id)
-  let currency: any;
-  useEffect(() => {
-    getProducts(provider)
-      .then((res) => {
-        setProducts(res);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [provider]);
+  // const provider = selected;
 
   useEffect(() => {
     getCurrencies()
       .then((currencyRes) => {
         currencyRes.forEach((item: any) => {
           if (item.currencyName === "Nigeria") {
-            // eslint-disable-next-line react-hooks/exhaustive-deps
-            currency = item;
+            setCurrency(item._id);
             return;
           }
         });
-    
-        getOrderById(id)
+
+        getCountries()
           .then((res) => {
-            setOrder(res);
-            // console.log(res)
-            getRates(res.provider._id, res.country._id, currency._id)
-              .then((ratesRes) => {
-                setCurrencyRate(ratesRes[0].country.countryCode);
-                setCountryRate(ratesRes[0].currency.currencyCode);
-                setRateValue(ratesRes[0].value);
+            setCountries(res);
+
+            getProviders()
+              .then((res) => {
+                setProviders(res);
 
                 getCharges()
                   .then((chargesRes) => {
@@ -98,14 +58,31 @@ console.log(id)
               })
               .catch((err) => console.log(err));
           })
-          .catch((err) => {
-            console.log(err);
-          });
+          .catch((err) => console.log(err));
       })
-      .catch((err) => {
-        console.log(err);
-      });
-  }, [selected]);
+      .catch((err) => console.log(err));
+  }, []);
+
+  useEffect(() => {
+    if (selected) {
+      getProducts(selected)
+        .then((res) => {
+          setProducts(res);
+
+          if (country && currency)
+            getRates(selected, country, currency)
+              .then((res) => {
+                setCountryRate(res[0].country.countryCode);
+                setRateValue(res[0].value);
+                setCurrencyRate(res[0].currency.currencyCode);
+              })
+              .catch((err) => console.log(err));
+        })
+        .catch((err) => console.log(err));
+    }
+  }, [selected, country, currency]);
+
+  // console.log(charges.productInterest, amount, rateValue);
 
   const options = countries.map((country: any) => (
     <option key={country._id} value={country._id}>
@@ -114,10 +91,9 @@ console.log(id)
   ));
   const countryFull = countries.find((c: any) => c._id === country);
 
-
   return (
     <div>
-      <div className="bg-white shadow rounded px-4 py-2 w-75">
+      <div className="bg-white shadow rounded px-4 py-2">
         <img src={logoImage} alt="logo" width="115" />
 
         <h6 className="fw-semibold mt-2">Select Currency</h6>
@@ -176,7 +152,7 @@ console.log(id)
                 This is the currency of your invoice from the service provider.
               </div> */}
 
-          <h6 className="fw-semibold mt-4">Select Service Provider</h6>
+          <h6 className="fw-semibold mt-5">Select Service Provider</h6>
 
           <div className="grid-4">
             {providers.length > 0
@@ -189,17 +165,13 @@ console.log(id)
                     onClick={() => setSelected(provider._id)}
                     key={index}
                   >
-                    <img
-                      src={provider.logo}
-                      alt=""
-                      width="35px"
-                    />
+                    <img src={provider.logo} alt="" width="35px" />
                   </div>
                 ))
               : null}
           </div>
 
-          <h6 className="fw-semibold mt-4">Choose Product</h6>
+          <h6 className="fw-semibold mt-5">Choose Product</h6>
 
           {products.length > 0
             ? products.map((product: any, index: any) => (
@@ -216,16 +188,18 @@ console.log(id)
             : "There are no products for this provider"}
 
           {currencyRate ? (
-              <div className="d-flex align-items-center justify-content-center mb-5">
-                <span className="rate_box p-3 fw-bold">
-                  <span>Rate:</span>{" "}
-                  <span className="text-theme">
-                    {`1${currencyRate} = ${rateValue}
-                  ${countryRate}`}
-                  </span>
+            <div className="d-flex align-items-center justify-content-center my-5">
+              <span className="rate_box p-3 fw-bold">
+                <span>Rate:</span>{" "}
+                <span className="text-theme">
+                  {`1${countryRate} = ${rateValue}
+                  ${currencyRate}`}
                 </span>
-              </div>
-            ) : <p>no rates</p>}
+              </span>
+            </div>
+          ) : (
+            <p>no rates</p>
+          )}
 
           <Form>
             <Form.Group controlId="formForPaystack">
@@ -245,7 +219,7 @@ console.log(id)
                   aria-describedby="basic-addon1"
                   className="bg-white border_left_country fw-bold"
                   // placeholder="Nigeria"
-                  // value={currency}
+                  value={amount}
                   onChange={(e) => setAmount(e.target.value)}
                 />
 
@@ -255,15 +229,15 @@ console.log(id)
                 >
                   <div className="d-flex align-items-center">
                     <>
-                      {Object.keys(order).length !== 0 && (
+                      {country && (
                         <div className="d-flex align-items-center">
                           <img
-                            // src={order.country.countryFlag}
+                            src={countryFull.countryFlag}
                             alt=""
                             width="36"
                             height="26"
                           />
-                          <b className="mx-2">{order.country.countryCode}</b>
+                          <b className="mx-2">{countryFull.countryCode}</b>
                         </div>
                       )}
                     </>
@@ -447,7 +421,6 @@ console.log(id)
                   <div className="d-flex align-items-center">
                     <img src={ngImage} alt="" width="36" height="26" />
                     <b className="mx-2">NGN</b>
-
                   </div>
                 </InputGroup.Text>
               </InputGroup>
@@ -456,13 +429,9 @@ console.log(id)
               Amount to Pay
             </Form.Text>
           </Form>
-          <div className="mt-2">
-              <button
-                className="btn btn_theme fw-bold w-25 fs-6"
-              >
-                Pay
-              </button>
-            </div>
+          <div className="mt-5">
+            <button className="btn btn_theme fw-bold w-50 fs-6">Pay</button>
+          </div>
         </Form>
       </div>
     </div>
