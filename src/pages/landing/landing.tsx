@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Row, Col, Collapse, InputGroup, Form } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import Cookie from "universal-cookie";
 
 import { subscribeToNewsletter } from "../../services/auth";
 import logoImage from "../../assets/img/logo.png";
@@ -15,6 +16,9 @@ import { ProductCalculator } from "components/ProductCalculator";
 type Props = {
   children?: JSX.Element | JSX.Element[];
 };
+
+const cookie = new Cookie();
+const jwt = cookie.get("jwt");
 
 export const Landing: React.FC<Props> = () => {
   const [open, setOpen] = useState<boolean>(false);
@@ -31,7 +35,7 @@ export const Landing: React.FC<Props> = () => {
   // const [countries] = useState<any>([]);
 
   const navigate = useNavigate();
- 
+
   const handleClick = () => {
     setNav(!nav);
   };
@@ -49,6 +53,14 @@ export const Landing: React.FC<Props> = () => {
       setEmail("");
       toast.success(response.data.data);
     }
+  };
+
+  const getInitials = () => {
+    const fullName = sessionStorage.getItem("userFullName");
+    // get first letter of fullName
+    const firstLetter = fullName?.charAt(0);
+
+    return firstLetter;
   };
 
   return (
@@ -87,7 +99,7 @@ export const Landing: React.FC<Props> = () => {
         <Col md={4}>
           {/* <b className="fs-4">Lifee Remit</b> */}
           <a className="m-0" href="/">
-          <img src={logoImage} alt="logo" className="logo img-fluid" />
+            <img src={logoImage} alt="logo" className="logo img-fluid" />
           </a>
         </Col>
         <Col
@@ -105,43 +117,57 @@ export const Landing: React.FC<Props> = () => {
           </a>
         </Col>
         <Col md={4} className="text-right">
-        <a className="m-0 text-muted no-underline mx-3" href="/signin">
-            Sign in
-          </a>
-          <button
-            className="btn btn_theme w-auto px-4 rounded"
-            onClick={() => navigate("/signup")}
-          >
-            Sign up
-          </button>
+          {!jwt ? (
+            <>
+              <a className="m-0 text-muted no-underline mx-3" href="/signin">
+                Sign in
+              </a>
+              <button
+                className="btn btn_theme w-auto px-4 rounded"
+                onClick={() => navigate("/signup")}
+              >
+                Sign up
+              </button>
+            </>
+          ) : (
+            <div className="d-flex align-items-center justify-content-end">
+              <div className="header_profile_img me-2 d-flex align-items-center justify-content-center text-white fs-4">
+                {getInitials()}
+              </div>
+            </div>
+          )}
         </Col>
       </div>
 
       {/* mobile nav  */}
-    
+
       <div className="vh-10 d-flex d-md-none align-items-center justify-content-between px-3 mb-5">
         <Col md={4}>
-        <a className="m-0" href="/">
-          <img src={logoImage} alt="logo" className="logo img-fluid" />         
-          </a>
-        </Col>
-          <div onClick={handleClick} className="cursor-pointer">
-          <img src={hamburger} alt="logo" className="" />
-      </div>
-      </div>
-
-      <div className={
-        !nav ? "d-none" : "h-75 w-100 d-md-none align-items-center justfiy-content-center px-3 bg-white position-fixed mobile-nav"}>
-        <div className="d-flex justify-content-between align-items-center">
-
-        <Col md={4}>
           <a className="m-0" href="/">
-          <img src={logoImage} alt="logo" className="logo img-fluid" />         
+            <img src={logoImage} alt="logo" className="logo img-fluid" />
           </a>
         </Col>
-          <div onClick={handleClick} className="cursor-pointer">
-          <img src={close} alt="logo" className="" />
+        <div onClick={handleClick} className="cursor-pointer">
+          <img src={hamburger} alt="logo" className="" />
+        </div>
       </div>
+
+      <div
+        className={
+          !nav
+            ? "d-none"
+            : "h-75 w-100 d-md-none align-items-center justfiy-content-center px-3 bg-white position-fixed mobile-nav"
+        }
+      >
+        <div className="d-flex justify-content-between align-items-center">
+          <Col md={4}>
+            <a className="m-0" href="/">
+              <img src={logoImage} alt="logo" className="logo img-fluid" />
+            </a>
+          </Col>
+          <div onClick={handleClick} className="cursor-pointer">
+            <img src={close} alt="logo" className="" />
+          </div>
         </div>
         <Col
           md={4}
@@ -158,7 +184,7 @@ export const Landing: React.FC<Props> = () => {
           </a>
         </Col>
         <Col md={4} className="text-center mt-5">
-        <a className="text-muted no-underline mx-3 fw-bold" href="/signin">
+          <a className="text-muted no-underline mx-3 fw-bold" href="/signin">
             Sign in
           </a>
           <button
@@ -341,7 +367,8 @@ export const Landing: React.FC<Props> = () => {
       <div className="bg-black text-white p-4">
         <h2>Testimonials</h2>
         <div className="text-center  fs-3 my-4">
-          What our clients <br/>are saying
+          What our clients <br />
+          are saying
         </div>
 
         <div className="d-flex align-items-center x-scroll my-5 p-3">
@@ -391,7 +418,10 @@ export const Landing: React.FC<Props> = () => {
         id="faq"
       >
         <div className="w-75 w-md-90">
-          <div className="faq-text">Frequently asked <br/>questions</div>
+          <div className="faq-text">
+            Frequently asked <br />
+            questions
+          </div>
           <div className="border-bottom">
             <button
               onClick={() => setOpen(!open)}
@@ -549,11 +579,7 @@ export const Landing: React.FC<Props> = () => {
           <Col md={7}>
             <Row className="mb-4">
               <Col md={4}>
-                <b
-                  
-                >
-                  About
-                </b>
+                <b>About</b>
               </Col>
               <Col md={4}>
                 <b>Help</b>
@@ -650,32 +676,48 @@ export const Landing: React.FC<Props> = () => {
           </Row>
           <Row className="mb-3">
             <Col xs={4}>
-              <p className="faint-text text-small"
-                  onClick={() => navigate("/about")}>Team</p>
+              <p
+                className="faint-text text-small"
+                onClick={() => navigate("/about")}
+              >
+                Team
+              </p>
             </Col>
             <Col xs={4}>
-              <p className="faint-text text-small"
-                  onClick={() => navigate("/contact")}>Contact us</p>
+              <p
+                className="faint-text text-small"
+                onClick={() => navigate("/contact")}
+              >
+                Contact us
+              </p>
             </Col>
             <Col xs={4}>
-            <a
-                  className="faint-text text-small no-underline text-white"
-                  href="https://www.linkedin.com/company/lifee-remit/"
-                  target="_blank"
-                  rel="noreferrer"
-                >LinkedIn</a>
+              <a
+                className="faint-text text-small no-underline text-white"
+                href="https://www.linkedin.com/company/lifee-remit/"
+                target="_blank"
+                rel="noreferrer"
+              >
+                LinkedIn
+              </a>
             </Col>
           </Row>
           <Row className="mb-3">
             <Col xs={4}>
-              <p className="faint-text text-small"
-                  onClick={() => navigate("/about")}>Our Story</p>
+              <p
+                className="faint-text text-small"
+                onClick={() => navigate("/about")}
+              >
+                Our Story
+              </p>
             </Col>
             <Col xs={4}>
-            <a
-                  href="#faq"
-                  className="faint-text text-small no-underline text-white"
-                >FAQs</a>
+              <a
+                href="#faq"
+                className="faint-text text-small no-underline text-white"
+              >
+                FAQs
+              </a>
             </Col>
             <Col xs={4}>
               <p className="faint-text text-small">Twitter</p>
@@ -683,12 +725,16 @@ export const Landing: React.FC<Props> = () => {
           </Row>
           <Row className="mb-3">
             <Col xs={4}>
-              <p className="faint-text text-small"
-                  onClick={() => navigate("/contact")}>Careers</p>
+              <p
+                className="faint-text text-small"
+                onClick={() => navigate("/contact")}
+              >
+                Careers
+              </p>
             </Col>
-            <Col xs={4}></Col>  
+            <Col xs={4}></Col>
           </Row>
-          
+
           <div className="text-center">
             <b>Terms & Conditions</b>
           </div>

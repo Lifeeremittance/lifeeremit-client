@@ -119,7 +119,8 @@ export const Signup: React.FC<Props> = () => {
       />
       <Form className="signup_form d-flex align-items-center flex-column bg-white mt-5">
         <div className="text-center my-5">
-          <b className="fs-5">Personal details</b>
+          <b className="fs-5">Sign up</b>
+          <p className="text-small">Welcome, let’s get started. Fill your info below.</p>
         </div>
         <Form.Group controlId="formBasicEmail">
           <Form.Label className="fw-bold">Full Name</Form.Label>
@@ -166,10 +167,10 @@ export const Signup: React.FC<Props> = () => {
             value={companyName}
             onChange={(e) => setCompanyName(e.target.value)}
           />
-          <Form.Label className="fw-bold">Address</Form.Label>
+          <Form.Label className="fw-bold">Company Address</Form.Label>
           <Form.Control
             type="text"
-            placeholder="Home Address"
+            placeholder="Company Address"
             className="form_inputs mb-3 w-md-100"
             value={address}
             onChange={(e) => setAddress(e.target.value)}
