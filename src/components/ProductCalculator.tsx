@@ -1,5 +1,7 @@
 import { useState, useEffect } from "react";
 import { InputGroup, Form } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
+
 import logoImage from "../assets/img/logo.png";
 import { getCountries } from "../services/country";
 import { getProducts } from "../services/products";
@@ -9,9 +11,9 @@ import { getCharges } from "../services/charges";
 import { getProviders } from "../services/providers";
 import ngImage from "../assets/img/NG.png";
 
-// import {  useLocation } from "react-router-dom";
-
 export const ProductCalculator = () => {
+  const navigate = useNavigate();
+  
   const [country, setCountry] = useState<string>("");
   const [currency, setCurrency] = useState<any>("");
   const [countries, setCountries] = useState<any>([]);
@@ -430,7 +432,12 @@ export const ProductCalculator = () => {
             </Form.Text>
           </Form>
           <div className="mt-5">
-            <button className="btn btn_theme fw-bold w-50 fs-6">Pay</button>
+            <button
+              className="btn btn_theme fw-bold w-50 fs-6"
+              onClick={() => navigate("Signup")}
+            >
+              Pay
+            </button>
           </div>
         </Form>
       </div>

@@ -55,13 +55,13 @@ export const Landing: React.FC<Props> = () => {
     }
   };
 
-  const getInitials = () => {
-    const fullName = sessionStorage.getItem("userFullName");
-    // get first letter of fullName
-    const firstLetter = fullName?.charAt(0);
+  // const getInitials = () => {
+  //   const fullName = sessionStorage.getItem("userFullName");
+  //   // get first letter of fullName
+  //   const firstLetter = fullName?.charAt(0);
 
-    return firstLetter;
-  };
+  //   return firstLetter;
+  // };
 
   return (
     <div className="vw-100 vh-100 body-bg y-scroll px-0 position-relative">
@@ -130,11 +130,12 @@ export const Landing: React.FC<Props> = () => {
               </button>
             </>
           ) : (
-            <div className="d-flex align-items-center justify-content-end">
-              <div className="header_profile_img me-2 d-flex align-items-center justify-content-center text-white fs-4">
-                {getInitials()}
-              </div>
-            </div>
+            <button
+              className="btn btn_theme w-auto px-4 rounded"
+              onClick={() => navigate("/products")}
+            >
+              Dashboard
+            </button>
           )}
         </Col>
       </div>
