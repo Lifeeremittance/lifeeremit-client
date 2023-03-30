@@ -25,6 +25,7 @@ export const History: React.FC<Props> = () => {
   const [keys, setKeys] = useState(false);
   const [invoice, setInvoice] = useState(false);
   const [adminInvoice, setAdminInvoice] = useState(false);
+  const [paymitInvoice, setPaymitInvoice] = useState(false);
 
   const [tempKey, setTempKey] = useState("");
   const [licenseKey, setLicenseKey] = useState("");
@@ -249,6 +250,15 @@ export const History: React.FC<Props> = () => {
                                   eventKey="3"
                                   onClick={() => {
                                     setAdminInvoice(true);
+                                    setselectedOrder(order);
+                                  }}
+                                >
+                                  View Admin Invoice
+                                </Dropdown.Item>
+                                <Dropdown.Item
+                                  eventKey="4"
+                                  onClick={() => {
+                                    setPaymitInvoice(true);
                                     setselectedOrder(order);
                                   }}
                                 >
@@ -872,6 +882,50 @@ export const History: React.FC<Props> = () => {
                 <embed
                   src={
                     selectedOrder.admin_invoice +
+                    "#toolbar=0&navpanes=0&scrollbar=0"
+                  }
+                  type="application/pdf"
+                  height="100%"
+                  width="100%"
+                ></embed>
+              </Card.Body>
+            </Card>
+          </Modal>
+
+          <Modal
+            show={paymitInvoice}
+            onHide={() => setPaymitInvoice(false)}
+            size="lg"
+            aria-labelledby="contained-modal-title-vcenter"
+            centered
+            dialogClassName="invoice-modal border-0"
+          >
+            <Card className="invoice_modal_card p-3 vh-100">
+              <div className="text-right">
+                <a
+                  href={selectedOrder.zoho_invoice}
+                  download
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  <svg
+                    width="30"
+                    height="30"
+                    viewBox="0 0 30 30"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M26.25 16C25.9185 16 25.6005 16.1317 25.3661 16.3661C25.1317 16.6005 25 16.9185 25 17.25V22.25C25 22.5815 24.8683 22.8995 24.6339 23.1339C24.3995 23.3683 24.0815 23.5 23.75 23.5H6.25C5.91848 23.5 5.60054 23.3683 5.36612 23.1339C5.1317 22.8995 5 22.5815 5 22.25V17.25C5 16.9185 4.8683 16.6005 4.63388 16.3661C4.39946 16.1317 4.08152 16 3.75 16C3.41848 16 3.10054 16.1317 2.86612 16.3661C2.6317 16.6005 2.5 16.9185 2.5 17.25V22.25C2.5 23.2446 2.89509 24.1984 3.59835 24.9017C4.30161 25.6049 5.25544 26 6.25 26H23.75C24.7446 26 25.6984 25.6049 26.4017 24.9017C27.1049 24.1984 27.5 23.2446 27.5 22.25V17.25C27.5 16.9185 27.3683 16.6005 27.1339 16.3661C26.8995 16.1317 26.5815 16 26.25 16ZM14.1125 18.1375C14.2314 18.2513 14.3716 18.3405 14.525 18.4C14.6746 18.4661 14.8364 18.5003 15 18.5003C15.1636 18.5003 15.3254 18.4661 15.475 18.4C15.6284 18.3405 15.7686 18.2513 15.8875 18.1375L20.8875 13.1375C21.1229 12.9021 21.2551 12.5829 21.2551 12.25C21.2551 11.9171 21.1229 11.5979 20.8875 11.3625C20.6521 11.1271 20.3329 10.9949 20 10.9949C19.6671 10.9949 19.3479 11.1271 19.1125 11.3625L16.25 14.2375V2.25C16.25 1.91848 16.1183 1.60054 15.8839 1.36612C15.6495 1.1317 15.3315 1 15 1C14.6685 1 14.3505 1.1317 14.1161 1.36612C13.8817 1.60054 13.75 1.91848 13.75 2.25V14.2375L10.8875 11.3625C10.771 11.246 10.6326 11.1535 10.4803 11.0904C10.328 11.0273 10.1648 10.9949 10 10.9949C9.83518 10.9949 9.67197 11.0273 9.51969 11.0904C9.36741 11.1535 9.22905 11.246 9.1125 11.3625C8.99595 11.479 8.9035 11.6174 8.84043 11.7697C8.77735 11.922 8.74489 12.0852 8.74489 12.25C8.74489 12.4148 8.77735 12.578 8.84043 12.7303C8.9035 12.8826 8.99595 13.021 9.1125 13.1375L14.1125 18.1375Z"
+                      fill="black"
+                    />
+                  </svg>
+                </a>
+              </div>
+              <Card.Body>
+                <embed
+                  src={
+                    selectedOrder.zoho_invoice +
                     "#toolbar=0&navpanes=0&scrollbar=0"
                   }
                   type="application/pdf"
