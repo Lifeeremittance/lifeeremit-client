@@ -13,7 +13,7 @@ import {
 import { useNavigate } from "react-router-dom";
 import Header from "../../components/header";
 import Sidebar from "../../components/sidebar";
-import { getOrders } from "../../services/order";
+import { getOrders, getOrdersByMinimumTime } from "../../services/order";
 
 type Props = {
   children?: JSX.Element | JSX.Element[];
@@ -29,8 +29,7 @@ export const History: React.FC<Props> = () => {
 
   const [tempKey, setTempKey] = useState("");
   const [licenseKey, setLicenseKey] = useState("");
-  // const [tempExpiry, setTempExpiry] = useState("");
-  // const [licenseExpiry, setLicenseExpiry] = useState("");
+  const [interval, setInterval] = useState("");
 
   const [orders, setOrders] = useState<any>([]);
   const [selectedOrder, setselectedOrder] = useState<any>({});
@@ -124,6 +123,23 @@ export const History: React.FC<Props> = () => {
     )
   );
 
+  const fetchOrdersByMinimumTime = async (time: any) => {
+    setInterval(time);
+    const now = new Date().getTime();
+
+    let response;
+    if (time === "today")
+      response = await getOrdersByMinimumTime(now - 1 * 24 * 60 * 60 * 1000);
+    else if (time === "week")
+      response = await getOrdersByMinimumTime(now - 7 * 24 * 60 * 60 * 1000);
+    else if (time === "month")
+      response = await getOrdersByMinimumTime(now - 30 * 24 * 60 * 60 * 1000);
+    else if (time === "year")
+      response = await getOrdersByMinimumTime(now - 365 * 24 * 60 * 60 * 1000);
+    else response = await getOrders();
+    setOrders(response);
+  };
+
   return (
     <Container fluid className="vw-100 vh-100">
       <Row className="p-0">
@@ -134,13 +150,57 @@ export const History: React.FC<Props> = () => {
           <div className="bg-white vh-85 border-top-left-radius py-5 y-scroll">
             <div className="d-flex align-items-center justify-content-between mb-4">
               <h3 className="fw-bold">Transactions</h3>
-              <Form.Select aria-label="Time interval" className="w-auto">
+              {/* <Form.Select aria-label="Time interval" className="w-auto">
                 <option>Time Interval</option>
                 <option value="all">All</option>
                 <option value="week">This week</option>
                 <option value="month">This month</option>
                 <option value="year">This year</option>
-              </Form.Select>
+              </Form.Select> */}
+              <Dropdown>
+                <Dropdown.Toggle
+                  as={CustomToggle}
+                  id="dropdown-custom-components"
+                  split
+                >
+                  <div className="border py-2 px-3 rounded bg-light">
+                    <span className="me-3 text-capitalize">{interval || "Time Interval"}</span>
+                    <i className="fa fa-angle-down" aria-hidden="true"></i>
+                  </div>
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  <Dropdown.Item
+                    eventKey="1"
+                    onClick={() => fetchOrdersByMinimumTime("all")}
+                  >
+                    All
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    eventKey="2"
+                    onClick={() => fetchOrdersByMinimumTime("today")}
+                  >
+                    Today
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    eventKey="3"
+                    onClick={() => fetchOrdersByMinimumTime("week")}
+                  >
+                    This Week
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    eventKey="4"
+                    onClick={() => fetchOrdersByMinimumTime("month")}
+                  >
+                    This Month
+                  </Dropdown.Item>
+                  <Dropdown.Item
+                    eventKey="5"
+                    onClick={() => fetchOrdersByMinimumTime("year")}
+                  >
+                    This Year
+                  </Dropdown.Item>
+                </Dropdown.Menu>
+              </Dropdown>
             </div>
 
             <Table>
@@ -198,7 +258,7 @@ export const History: React.FC<Props> = () => {
                             </div>
                           </td>
                           <td className="text-center">
-                            {order.amount ? "#" + order.amount / 100 : "-"}
+                            {order.amount ? "#" + order.amount : "-"}
                           </td>
                           <td>
                             <Dropdown>
@@ -253,7 +313,7 @@ export const History: React.FC<Props> = () => {
                                     setselectedOrder(order);
                                   }}
                                 >
-                                  View Admin Invoice
+                                  View Provider Invoice
                                 </Dropdown.Item>
                                 <Dropdown.Item
                                   eventKey="4"
@@ -262,7 +322,7 @@ export const History: React.FC<Props> = () => {
                                     setselectedOrder(order);
                                   }}
                                 >
-                                  View Paymit Invoice
+                                  View Lifeeremit Invoice
                                 </Dropdown.Item>
 
                                 {order.status.includes("new_order") &&
@@ -604,7 +664,7 @@ export const History: React.FC<Props> = () => {
                 </Row>
                 <Row className="mt-2">
                   <Col xs={5}>
-                    <span className="text-muted">Dollar rate</span>
+                    <span className="text-muted">Interest FX rate</span>
                   </Col>
                   <Col xs={7}>
                     <b>1 USD = {selectedOrder.dollar_rate} NGN</b>
@@ -618,21 +678,6 @@ export const History: React.FC<Props> = () => {
                     <b>{selectedOrder.reason || "-"}</b>
                   </Col>
                 </Row>
-
-                <div className="text-center mt-4">
-                  <svg
-                    width="145"
-                    height="47"
-                    viewBox="0 0 145 47"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      d="M5.09766 47H0V0H5.09766V47ZM10.1953 46.9666H7.60603V0H10.1953V46.9666ZM17.8013 46.9666H15.293V0H17.8013V46.9666ZM30.505 46.9666H27.9967V0H30.505V46.9666ZM43.2087 46.9666H38.192V0H43.2087V46.9666ZM53.404 46.9666H50.8956V0H53.404V46.9666ZM58.5017 46.9666H55.9933V0H58.5017V46.9666ZM63.5993 46.9666H61.091V0H63.5993V46.9666ZM76.303 46.9666H71.2054V0H76.303V46.9666ZM89.0067 46.9666H83.909V0H89.0067V46.9666ZM99.202 46.9666H94.1043V0H99.202V46.9666ZM109.397 46.9666H104.3V0H109.397V46.9666ZM117.003 46.9666H111.906V0H117.003V46.9666ZM132.296 46.9666H124.69V0H132.296V46.9666ZM137.394 46.9666H134.805V0H137.394V46.9666ZM145 47H139.902V0H145V47Z"
-                      fill="black"
-                    />
-                  </svg>
-                </div>
               </Card.Body>
             </Card>
           </Modal>

@@ -22,6 +22,15 @@ export const getOrderById = async (id: any) => {
   return response.data.data;
 };
 
+export const getOrdersByMinimumTime = async (time: any) => {
+  const response = await Api.get(`/orders?minTime=${time}`, {
+    headers: {
+      Authorization: `Bearer ${jwt}`,
+    },
+  });
+  return response.data.data;
+};
+
 export const createOrder = async (
   provider: string,
   product: string,
