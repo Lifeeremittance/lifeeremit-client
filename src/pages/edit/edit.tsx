@@ -82,7 +82,7 @@ export const Edit: React.FC<Props> = () => {
                     <Form.Label className="fw-bold">Full Name</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Peter Tinubu"
+                      placeholder="e.g John Daniel"
                       className="form_inputs w-100"
                       value={fullName}
                       // defaultValue={user.fullName}
@@ -93,7 +93,7 @@ export const Edit: React.FC<Props> = () => {
                     <Form.Label className="fw-bold">Company Name</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Business Name Plc"
+                      placeholder="e.g Business Name Plc"
                       className="form_inputs w-100"
                       // defaultValue={user.companyName}
                       value={companyName}
@@ -104,7 +104,7 @@ export const Edit: React.FC<Props> = () => {
                     <Form.Label className="fw-bold">Email</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Petertinubu@gmail.com"
+                      placeholder="e.g johndaniel@gmail.com"
                       className="form_inputs w-100"
                       // defaultValue={user.email_address}
                       value={email}
@@ -115,7 +115,7 @@ export const Edit: React.FC<Props> = () => {
                     <Form.Label className="fw-bold">Phone number</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="08139932932"
+                      placeholder="e.g 08139932932"
                       className="form_inputs w-100"
                       // defaultValue={user.phone_number}
                       value={phone}
@@ -126,7 +126,7 @@ export const Edit: React.FC<Props> = () => {
                     <Form.Label className="fw-bold">Address</Form.Label>
                     <Form.Control
                       type="text"
-                      placeholder="Ikoyi, Lagos"
+                      placeholder="e.g Ikoyi, Lagos"
                       className="form_inputs w-100"
                       // defaultValue={user.address}
                       value={address}
