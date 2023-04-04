@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Container, Form } from "react-bootstrap";
-import Cookies  from "universal-cookie";
+import Cookies from "universal-cookie";
 import "react-phone-number-input/style.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -24,10 +24,7 @@ export const Verify: React.FC<Props> = () => {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
     setLoading(true);
-    const response = await validateToken(
-      passcode,
-      email,
-    );
+    const response = await validateToken(passcode, email);
     console.log(response);
     if (response?.status === 200) {
       cookies.set("jwt", response.data.access_token, { path: "/" });
@@ -116,7 +113,7 @@ export const Verify: React.FC<Props> = () => {
         className="paymit-logo img-fluid cursor-pointer"
         onClick={() => navigate("/")}
       />
-      
+
       <Form className="signup_form d-flex align-items-center flex-column bg-white p-4">
         <div className="text-center mb-4">
           <b className="fs-5">Enter Passcode</b>
@@ -131,15 +128,25 @@ export const Verify: React.FC<Props> = () => {
             onChange={(e) => setPasscode(e.target.value)}
           />
 
-          <button className="btn btn_theme w-100 mb-4" onClick={handleSubmit} disabled={loading}>
+          <button
+            className="btn btn_theme w-100 mb-4"
+            onClick={handleSubmit}
+            disabled={loading}
+          >
             Continue
           </button>
 
-          <div className="w-100 mb-4">
-            New to Lifeeremit?
-            <Link to="/signup" className="link_theme ms-2">
-              Sign Up
-            </Link>
+          <div className="w-100 mb-4 d-flex align-items-center justify-content-between">
+            <div>
+              New to Lifeeremit?
+              <Link to="/signup" className="link_theme ms-2">
+                Sign Up
+              </Link>
+            </div>
+            <div className="link_theme">
+              Resend Code
+              <i className="fa fa-refresh ms-2" aria-hidden="true"></i>
+            </div>
           </div>
         </Form.Group>
       </Form>

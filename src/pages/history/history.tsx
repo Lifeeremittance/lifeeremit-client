@@ -150,13 +150,6 @@ export const History: React.FC<Props> = () => {
           <div className="bg-white vh-85 border-top-left-radius py-5 y-scroll">
             <div className="d-flex align-items-center justify-content-between mb-4">
               <h3 className="fw-bold">Transactions</h3>
-              {/* <Form.Select aria-label="Time interval" className="w-auto">
-                <option>Time Interval</option>
-                <option value="all">All</option>
-                <option value="week">This week</option>
-                <option value="month">This month</option>
-                <option value="year">This year</option>
-              </Form.Select> */}
               <Dropdown>
                 <Dropdown.Toggle
                   as={CustomToggle}

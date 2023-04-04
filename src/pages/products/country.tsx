@@ -6,6 +6,7 @@ import {
   ProgressBar,
   Form,
   InputGroup,
+  Dropdown,
 } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
@@ -20,7 +21,7 @@ type Props = {
 };
 
 export const Country: React.FC<Props> = () => {
-  const [country, setCountry] = useState<string>("");
+  const [country, setCountry] = useState<any>(null);
   const [countries, setCountries] = useState<any>([]);
 
   const navigate = useNavigate();
@@ -52,13 +53,39 @@ export const Country: React.FC<Props> = () => {
     else navigate("/products/provider?country=" + country);
   };
 
-  const options = countries.map((country: any) => (
-    <option key={country._id} value={country._id}>
+  const menu = countries.map((country: any) => (
+    <Dropdown.Item
+      key={country._id}
+      eventKey={country._id}
+      onClick={() => setCountry(country)}
+    >
       {country.countryName}
-    </option>
+    </Dropdown.Item>
   ));
 
-  const countryFull = countries.find((c: any) => c._id === country);
+  type CustomToggleProps = {
+    children: React.ReactNode;
+    onClick: (event: any) => {};
+  };
+
+  const CustomToggle = React.forwardRef(
+    (props: CustomToggleProps, ref: React.Ref<HTMLAnchorElement>) => (
+      <b
+        ref={ref}
+        onClick={(e) => {
+          e.preventDefault();
+          props.onClick(e);
+        }}
+        className="float-right cursor-pointer weird-margin"
+        style={{
+          borderTop: "1px solid #ced4da",
+          borderBottom: "1px solid #ced4da",
+        }}
+      >
+        {props.children}
+      </b>
+    )
+  );
 
   return (
     <Container fluid className="vw-100 vh-100">
@@ -82,7 +109,7 @@ export const Country: React.FC<Props> = () => {
                 >
                   <i className="fa fa-search fs-5"></i>
                 </InputGroup.Text>
-                <Form.Control
+                {/* <Form.Control
                   as="select"
                   aria-label="Currency"
                   aria-describedby="basic-addon1"
@@ -92,8 +119,22 @@ export const Country: React.FC<Props> = () => {
                   onChange={(e) => setCountry(e.target.value)}
                 >
                   <option value="">Select Currency</option>
-                  {options}
-                </Form.Control>
+                  {menu}
+                </Form.Control> */}
+                <Dropdown>
+                  <Dropdown.Toggle
+                    as={CustomToggle}
+                    id="dropdown-custom-components"
+                    split
+                  >
+                    <div className="py-2 px-3 bg-white border_left_country fw-bold h-100 d-flex align-items-center">
+                      <span className="me-3 text-capitalize">
+                        {country?.countryName || "Select Currency"}
+                      </span>
+                    </div>
+                  </Dropdown.Toggle>
+                  <Dropdown.Menu>{menu}</Dropdown.Menu>
+                </Dropdown>
                 <InputGroup.Text
                   id="basic-addon1"
                   className="border-start-0 border_right_country bg-white"
@@ -102,12 +143,12 @@ export const Country: React.FC<Props> = () => {
                     {country ? (
                       <>
                         <img
-                          src={countryFull.countryFlag}
+                          src={country?.countryFlag}
                           alt=""
                           width="36"
                           height="26"
                         />
-                        <b className="mx-2">{countryFull.countryCode}</b>
+                        <b className="mx-2">{country?.countryCode}</b>
                         <svg
                           width="16"
                           height="10"
