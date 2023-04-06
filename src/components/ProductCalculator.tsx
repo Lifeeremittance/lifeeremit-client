@@ -72,7 +72,7 @@ export const ProductCalculator = () => {
           setProducts(res);
 
           if (country && currency)
-            getRates(selected, country, currency)
+            getRates(selected, country._id, currency)
               .then((res) => {
                 setCountryRate(res[0].country.countryCode);
                 setRateValue(res[0].value);
@@ -83,8 +83,6 @@ export const ProductCalculator = () => {
         .catch((err) => console.log(err));
     }
   }, [selected, country, currency]);
-
-  // console.log(charges.productInterest, amount, rateValue);
 
   const menu = countries.map((country: any) => (
     <Dropdown.Item

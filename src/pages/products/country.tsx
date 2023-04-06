@@ -50,7 +50,7 @@ export const Country: React.FC<Props> = () => {
   const next = (e: any) => {
     e.preventDefault();
     if (!country) toast.error("Country cannot be empty");
-    else navigate("/products/provider?country=" + country);
+    else navigate("/products/provider?country=" + country._id);
   };
 
   const menu = countries.map((country: any) => (
