@@ -212,7 +212,7 @@ export const ProductCalculator = () => {
               </div>
               <Form.Text>In the currency of your invoice</Form.Text>
               <InputGroup
-                style={{ height: "34px", width: "294px" }}
+                style={{ height: "34px", width: "100%" }}
                 className="mt-2"
               >
                 <Form.Control
@@ -246,43 +246,10 @@ export const ProductCalculator = () => {
                   </div>
                 </InputGroup.Text>
               </InputGroup>
-              <div>
-                <svg
-                  width="1"
-                  height="20"
-                  viewBox="0 0 1 50"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ marginLeft: "4rem" }}
-                >
-                  <line
-                    x1="0.5"
-                    y1="2.18556e-08"
-                    x2="0.499998"
-                    y2="50"
-                    stroke="#263238"
-                    strokeOpacity="0.39"
-                  />
-                </svg>
-              </div>
+          
               <div className="d-flex align-items-center">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ marginLeft: "calc(4rem - 10px)" }}
-                >
-                  <circle
-                    cx="10"
-                    cy="10"
-                    r="9.5"
-                    stroke="#263238"
-                    strokeOpacity="0.39"
-                  />
-                </svg>
-                <div className="ms-3 d-flex align-items-center">
+                
+                <div className="mb-2 mt-4 d-flex align-items-center">
                   <span className="text-muted text-small me-2">
                     service charge:
                   </span>
@@ -292,43 +259,10 @@ export const ProductCalculator = () => {
                   </b>
                 </div>
               </div>
-              <div>
-                <svg
-                  width="1"
-                  height="20"
-                  viewBox="0 0 1 50"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ marginLeft: "4rem" }}
-                >
-                  <line
-                    x1="0.5"
-                    y1="2.18556e-08"
-                    x2="0.499998"
-                    y2="50"
-                    stroke="#263238"
-                    strokeOpacity="0.39"
-                  />
-                </svg>
-              </div>
+           
               <div className="d-flex align-items-center">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ marginLeft: "calc(4rem - 10px)" }}
-                >
-                  <circle
-                    cx="10"
-                    cy="10"
-                    r="9.5"
-                    stroke="#263238"
-                    strokeOpacity="0.39"
-                  />
-                </svg>
-                <div className="ms-3 d-flex align-items-center">
+               
+                <div className="my-2 d-flex align-items-center">
                   <span className="text-muted text-small me-2">
                     Product Interest:
                   </span>
@@ -338,76 +272,25 @@ export const ProductCalculator = () => {
                   </b>
                 </div>
               </div>
-              <div>
-                <svg
-                  width="1"
-                  height="20"
-                  viewBox="0 0 1 50"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ marginLeft: "4rem" }}
-                >
-                  <line
-                    x1="0.5"
-                    y1="2.18556e-08"
-                    x2="0.499998"
-                    y2="50"
-                    stroke="#263238"
-                    strokeOpacity="0.39"
-                  />
-                </svg>
-              </div>
+           
               <div className="d-flex align-items-center">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 20 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ marginLeft: "calc(4rem - 10px)" }}
-                >
-                  <circle
-                    cx="10"
-                    cy="10"
-                    r="9.5"
-                    stroke="#263238"
-                    strokeOpacity="0.39"
-                  />
-                </svg>
-                <div className="ms-3 d-flex align-items-center">
+                
+                <div className="mt-2 mb-4 d-flex align-items-center">
                   <span className="text-muted text-small me-2">
                     Software cost in Naira:
                   </span>
                   <b className="text-small">₦{amount * rateValue}</b>
                 </div>
               </div>
-              <div>
-                <svg
-                  width="1"
-                  height="20"
-                  viewBox="0 0 1 50"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                  style={{ marginLeft: "4rem" }}
-                >
-                  <line
-                    x1="0.5"
-                    y1="2.18556e-08"
-                    x2="0.499998"
-                    y2="50"
-                    stroke="#263238"
-                    strokeOpacity="0.39"
-                  />
-                </svg>
-              </div>
+             
               <InputGroup
-                style={{ height: "34px", width: "294px" }}
+                style={{ height: "34px", width: "100%" }}
                 className="mb-2"
               >
                 <Form.Control
                   type="number"
                   placeholder="Amount"
-                  className="bg-white border_left_country fw-bold w-50"
+                  className="bg-white border_left_country fw-bold"
                   value={
                     (amount * rateValue || 0) +
                     charges.dollarRate * parseInt(charges.serviceCharge) +
@@ -431,7 +314,7 @@ export const ProductCalculator = () => {
               Amount to Pay
             </Form.Text>
           </Form>
-          <div className="mt-5">
+          <div className="mt-5 mb-2">
             <button
               className="btn btn_theme fw-bold w-50 fs-6"
               onClick={() => navigate("Signup")}

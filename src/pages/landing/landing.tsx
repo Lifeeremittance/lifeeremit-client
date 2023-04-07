@@ -197,7 +197,7 @@ export const Landing: React.FC<Props> = () => {
         </Col>
       </div>
 
-      <div className="grid row position-relative align-items-center mt-4 m px-5">
+      <div className="grid row position-relative align-items-center mt-4 px-3 px-md-5">
         <div className="col-12 col-md-7 w-md-90">
           <h1 className="landing-text mb-2">
             Stress free software License{" "}
@@ -214,7 +214,7 @@ export const Landing: React.FC<Props> = () => {
               alternative for license payment and renewals in local currencies.
             </p>
           </div>
-          <button className="btn btn_theme w-auto px-5 mt-2">Pay Now</button>
+          {/* <button className="btn btn_theme w-auto px-5 mt-2">Pay Now</button> */}
         </div>
         <div className="col-12 col-md-5 mt-3">
           <ProductCalculator />
