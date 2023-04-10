@@ -4,7 +4,7 @@ import Cookies from "universal-cookie";
 import "react-phone-number-input/style.css";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
-import { validateToken } from "../../services/auth";
+import { validateToken, requestToken } from "../../services/auth";
 import logoImage from "../../assets/img/logo.png";
 
 type Props = {
@@ -30,6 +30,17 @@ export const Verify: React.FC<Props> = () => {
       cookies.set("jwt", response.data.access_token, { path: "/" });
       toast.success(response.data.data);
       navigate("/products");
+    } else {
+      toast.error(response);
+    }
+    setLoading(false);
+  };
+
+  const handleSubmit2 = async () => {
+    setLoading(true);
+    const response = await requestToken(email);
+    if (response?.data?.status === "success") {
+      toast.success(response.data.data);
     } else {
       toast.error(response);
     }
@@ -143,7 +154,7 @@ export const Verify: React.FC<Props> = () => {
                 Sign Up
               </Link>
             </div>
-            <div className="link_theme">
+            <div className="link_theme cursor-pointer" onClick={handleSubmit2}>
               Resend Code
               <i className="fa fa-refresh ms-2" aria-hidden="true"></i>
             </div>
