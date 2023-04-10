@@ -251,7 +251,7 @@ export const History: React.FC<Props> = () => {
                             </div>
                           </td>
                           <td className="text-center">
-                            {order.amount ? "#" + order.amount : "-"}
+                            {order.amount ? "₦" + order.amount : "-"}
                           </td>
                           <td>
                             <Dropdown>
@@ -436,7 +436,7 @@ export const History: React.FC<Props> = () => {
                   <Col xs={6}>
                     <b>
                       {selectedOrder.product_value
-                        ? selectedOrder.product_value / 100 + " NGN"
+                        ? selectedOrder.product_value + " NGN"
                         : "-"}
                     </b>
                   </Col>
@@ -456,7 +456,7 @@ export const History: React.FC<Props> = () => {
                   <Col xs={6}>
                     <b>
                       {selectedOrder.amount
-                        ? selectedOrder.amount / 100 + " NGN"
+                        ? selectedOrder.amount + " NGN"
                         : "-"}
                     </b>
                   </Col>
@@ -606,7 +606,7 @@ export const History: React.FC<Props> = () => {
                   <Col xs={7}>
                     <b>
                       {selectedOrder.amount
-                        ? selectedOrder.amount / 100 + " NGN"
+                        ? selectedOrder.amount + " NGN"
                         : "-"}
                     </b>
                   </Col>
@@ -618,7 +618,7 @@ export const History: React.FC<Props> = () => {
                   <Col xs={7}>
                     <b>
                       {selectedOrder.product_value
-                        ? selectedOrder.product_value / 100 + " NGN"
+                        ? selectedOrder.product_value + " NGN"
                         : "-"}
                     </b>
                   </Col>
