@@ -125,7 +125,7 @@ export const ProductCalculator = () => {
 
         <h6 className="fw-semibold mt-2">Select Currency</h6>
         <Form>
-          <InputGroup style={{ height: "34px", width: "80%" }} className="mt-2">
+          <InputGroup style={{ height: "34px", width: "100%" }} className="mt-2">
             <InputGroup.Text
               id="basic-addon1"
               className="bg-white border_left_country"
