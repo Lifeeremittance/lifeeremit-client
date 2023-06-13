@@ -348,8 +348,7 @@ export const Landing: React.FC<Props> = () => {
                   regardless of the transaction amount. Lifee Remit's rates and
                   transactions fees are affordable irrespective of the cost of
                   the software. Even if the software costs $20 or $5,000, rest
-                  assured, you are guaranteed a competitive rate. (choose any
-                  picture below that looks good)
+                  assured, you are guaranteed a competitive rate.
                 </div>
               </Collapse>
             </div>
